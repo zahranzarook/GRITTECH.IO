@@ -14,7 +14,15 @@ npm run build    # production build in dist/
 - Merging to `main` deploys the live site.
 - Requires the repository secret `FIREBASE_SERVICE_ACCOUNT` (Firebase service-account JSON).
 
+## Member area (`/account`)
+- Firebase Authentication (email + password, Google) and Firestore (lite client).
+- Data: `users/{uid}` profile; `purchases`, `projects`, `enrollments` sub-collections are written only by GRIT (admin / Cloud Functions).
+- Rules live in `firestore.rules` and publish automatically when they change on `main`.
+- Local preview with sample data: `npm run dev`, then open `/account/?demo`.
+
 ## Structure
-- `index.html` — page markup and page script
+- `index.html` — homepage markup and page script
+- `account/index.html` + `src/account.js` — member sign-in and dashboard
+- `src/firebase.js` — Firebase web config (public by design)
 - `src/main.css` — Tailwind + Matte Tactile tokens and components
 - `public/` — static files served as-is (favicon, later images and videos)

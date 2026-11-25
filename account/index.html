@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account — GRIT Technologies</title>
+  <meta name="robots" content="noindex" />
+  <!-- Load Google Fonts: Space Grotesk (Architectural Display), Inter (Editorial Body), JetBrains Mono (Technical Spec) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/src/main.css" />
+</head>
+<body class="selection:bg-industrialLime selection:text-obsidian">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="grit-logo" viewBox="0 0 1483 399"><path fill="currentColor" fill-rule="evenodd" d="M1069 0 L1120 61 L1246 62 L1246 399 L1306 399 L1306 63 L1432 61 L1483 0Z M962 0 L961 399 L1022 399 L1023 0Z M481 0 L619 121 L591 61 L829 62 L525 248 L525 399 L586 354 L586 283 L665 234 L819 399 L901 399 L720 203 L891 96 L890 0Z M439 0 L382 0 L0 209 L350 399 L439 399 L438 176 L318 176 L260 208 L315 237 L378 238 L377 343 L127 208 L377 73 L379 114 L439 61Z"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><path d="M3 4h15l3 3v13H3z M3 9h18 M6 6.5h2"/></symbol>
+    <symbol id="i-app" viewBox="0 0 24 24"><path d="M6 2h10l2 2v18H6z M10 18h4"/></symbol>
+    <symbol id="i-auto" viewBox="0 0 24 24"><path d="M3 3h7v7H3z M14 14h7v7h-7z M10 6.5h4l3.5 3.5V14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M3 4h18v16H3z M10 8.5l5 3.5-5 3.5z"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M4 8h16l-1.5 13h-13z M9 8V5l2-2h2l2 2v3"/></symbol>
+    <symbol id="i-tools" viewBox="0 0 24 24"><path d="M3 6h11 M18 6h3 M14 3.5v5 M3 12h3 M10 12h11 M6 9.5v5 M3 18h13 M20 18h1 M16 15.5v5"/></symbol>
+    <symbol id="i-learn" viewBox="0 0 24 24"><path d="M2 5l10 3 10-3v14l-10 3-10-3z M12 8v14"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12 M7 10l5 5 5-5 M4 17v4h16v-4"/></symbol>
+    <symbol id="i-theme" viewBox="0 0 24 24"><path d="M3 3h18v18H3z M3 8h18 M9 8v13"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M3 3h8v8H3z M13 3h8v8h-8z M3 13h8v8H3z M13 13h4l4 4v4h-8z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M5 2h10l4 4v16H5z M15 2v4h4 M8 12h8 M8 16h5"/></symbol>
+    <symbol id="i-shape" viewBox="0 0 24 24"><path d="M12 2l10 10-10 10L2 12z M12 7v10 M7 12h10"/></symbol>
+    <symbol id="i-voice" viewBox="0 0 24 24"><path d="M3 10v4 M7.5 7v10 M12 3v18 M16.5 7v10 M21 10v4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><path d="M4 11h16v10H4z M8 11V6l2-3h4l2 3v5 M12 15v2"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><path d="M3 4h18v16H3z M7 4v16 M17 4v16 M3 9h4 M3 15h4 M17 9h4 M17 15h4"/></symbol>
+    <symbol id="i-prompt" viewBox="0 0 24 24"><path d="M3 4h18v16H3z M7 9l3 3-3 3 M12 15h5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18v14H3z M3 5l9 7 9-7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16 M4 12h16 M4 17h16"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M9 3h6l2 2v4l-2 2H9L7 9V5z M3 21v-3l3-4h12l3 4v3z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14 M19 5L5 19"/></symbol>
+  </svg>
+
+  <!-- NAV -->
+  <div class="sticky top-0 z-50 px-4 pt-4 pb-2 pointer-events-none">
+    <nav class="mt-nav pointer-events-auto" aria-label="Account">
+      <a href="/" class="flex flex-col justify-center gap-1 py-0.5 pr-2 text-softWhite hover:text-industrialLime transition-colors" aria-label="GRIT Technologies home">
+        <svg class="mt-logo" viewBox="0 0 1483 399" aria-hidden="true"><use href="#grit-logo"/></svg>
+        <span class="hidden sm:block whitespace-nowrap font-mono text-[8.5px] font-medium tracking-[0.16em] uppercase text-industrialSage">Member area</span>
+      </a>
+      <div class="flex items-center gap-2">
+        <a href="/" class="mt-btn mt-btn--sm whitespace-nowrap">← <span class="hidden sm:inline">Back to&nbsp;</span>Site</a>
+        <button type="button" id="nav-signout" class="hidden mt-btn mt-btn--sm whitespace-nowrap">Sign Out</button>
+      </div>
+    </nav>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24 min-h-[80vh]">
+
+    <!-- LOADING -->
+    <section id="view-loading" class="flex flex-col items-center justify-center py-32 space-y-6">
+      <div class="mt-dots" role="status" aria-label="Loading">
+        <i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i>
+        <i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i>
+        <span class="mt-dots__label">Loading</span>
+      </div>
+    </section>
+
+    <!-- NOT CONFIGURED (shown until the Firebase web config is added) -->
+    <section id="view-setup" class="hidden py-24">
+      <div class="mt-plate max-w-md mx-auto p-8 text-center space-y-4">
+        <span class="mt-key mx-auto text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-user"/></svg></span>
+        <h1 class="font-display font-bold text-2xl text-softWhite">Member accounts are almost ready.</h1>
+        <p class="text-sm text-softWhite/70">Sign-in opens very soon. Thanks for your patience.</p>
+        <a href="/" class="mt-btn mt-btn--primary mt-btn--sm">Back to the Site</a>
+      </div>
+    </section>
+
+    <!-- SIGN IN / CREATE ACCOUNT -->
+    <section id="view-auth" class="hidden py-6 sm:py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-6 space-y-6 order-2 lg:order-1">
+          <span class="mt-label text-industrialLime block">GRIT Account</span>
+          <h1 id="auth-title" class="mt-h1 text-4xl sm:text-5xl text-softWhite">Welcome back.</h1>
+          <p id="auth-sub" class="text-base sm:text-lg text-softWhite/75 max-w-md"></p>
+          <ul class="space-y-3">
+            <li class="mt-row"><span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-down"/></svg></span><div><h2 class="font-display font-bold text-base text-softWhite">Free downloads</h2><p class="text-sm text-softWhite/70">Prompt packs, starter files and checklists.</p></div></li>
+            <li class="mt-row"><span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg></span><div><h2 class="font-display font-bold text-base text-softWhite">Your purchases</h2><p class="text-sm text-softWhite/70">Every theme and file, ready to download again.</p></div></li>
+            <li class="mt-row"><span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-web"/></svg></span><div><h2 class="font-display font-bold text-base text-softWhite">Your projects</h2><p class="text-sm text-softWhite/70">Follow your website or app from brief to launch.</p></div></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-6 order-1 lg:order-2">
+          <div class="mt-plate p-6 sm:p-10 max-w-lg mx-auto space-y-6">
+            <div class="mt-seg w-full" id="auth-tabs" role="tablist">
+              <button type="button" role="tab" data-mode="signin" aria-selected="true">Sign In</button>
+              <button type="button" role="tab" data-mode="signup" aria-selected="false">Create Account</button>
+            </div>
+
+            <button type="button" id="google-btn" class="w-full mt-btn">Continue with Google</button>
+
+            <div class="flex items-center gap-4 font-mono text-[10px] uppercase tracking-wider text-industrialSage">
+              <span class="h-px flex-1 bg-softWhite/10"></span>or with email<span class="h-px flex-1 bg-softWhite/10"></span>
+            </div>
+
+            <form id="auth-form" class="space-y-4" novalidate>
+              <div id="field-name" class="hidden"><label for="a-name" class="mt-label block mb-2">Name</label><input id="a-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Your name" class="mt-input" /></div>
+              <div><label for="a-email" class="mt-label block mb-2">Email</label><input id="a-email" name="email" type="email" required autocomplete="email" placeholder="you@email.com" class="mt-input" /></div>
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <label for="a-password" class="mt-label">Password</label>
+                  <button type="button" id="forgot-link" class="font-mono text-[10px] uppercase tracking-wider text-industrialLime hover:text-softWhite">Forgot password?</button>
+                </div>
+                <input id="a-password" name="password" type="password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters" class="mt-input" />
+              </div>
+              <p id="auth-error" class="hidden mt-well px-4 py-3 text-sm text-softWhite" role="alert"></p>
+              <button type="submit" id="auth-submit" class="w-full mt-btn mt-btn--primary">Sign In →</button>
+            </form>
+            <p class="text-xs text-industrialSage text-center">By continuing you agree to our terms and privacy policy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="view-dashboard" class="hidden space-y-8">
+      <div id="verify-banner" class="hidden mt-row justify-between flex-col sm:flex-row items-start sm:items-center">
+        <div class="flex items-center gap-4">
+          <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+          <div><h2 class="font-display font-bold text-base text-softWhite">Please confirm your email</h2><p class="text-sm text-softWhite/70">Click the link we sent you to keep your account secure.</p></div>
+        </div>
+        <button type="button" id="verify-resend" class="mt-btn mt-btn--sm shrink-0">Resend Email</button>
+      </div>
+
+      <header class="mt-plate p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div class="flex items-center gap-5">
+          <span id="dash-avatar" class="mt-key mt-key--lg shrink-0 font-display font-bold text-lg text-industrialLime" aria-hidden="true"></span>
+          <div>
+            <span class="mt-label block">Dashboard</span>
+            <h1 class="font-display font-bold text-2xl sm:text-3xl text-softWhite">Welcome back, <span id="dash-name"></span>.</h1>
+          </div>
+        </div>
+        <span id="dash-plan" class="mt-pill mt-pill--accent self-start sm:self-auto"></span>
+      </header>
+
+      <div class="mt-seg" id="dash-tabs" role="tablist" aria-label="Dashboard sections">
+        <button type="button" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+        <button type="button" role="tab" data-tab="purchases" aria-selected="false">Purchases</button>
+        <button type="button" role="tab" data-tab="projects" aria-selected="false">Projects</button>
+        <button type="button" role="tab" data-tab="academy" aria-selected="false">Academy</button>
+        <button type="button" role="tab" data-tab="settings" aria-selected="false">Settings</button>
+      </div>
+
+      <div id="dash-panel" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="border-t border-softWhite/10 py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-industrialSage">
+      <span>© 2026 GRIT Technologies FZE LLC</span>
+      <a href="mailto:hello@grittech.io" class="hover:text-softWhite">Need help? hello@grittech.io</a>
+    </div>
+  </footer>
+
+  <div id="toast-box" class="hidden fixed bottom-6 right-6 z-50 mt-plate border-l-4 border-l-industrialLime px-5 py-4 max-w-sm" role="status">
+    <p id="toast-message" class="text-sm text-softWhite"></p>
+  </div>
+
+  <script type="module" src="/src/account.js"></script>
+</body>
+</html>

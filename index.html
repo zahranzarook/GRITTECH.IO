@@ -40,6 +40,7 @@
     <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18v14H3z M3 5l9 7 9-7"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16 M4 12h16 M4 17h16"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M9 3h6l2 2v4l-2 2H9L7 9V5z M3 21v-3l3-4h12l3 4v3z"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14 M19 5L5 19"/></symbol>
   </svg>
 
@@ -64,6 +65,9 @@
       </div>
 
       <div class="flex items-center gap-2">
+        <a href="/account/" class="mt-key !w-9 !rounded-full" aria-label="My account" title="My account">
+          <svg viewBox="0 0 24 24"><use href="#i-user"/></svg>
+        </a>
         <button type="button" onclick="toggleCartDrawer()" class="mt-key !w-9 !rounded-full" aria-label="Open cart">
           <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>
           <span id="cart-count" class="mt-count hidden">0</span>
@@ -83,6 +87,7 @@
       <a href="#work" onclick="toggleMobileMenu()" class="mobile-link">Work</a>
       <a href="#about" onclick="toggleMobileMenu()" class="mobile-link">About</a>
       <a href="#contact" onclick="toggleMobileMenu()" class="mobile-link">Contact</a>
+      <a href="/account/" class="mobile-link">My Account</a>
       <div class="pt-2">
         <button type="button" onclick="openProjectModal(); toggleMobileMenu()" class="w-full mt-btn mt-btn--primary mt-btn--sm">Start a Project →</button>
       </div>
@@ -328,14 +333,14 @@
             <div id="plan-free" class="mt-well p-6 space-y-5">
               <div class="flex items-baseline justify-between">
                 <span class="font-display font-bold text-3xl text-softWhite">Free</span>
-                <span class="mt-label">No card needed</span>
+                <span class="mt-label">Free account</span>
               </div>
               <ul class="space-y-2.5 text-sm text-softWhite/85">
                 <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Prompt packs</li>
                 <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Short tutorials</li>
                 <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Starter templates &amp; checklists</li>
               </ul>
-              <button type="button" onclick="openNotifyModal('Academy Free', 'Get your free downloads')" class="w-full mt-btn mt-btn--primary">Get Free Downloads →</button>
+              <a href="/account/?mode=signup&tab=academy" class="w-full mt-btn mt-btn--primary">Get Free Downloads →</a>
             </div>
 
             <div id="plan-pro" class="hidden mt-well p-6 space-y-5">
@@ -772,7 +777,7 @@
       build: { icon: 'i-web',   title: 'A website or app for your business', text: 'From a one-page site to a full mobile app. Designed, built and launched for you.', cta: 'Start a Project →', action: "openProjectModal('web')" },
       tools: { icon: 'i-tools', title: 'Tools that save you hours',         text: 'Subscribe to apps we build, like NYRA, the AI receptionist that never misses a call.', cta: 'See the Tools →', action: "scrollToSection('tools')" },
       store: { icon: 'i-grid',  title: 'Themes, UI kits & project files',    text: 'Ready to use and fully editable. Buy once, download instantly.', cta: 'Browse the Store →', action: "scrollToSection('store')" },
-      learn: { icon: 'i-learn', title: 'Learn to build, for free',           text: 'Prompt packs, tutorials and starter files. Go Pro for full courses.', cta: 'Get Free Downloads →', action: "openNotifyModal('Academy Free', 'Get your free downloads')" }
+      learn: { icon: 'i-learn', title: 'Learn to build, for free',           text: 'Prompt packs, tutorials and starter files. Go Pro for full courses.', cta: 'Get Free Downloads →', action: "location.href='/account/?mode=signup&tab=academy'" }
     };
 
     // Services tabs
@@ -907,7 +912,7 @@
           <div class="flex items-center gap-3">
             <button type="button" onclick="openProductPreview('${p.id}')" class="flex-1 mt-btn mt-btn--sm">Details</button>
             ${free
-              ? `<button type="button" onclick="openNotifyModal('${p.title}', 'Get the ${p.title}')" class="flex-1 mt-btn mt-btn--primary mt-btn--sm">Download</button>`
+              ? `<a href="/account/?mode=signup&tab=academy" class="flex-1 mt-btn mt-btn--primary mt-btn--sm">Download</a>`
               : `<button type="button" onclick="addToCart('${p.id}')" class="flex-1 mt-btn mt-btn--primary mt-btn--sm">Add to Cart</button>`}
           </div>
         </article>`;
@@ -951,7 +956,7 @@
           <div class="pt-4 border-t border-softWhite/10 flex items-center justify-between gap-4">
             <span class="font-display font-bold text-3xl ${free ? 'text-industrialLime' : 'text-softWhite'}">${free ? 'Free' : `$${p.price}`}</span>
             ${free
-              ? `<button type="button" onclick="closeModal('product-modal'); openNotifyModal('${p.title}', 'Get the ${p.title}')" class="mt-btn mt-btn--primary">Download Free →</button>`
+              ? `<a href="/account/?mode=signup&tab=academy" class="mt-btn mt-btn--primary">Download Free →</a>`
               : `<button type="button" onclick="addToCart('${p.id}'); closeModal('product-modal')" class="mt-btn mt-btn--primary">Add to Cart →</button>`}
           </div>
         </div>
