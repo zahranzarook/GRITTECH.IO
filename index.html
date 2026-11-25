@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRIT Technologies — Websites, Apps, Tools &amp; Themes</title>
+  <meta name="description" content="Websites and apps for growing businesses. Tools, themes, UI kits and free lessons for people who build. GRIT Technologies, Dubai." />
+  <!-- Load Google Fonts: Space Grotesk (Architectural Display), Inter (Editorial Body), JetBrains Mono (Technical Spec) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/src/main.css" />
+</head>
+<body class="selection:bg-industrialLime selection:text-obsidian">
+
+  <!-- =========================================================
+       ICON SPRITE — GRIT angular set (straight strokes, mitred joins, 45° cuts like the wordmark)
+  ========================================================== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="grit-logo" viewBox="0 0 1483 399"><path fill="currentColor" fill-rule="evenodd" d="M1069 0 L1120 61 L1246 62 L1246 399 L1306 399 L1306 63 L1432 61 L1483 0Z M962 0 L961 399 L1022 399 L1023 0Z M481 0 L619 121 L591 61 L829 62 L525 248 L525 399 L586 354 L586 283 L665 234 L819 399 L901 399 L720 203 L891 96 L890 0Z M439 0 L382 0 L0 209 L350 399 L439 399 L438 176 L318 176 L260 208 L315 237 L378 238 L377 343 L127 208 L377 73 L379 114 L439 61Z"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><path d="M3 4h15l3 3v13H3z M3 9h18 M6 6.5h2"/></symbol>
+    <symbol id="i-app" viewBox="0 0 24 24"><path d="M6 2h10l2 2v18H6z M10 18h4"/></symbol>
+    <symbol id="i-auto" viewBox="0 0 24 24"><path d="M3 3h7v7H3z M14 14h7v7h-7z M10 6.5h4l3.5 3.5V14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M3 4h18v16H3z M10 8.5l5 3.5-5 3.5z"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M4 8h16l-1.5 13h-13z M9 8V5l2-2h2l2 2v3"/></symbol>
+    <symbol id="i-tools" viewBox="0 0 24 24"><path d="M3 6h11 M18 6h3 M14 3.5v5 M3 12h3 M10 12h11 M6 9.5v5 M3 18h13 M20 18h1 M16 15.5v5"/></symbol>
+    <symbol id="i-learn" viewBox="0 0 24 24"><path d="M2 5l10 3 10-3v14l-10 3-10-3z M12 8v14"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12 M7 10l5 5 5-5 M4 17v4h16v-4"/></symbol>
+    <symbol id="i-theme" viewBox="0 0 24 24"><path d="M3 3h18v18H3z M3 8h18 M9 8v13"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M3 3h8v8H3z M13 3h8v8h-8z M3 13h8v8H3z M13 13h4l4 4v4h-8z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M5 2h10l4 4v16H5z M15 2v4h4 M8 12h8 M8 16h5"/></symbol>
+    <symbol id="i-shape" viewBox="0 0 24 24"><path d="M12 2l10 10-10 10L2 12z M12 7v10 M7 12h10"/></symbol>
+    <symbol id="i-voice" viewBox="0 0 24 24"><path d="M3 10v4 M7.5 7v10 M12 3v18 M16.5 7v10 M21 10v4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><path d="M4 11h16v10H4z M8 11V6l2-3h4l2 3v5 M12 15v2"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><path d="M3 4h18v16H3z M7 4v16 M17 4v16 M3 9h4 M3 15h4 M17 9h4 M17 15h4"/></symbol>
+    <symbol id="i-prompt" viewBox="0 0 24 24"><path d="M3 4h18v16H3z M7 9l3 3-3 3 M12 15h5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18v14H3z M3 5l9 7 9-7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16 M4 12h16 M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14 M19 5L5 19"/></symbol>
+  </svg>
+
+  <!-- =========================================================
+       NAV
+  ========================================================== -->
+  <div class="sticky top-0 z-50 px-4 pt-4 pb-2 pointer-events-none">
+    <nav class="mt-nav pointer-events-auto" aria-label="Primary">
+      <a href="#home" class="flex flex-col justify-center gap-1 py-0.5 pr-2 text-softWhite hover:text-industrialLime transition-colors" aria-label="GRIT Technologies home">
+        <svg class="mt-logo" viewBox="0 0 1483 399" aria-hidden="true"><use href="#grit-logo"/></svg>
+        <span class="hidden sm:block whitespace-nowrap font-mono text-[8.5px] font-medium tracking-[0.16em] uppercase text-industrialSage">Building what's next</span>
+      </a>
+
+      <div class="hidden xl:flex items-center gap-0.5">
+        <a href="#services" data-route="services" class="nav-item">Services</a>
+        <a href="#store" data-route="store" class="nav-item">Store</a>
+        <a href="#tools" data-route="tools" class="nav-item">Tools</a>
+        <a href="#academy" data-route="academy" class="nav-item">Academy</a>
+        <a href="#work" data-route="work" class="nav-item">Work</a>
+        <a href="#about" data-route="about" class="nav-item">About</a>
+        <a href="#contact" data-route="contact" class="nav-item">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="toggleCartDrawer()" class="mt-key !w-9 !rounded-full" aria-label="Open cart">
+          <svg viewBox="0 0 24 24"><use href="#i-bag"/></svg>
+          <span id="cart-count" class="mt-count hidden">0</span>
+        </button>
+        <button type="button" onclick="openProjectModal()" class="hidden sm:inline-flex mt-btn mt-btn--primary mt-btn--sm">Start a Project →</button>
+        <button type="button" onclick="toggleMobileMenu()" class="xl:hidden mt-key !w-9 !rounded-full" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden xl:hidden pointer-events-auto mt-3 max-w-xl mx-auto mt-plate p-4 space-y-1">
+      <a href="#services" onclick="toggleMobileMenu()" class="mobile-link">Services</a>
+      <a href="#store" onclick="toggleMobileMenu()" class="mobile-link">Store</a>
+      <a href="#tools" onclick="toggleMobileMenu()" class="mobile-link">Tools</a>
+      <a href="#academy" onclick="toggleMobileMenu()" class="mobile-link">Academy</a>
+      <a href="#work" onclick="toggleMobileMenu()" class="mobile-link">Work</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="mobile-link">About</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="mobile-link">Contact</a>
+      <div class="pt-2">
+        <button type="button" onclick="openProjectModal(); toggleMobileMenu()" class="w-full mt-btn mt-btn--primary mt-btn--sm">Start a Project →</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- =========================================================
+         HERO — headline + "What are you looking for?" console
+    ========================================================== -->
+    <section id="home" class="relative border-b border-softWhite/10 pt-10 pb-20 sm:pt-16 sm:pb-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <div class="lg:col-span-7 space-y-8">
+            <span class="mt-pill">GRIT Technologies · Dubai, UAE</span>
+
+            <h1 class="mt-h1 text-5xl sm:text-6xl lg:text-7xl text-softWhite">
+              BUILDING<br/><span class="text-industrialLime">WHAT'S NEXT.</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-softWhite/80 leading-relaxed max-w-xl">
+              Websites and apps for growing businesses. Tools, themes and lessons for people who build.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <button type="button" onclick="openProjectModal()" class="mt-btn mt-btn--primary">Start a Project →</button>
+              <a href="#store" class="mt-btn">Browse the Store</a>
+            </div>
+
+            <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-wider text-industrialSage">
+              <li class="flex items-center gap-2"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Reply within 24 hours</li>
+              <li class="flex items-center gap-2"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>UAE-registered company</li>
+              <li class="flex items-center gap-2"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Free downloads</li>
+            </ul>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="mt-plate p-6 sm:p-8 space-y-6">
+              <span class="mt-label block">What are you looking for?</span>
+              <div class="mt-seg w-full" role="tablist" id="need-tabs">
+                <button type="button" role="tab" aria-selected="true" data-need="build" onclick="selectNeed('build')">Website / App</button>
+                <button type="button" role="tab" aria-selected="false" data-need="tools" onclick="selectNeed('tools')">Tools</button>
+                <button type="button" role="tab" aria-selected="false" data-need="store" onclick="selectNeed('store')">Themes &amp; UI</button>
+                <button type="button" role="tab" aria-selected="false" data-need="learn" onclick="selectNeed('learn')">Learn</button>
+              </div>
+              <div id="need-well" class="mt-well p-6 space-y-4" aria-live="polite"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SERVICES — for small businesses
+    ========================================================== -->
+    <section id="services" data-nav="services" class="py-20 sm:py-28 bg-deepMatte border-b border-softWhite/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <div class="space-y-3">
+            <span class="mt-label text-industrialLime block">01 // For businesses</span>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Your website or app,<br class="hidden sm:block"/> built right.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">You tell us what you need. We design it, build it and launch it.</p>
+          </div>
+          <div class="mt-seg" role="tablist" aria-label="Services">
+            <button type="button" role="tab" aria-selected="true" id="tab-web" onclick="selectServiceTab('web')">Websites</button>
+            <button type="button" role="tab" aria-selected="false" id="tab-app" onclick="selectServiceTab('app')">Mobile Apps</button>
+            <button type="button" role="tab" aria-selected="false" id="tab-ai" onclick="selectServiceTab('ai')">AI &amp; Automation</button>
+            <button type="button" role="tab" aria-selected="false" id="tab-creative" onclick="selectServiceTab('creative')">Ads &amp; Video</button>
+          </div>
+        </div>
+
+        <div id="service-panel" class="mt-plate p-6 sm:p-10"></div>
+
+        <!-- How it works -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+          <div class="mt-row">
+            <span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">01</span>
+            <div><h3 class="font-display font-bold text-base text-softWhite">Tell us your idea</h3><p class="text-sm text-softWhite/70">A short form. Two minutes.</p></div>
+          </div>
+          <div class="mt-row">
+            <span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">02</span>
+            <div><h3 class="font-display font-bold text-base text-softWhite">Get a clear quote</h3><p class="text-sm text-softWhite/70">Scope, timeline and price in writing.</p></div>
+          </div>
+          <div class="mt-row">
+            <span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">03</span>
+            <div><h3 class="font-display font-bold text-base text-softWhite">We build &amp; launch</h3><p class="text-sm text-softWhite/70">You review it before it goes live.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         STORE — for developers & designers
+    ========================================================== -->
+    <section id="store" data-nav="store" class="py-20 sm:py-28 border-b border-softWhite/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+          <div class="space-y-3">
+            <span class="mt-label text-industrialLime block">02 // For developers &amp; designers</span>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Themes, UI kits &amp;<br class="hidden sm:block"/> project files.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">Ready to use, fully editable. Download right after checkout.</p>
+          </div>
+          <div class="w-full lg:w-72">
+            <label for="store-search" class="sr-only">Search the store</label>
+            <input type="search" id="store-search" oninput="searchStore(this.value)" placeholder="Search the store…" class="mt-input font-mono text-xs" />
+          </div>
+        </div>
+
+        <div class="mt-seg mb-8" id="store-filters" role="tablist" aria-label="Product categories">
+          <button type="button" role="tab" aria-selected="true" data-cat="all" onclick="filterStore('all')">All</button>
+          <button type="button" role="tab" aria-selected="false" data-cat="themes" onclick="filterStore('themes')">Themes</button>
+          <button type="button" role="tab" aria-selected="false" data-cat="ui" onclick="filterStore('ui')">UI Elements</button>
+          <button type="button" role="tab" aria-selected="false" data-cat="files" onclick="filterStore('files')">Project Files</button>
+          <button type="button" role="tab" aria-selected="false" data-cat="assets" onclick="filterStore('assets')">Icons &amp; Assets</button>
+          <button type="button" role="tab" aria-selected="false" data-cat="free" onclick="filterStore('free')">Free</button>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TOOLS — SaaS subscriptions
+    ========================================================== -->
+    <section id="tools" data-nav="tools" class="py-20 sm:py-28 bg-deepMatte border-b border-softWhite/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div class="space-y-3">
+            <span class="mt-label text-industrialLime block">03 // GRIT Tools</span>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Software you can<br class="hidden sm:block"/> subscribe to.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">Apps we build and run ourselves. Join early to get first access.</p>
+          </div>
+          <div class="mt-plate !p-4 flex items-center gap-4 self-start md:self-auto">
+            <div class="mt-ripple" role="img" aria-label="In development">
+              <span></span><span></span><span></span><span></span><span></span>
+              <div class="mt-ripple__icon"><svg class="ico !w-5 !h-5" viewBox="0 0 24 24"><use href="#i-tools"/></svg></div>
+            </div>
+            <div>
+              <span class="mt-label text-industrialLime block">In the lab</span>
+              <span class="font-display font-bold text-sm text-softWhite">3 tools on the way</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+          <div class="mt-xcard">
+            <button type="button" class="mt-xcard__front" aria-expanded="false">
+              <span class="mt-key mt-key--lg shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-voice"/></svg></span>
+              <span><span class="mt-label text-industrialLime block">AI receptionist</span><span class="font-display font-bold text-xl text-softWhite">NYRA</span></span>
+              <span class="mt-xcard__plus" aria-hidden="true">+</span>
+            </button>
+            <div class="mt-xcard__tray"><div>
+              <div class="mt-xcard__stats">
+                <div><div class="mt-label">Does</div><b class="text-sm text-softWhite">Answers calls &amp; books 24/7</b></div>
+                <div><div class="mt-label">For</div><b class="text-sm text-softWhite">Clinics, agencies, hotels</b></div>
+              </div>
+              <button type="button" onclick="openNotifyModal('NYRA', 'Get early access to NYRA')" class="mt-xcard__status w-full">
+                <span>Pilot · Join the waitlist</span><span>→</span>
+              </button>
+            </div></div>
+          </div>
+
+          <div class="mt-xcard">
+            <button type="button" class="mt-xcard__front" aria-expanded="false">
+              <span class="mt-key mt-key--lg shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-lock"/></svg></span>
+              <span><span class="mt-label text-industrialLime block">Private AI search</span><span class="font-display font-bold text-xl text-softWhite">VaultMind</span></span>
+              <span class="mt-xcard__plus" aria-hidden="true">+</span>
+            </button>
+            <div class="mt-xcard__tray"><div>
+              <div class="mt-xcard__stats">
+                <div><div class="mt-label">Does</div><b class="text-sm text-softWhite">Ask questions of your files</b></div>
+                <div><div class="mt-label">Privacy</div><b class="text-sm text-softWhite">Runs on your machine</b></div>
+              </div>
+              <button type="button" onclick="openNotifyModal('VaultMind', 'Get early access to VaultMind')" class="mt-xcard__status w-full">
+                <span>Beta · Join the waitlist</span><span>→</span>
+              </button>
+            </div></div>
+          </div>
+
+          <div class="mt-xcard">
+            <button type="button" class="mt-xcard__front" aria-expanded="false">
+              <span class="mt-key mt-key--lg shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-film"/></svg></span>
+              <span><span class="mt-label text-industrialLime block">Ad &amp; video maker</span><span class="font-display font-bold text-xl text-softWhite">FrameForge</span></span>
+              <span class="mt-xcard__plus" aria-hidden="true">+</span>
+            </button>
+            <div class="mt-xcard__tray"><div>
+              <div class="mt-xcard__stats">
+                <div><div class="mt-label">Does</div><b class="text-sm text-softWhite">Script in, ads out</b></div>
+                <div><div class="mt-label">Formats</div><b class="text-sm text-softWhite">16:9 and 9:16</b></div>
+              </div>
+              <button type="button" onclick="openNotifyModal('FrameForge', 'Get early access to FrameForge')" class="mt-xcard__status w-full">
+                <span>Prototype · Join the waitlist</span><span>→</span>
+              </button>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="mt-row justify-between flex-col sm:flex-row items-start sm:items-center mt-8">
+          <div class="flex items-center gap-4">
+            <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-grid"/></svg></span>
+            <div>
+              <h3 class="font-display font-bold text-base text-softWhite">Free online tools</h3>
+              <p class="text-sm text-softWhite/70">Calculators, PDF converters and more. Free in your browser.</p>
+            </div>
+          </div>
+          <button type="button" onclick="openNotifyModal('Free web tools', 'Get notified when free tools launch')" class="mt-btn mt-btn--sm shrink-0">Notify Me</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         ACADEMY — creators, freemium
+    ========================================================== -->
+    <section id="academy" data-nav="academy" class="py-20 sm:py-28 border-b border-softWhite/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="space-y-3 mb-12 max-w-2xl">
+          <span class="mt-label text-industrialLime block">04 // GRIT Academy</span>
+          <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Learn to build.<br/>Start free.</h2>
+          <p class="text-base sm:text-lg text-softWhite/75">Prompt packs, tutorials and starter files for creators. Upgrade when you're ready.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+          <!-- Plan switch (.mt-state) -->
+          <div class="lg:col-span-5 mt-plate p-6 sm:p-8 space-y-6">
+            <div class="flex justify-center">
+              <label class="mt-state" aria-label="Switch between Free and Pro plans">
+                <input type="checkbox" role="switch" id="plan-switch" onchange="toggleAcademyPlan(this.checked)">
+                <span class="mt-state__track">
+                  <span class="mt-state__layer mt-state__layer--a">Free plan</span>
+                  <span class="mt-state__layer mt-state__layer--b">Pro plan</span>
+                </span>
+                <span class="mt-state__knob">
+                  <span class="mt-state__face mt-state__face--a">FREE</span>
+                  <span class="mt-state__face mt-state__face--b">PRO</span>
+                </span>
+              </label>
+            </div>
+
+            <div id="plan-free" class="mt-well p-6 space-y-5">
+              <div class="flex items-baseline justify-between">
+                <span class="font-display font-bold text-3xl text-softWhite">Free</span>
+                <span class="mt-label">No card needed</span>
+              </div>
+              <ul class="space-y-2.5 text-sm text-softWhite/85">
+                <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Prompt packs</li>
+                <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Short tutorials</li>
+                <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Starter templates &amp; checklists</li>
+              </ul>
+              <button type="button" onclick="openNotifyModal('Academy Free', 'Get your free downloads')" class="w-full mt-btn mt-btn--primary">Get Free Downloads →</button>
+            </div>
+
+            <div id="plan-pro" class="hidden mt-well p-6 space-y-5">
+              <div class="flex items-baseline justify-between">
+                <span class="font-display font-bold text-3xl text-softWhite">Pro</span>
+                <span class="mt-pill mt-pill--accent !py-1 !px-3 !text-[10px]">Coming soon</span>
+              </div>
+              <ul class="space-y-2.5 text-sm text-softWhite/85">
+                <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Everything in Free</li>
+                <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Full step-by-step courses</li>
+                <li class="flex items-center gap-3"><svg class="ico text-industrialLime" viewBox="0 0 24 24"><use href="#i-check"/></svg>Project files for every lesson</li>
+              </ul>
+              <button type="button" onclick="openNotifyModal('Academy Pro', 'Join the Pro waitlist')" class="w-full mt-btn mt-btn--primary">Join the Pro Waitlist →</button>
+            </div>
+          </div>
+
+          <!-- What you get -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="mt-row mt-lift justify-between">
+              <div class="flex items-center gap-4">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-prompt"/></svg></span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">Prompt Packs</h3><p class="text-sm text-softWhite/70">Copy, paste, create. For images, video and copy.</p></div>
+              </div>
+              <span class="mt-pill mt-pill--accent !py-1 !px-3 !text-[10px] shrink-0">Free</span>
+            </div>
+            <div class="mt-row mt-lift justify-between">
+              <div class="flex items-center gap-4">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-play"/></svg></span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">Tutorials</h3><p class="text-sm text-softWhite/70">Short videos that show how we build, step by step.</p></div>
+              </div>
+              <span class="mt-pill mt-pill--accent !py-1 !px-3 !text-[10px] shrink-0">Free</span>
+            </div>
+            <div class="mt-row mt-lift justify-between">
+              <div class="flex items-center gap-4">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-down"/></svg></span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">Starter Files</h3><p class="text-sm text-softWhite/70">Templates and checklists to start faster.</p></div>
+              </div>
+              <span class="mt-pill mt-pill--accent !py-1 !px-3 !text-[10px] shrink-0">Free</span>
+            </div>
+            <div class="mt-row mt-lift justify-between">
+              <div class="flex items-center gap-4">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-learn"/></svg></span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">Full Courses</h3><p class="text-sm text-softWhite/70">AI, web and design, from first step to finished project.</p></div>
+              </div>
+              <span class="mt-pill !py-1 !px-3 !text-[10px] shrink-0">Pro</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         WORK — media slots ready for screenshots / video
+    ========================================================== -->
+    <section id="work" data-nav="work" class="py-20 sm:py-28 bg-deepMatte border-b border-softWhite/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="space-y-3 mb-12">
+          <span class="mt-label text-industrialLime block">05 // Recent work</span>
+          <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Built at GRIT.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <article class="mt-plate p-6 sm:p-8 space-y-6">
+            <div class="mt-window">
+              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">Client portal</span></div>
+              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-web"/></svg><span class="mt-media__label">Preview soon</span></div>
+            </div>
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-xl text-softWhite">Client Portal &amp; Billing Hub</h3>
+              <p class="text-sm text-softWhite/75">Onboarding, invoices and project tracking in one login.</p>
+            </div>
+            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-industrialSage">Web platform</span>
+              <button type="button" onclick="openProjectModal('saas')" class="text-industrialLime hover:text-softWhite">Build me one →</button>
+            </div>
+          </article>
+
+          <article class="mt-plate p-6 sm:p-8 space-y-6">
+            <div class="mt-window">
+              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">Document agent</span></div>
+              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-auto"/></svg><span class="mt-media__label">Preview soon</span></div>
+            </div>
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-xl text-softWhite">Document Reading Agent</h3>
+              <p class="text-sm text-softWhite/75">Reads invoices and contracts, then files the data for you.</p>
+            </div>
+            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-industrialSage">AI &amp; automation</span>
+              <button type="button" onclick="openProjectModal('ai')" class="text-industrialLime hover:text-softWhite">Build me one →</button>
+            </div>
+          </article>
+
+          <article class="mt-plate p-6 sm:p-8 space-y-6">
+            <div class="mt-window">
+              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">Ad campaign</span></div>
+              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-play"/></svg><span class="mt-media__label">Video soon</span></div>
+            </div>
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-xl text-softWhite">AI Product Ad Campaign</h3>
+              <p class="text-sm text-softWhite/75">Launch ads in every format, from one script.</p>
+            </div>
+            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-industrialSage">Ads &amp; video</span>
+              <button type="button" onclick="openProjectModal('creative')" class="text-industrialLime hover:text-softWhite">Make mine →</button>
+            </div>
+          </article>
+
+          <article class="mt-plate p-6 sm:p-8 space-y-6">
+            <div class="mt-window">
+              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">NYRA</span></div>
+              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-voice"/></svg><span class="mt-media__label">Demo soon</span></div>
+            </div>
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-xl text-softWhite">NYRA AI Receptionist</h3>
+              <p class="text-sm text-softWhite/75">Answers calls and WhatsApp, books appointments, day and night.</p>
+            </div>
+            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-industrialSage">Voice AI</span>
+              <button type="button" onclick="openProjectModal('nyra')" class="text-industrialLime hover:text-softWhite">Get NYRA →</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         ABOUT — six areas on the rotary dial
+    ========================================================== -->
+    <section id="about" data-nav="about" class="py-20 sm:py-28 border-b border-softWhite/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div class="space-y-3 max-w-2xl">
+            <span class="mt-label text-industrialLime block">06 // About GRIT</span>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">One team.<br/>Six ways to build.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75">An independent tech company in the UAE. We build for clients, and for ourselves.</p>
+          </div>
+          <button type="button" onclick="showAllAreas()" class="mt-btn mt-btn--sm self-start md:self-auto">Show All Six</button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-5 flex flex-col items-center justify-center mt-plate p-8 sm:p-10 space-y-6">
+            <div class="mt-dial" role="radiogroup" aria-label="Choose an area">
+              <div class="mt-dial__face"><span class="mt-dial__sector"></span></div>
+              <label style="--p:-90deg"><input type="radio" name="grit_area" value="01" onchange="selectAreaDial('01')">01</label>
+              <label style="--p:-30deg"><input type="radio" name="grit_area" value="02" onchange="selectAreaDial('02')">02</label>
+              <label style="--p:30deg"><input type="radio" name="grit_area" value="03" onchange="selectAreaDial('03')">03</label>
+              <label style="--p:90deg"><input type="radio" name="grit_area" value="04" onchange="selectAreaDial('04')">04</label>
+              <label style="--p:150deg"><input type="radio" name="grit_area" value="05" onchange="selectAreaDial('05')">05</label>
+              <label style="--p:210deg"><input type="radio" name="grit_area" value="06" onchange="selectAreaDial('06')">06</label>
+              <span class="mt-dial__knob"></span>
+              <span class="mt-dial__pointer"></span>
+            </div>
+            <div id="dial-readout" class="mt-well px-5 py-3 text-center w-full font-mono text-xs text-industrialLime">All six areas</div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-3">
+            <div data-area="01" class="area-row mt-row mt-lift justify-between gap-4">
+              <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">01</span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Software</h3><p class="text-sm text-softWhite/70">Websites, apps and platforms.</p></div></div>
+              <a href="#services" onclick="selectServiceTab('web')" class="mt-btn mt-btn--sm shrink-0">Services</a>
+            </div>
+            <div data-area="02" class="area-row mt-row mt-lift justify-between gap-4">
+              <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">02</span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Intelligence</h3><p class="text-sm text-softWhite/70">AI agents and automation.</p></div></div>
+              <a href="#services" onclick="selectServiceTab('ai')" class="mt-btn mt-btn--sm shrink-0">Services</a>
+            </div>
+            <div data-area="03" class="area-row mt-row mt-lift justify-between gap-4">
+              <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">03</span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Creative</h3><p class="text-sm text-softWhite/70">AI ads, video and presenters.</p></div></div>
+              <a href="#services" onclick="selectServiceTab('creative')" class="mt-btn mt-btn--sm shrink-0">Services</a>
+            </div>
+            <div data-area="04" class="area-row mt-row mt-lift justify-between gap-4">
+              <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">04</span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Resources</h3><p class="text-sm text-softWhite/70">Themes, UI kits and project files.</p></div></div>
+              <a href="#store" class="mt-btn mt-btn--sm shrink-0">Store</a>
+            </div>
+            <div data-area="05" class="area-row mt-row mt-lift justify-between gap-4">
+              <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">05</span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Ventures</h3><p class="text-sm text-softWhite/70">Our own apps and tools.</p></div></div>
+              <a href="#tools" class="mt-btn mt-btn--sm shrink-0">Tools</a>
+            </div>
+            <div data-area="06" class="area-row mt-row mt-lift justify-between gap-4">
+              <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">06</span>
+                <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Academy</h3><p class="text-sm text-softWhite/70">Free lessons and downloads.</p></div></div>
+              <a href="#academy" class="mt-btn mt-btn--sm shrink-0">Academy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CONTACT
+    ========================================================== -->
+    <section id="contact" data-nav="contact" class="py-20 sm:py-28 bg-deepMatte">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+          <div class="lg:col-span-5 space-y-6">
+            <span class="mt-label text-industrialLime block">07 // Contact</span>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Have something in mind? Let's build it.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75">Tell us a little about it. We reply within 24 hours.</p>
+            <div class="space-y-3 pt-2">
+              <a href="mailto:hello@grittech.io" class="mt-row mt-lift">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
+                <div><span class="mt-label block">Projects</span><span class="font-mono text-sm text-softWhite">hello@grittech.io</span></div>
+              </a>
+              <a href="mailto:resources@grittech.io" class="mt-row mt-lift">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg></span>
+                <div><span class="mt-label block">Store support</span><span class="font-mono text-sm text-softWhite">resources@grittech.io</span></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7">
+            <div class="mt-plate p-6 sm:p-10">
+              <div class="mb-7 pb-6 border-b border-softWhite/10">
+                <span class="mt-label block mb-3">I'm getting in touch about</span>
+                <div class="mt-seg" role="tablist">
+                  <button type="button" role="tab" aria-selected="true" onclick="setEnquiryPathway('New project', this)">A New Project</button>
+                  <button type="button" role="tab" aria-selected="false" onclick="setEnquiryPathway('Store support', this)">Store Support</button>
+                  <button type="button" role="tab" aria-selected="false" onclick="setEnquiryPathway('Partnership', this)">Partnership</button>
+                </div>
+              </div>
+
+              <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
+                <input type="hidden" name="pathway" id="enquiry-pathway" value="New project" />
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div><label for="c-name" class="mt-label block mb-2">Name *</label><input id="c-name" name="name" type="text" required autocomplete="name" placeholder="Your name" class="mt-input" /></div>
+                  <div><label for="c-email" class="mt-label block mb-2">Email *</label><input id="c-email" name="email" type="email" required autocomplete="email" placeholder="you@business.com" class="mt-input" /></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label for="c-need" class="mt-label block mb-2">I need</label>
+                    <select id="c-need" name="need" class="mt-input">
+                      <option>A website</option>
+                      <option>A mobile app</option>
+                      <option>AI or automation</option>
+                      <option>Ads or video</option>
+                      <option>Help with a store purchase</option>
+                      <option>Something else</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="c-when" class="mt-label block mb-2">When</label>
+                    <select id="c-when" name="timeline" class="mt-input">
+                      <option>As soon as possible</option>
+                      <option>In 1–2 months</option>
+                      <option>Later this year</option>
+                      <option>Just exploring</option>
+                    </select>
+                  </div>
+                </div>
+                <div><label for="c-msg" class="mt-label block mb-2">Tell us about it *</label><textarea id="c-msg" name="message" rows="4" required placeholder="What are you building? Who is it for?" class="mt-input"></textarea></div>
+
+                <div class="mt-row justify-between">
+                  <div>
+                    <span class="font-display font-bold text-sm text-softWhite block">Need an NDA?</span>
+                    <span class="text-xs text-industrialSage">We'll send one with our reply.</span>
+                  </div>
+                  <label class="mt-hw" aria-label="Request an NDA">
+                    <input type="checkbox" name="nda" role="switch">
+                    <span class="mt-hw__track"></span>
+                    <span class="mt-hw__slider"><span class="mt-hw__led"></span><i></i><i></i><i></i></span>
+                  </label>
+                </div>
+
+                <button type="submit" class="w-full mt-btn mt-btn--primary">Send Message →</button>
+              </form>
+
+              <div id="contact-loader" class="hidden py-14 flex flex-col items-center justify-center space-y-6">
+                <div class="mt-dots" role="status" aria-label="Sending">
+                  <i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i>
+                  <i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i>
+                  <span class="mt-dots__label">Sending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+  <footer class="border-t border-softWhite/10 py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10 pb-12 border-b border-softWhite/10">
+        <div class="col-span-2 md:col-span-4 lg:col-span-4 space-y-4">
+          <svg class="mt-logo mt-logo--lg text-softWhite" viewBox="0 0 1483 399" aria-label="GRIT"><use href="#grit-logo"/></svg>
+          <p class="text-sm text-softWhite/70 max-w-xs">Don't just use technology. Build with it.</p>
+          <button type="button" onclick="openProjectModal()" class="mt-btn mt-btn--primary mt-btn--sm">Start a Project →</button>
+        </div>
+        <div class="lg:col-span-2 space-y-3">
+          <span class="mt-label block">Build</span>
+          <ul class="space-y-2 text-sm text-softWhite/75">
+            <li><a href="#services" onclick="selectServiceTab('web')" class="hover:text-industrialLime">Websites</a></li>
+            <li><a href="#services" onclick="selectServiceTab('app')" class="hover:text-industrialLime">Mobile apps</a></li>
+            <li><a href="#services" onclick="selectServiceTab('ai')" class="hover:text-industrialLime">AI &amp; automation</a></li>
+            <li><a href="#services" onclick="selectServiceTab('creative')" class="hover:text-industrialLime">Ads &amp; video</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-2 space-y-3">
+          <span class="mt-label block">Shop</span>
+          <ul class="space-y-2 text-sm text-softWhite/75">
+            <li><a href="#store" onclick="filterStore('themes')" class="hover:text-industrialLime">Themes</a></li>
+            <li><a href="#store" onclick="filterStore('ui')" class="hover:text-industrialLime">UI elements</a></li>
+            <li><a href="#store" onclick="filterStore('files')" class="hover:text-industrialLime">Project files</a></li>
+            <li><a href="#tools" class="hover:text-industrialLime">Tools</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-2 space-y-3">
+          <span class="mt-label block">Learn</span>
+          <ul class="space-y-2 text-sm text-softWhite/75">
+            <li><a href="#academy" class="hover:text-industrialLime">Academy</a></li>
+            <li><a href="#store" onclick="filterStore('free')" class="hover:text-industrialLime">Free downloads</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-2 space-y-3">
+          <span class="mt-label block">Company</span>
+          <ul class="space-y-2 text-sm text-softWhite/75">
+            <li><a href="#work" class="hover:text-industrialLime">Work</a></li>
+            <li><a href="#about" class="hover:text-industrialLime">About</a></li>
+            <li><a href="#contact" class="hover:text-industrialLime">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-industrialSage">
+        <span>© 2026 GRIT Technologies FZE LLC</span>
+        <span>Building what's next.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       MODALS, CART, TOAST
+  ========================================================== -->
+
+  <!-- Start a Project -->
+  <div id="project-modal" class="mt-modal hidden" role="dialog" aria-modal="true" aria-labelledby="project-title">
+    <div class="mt-plate max-w-xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 mb-6 border-b border-softWhite/10">
+        <div>
+          <span class="mt-label text-industrialLime block">Free quote</span>
+          <h3 id="project-title" class="font-display font-bold text-2xl text-softWhite">Start a Project</h3>
+        </div>
+        <button type="button" onclick="closeModal('project-modal')" class="mt-key mt-key--round !w-10" aria-label="Close"><svg viewBox="0 0 24 24"><use href="#i-close"/></svg></button>
+      </div>
+      <form onsubmit="handleModalProjectSubmit(event)" class="space-y-4">
+        <div>
+          <label for="p-type" class="mt-label block mb-1.5">What do you need? *</label>
+          <select id="p-type" name="type" class="mt-input">
+            <option value="web">A website</option>
+            <option value="app">A mobile app</option>
+            <option value="saas">A web platform or client portal</option>
+            <option value="nyra">NYRA AI receptionist</option>
+            <option value="ai">AI agent or automation</option>
+            <option value="creative">Ads or video</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div><label for="p-name" class="mt-label block mb-1.5">Name *</label><input id="p-name" name="name" type="text" required autocomplete="name" placeholder="Your name" class="mt-input" /></div>
+          <div><label for="p-email" class="mt-label block mb-1.5">Email *</label><input id="p-email" name="email" type="email" required autocomplete="email" placeholder="you@business.com" class="mt-input" /></div>
+        </div>
+        <div><label for="p-msg" class="mt-label block mb-1.5">Tell us about it *</label><textarea id="p-msg" name="message" rows="3" required placeholder="What's the business, and what should it do?" class="mt-input"></textarea></div>
+        <div class="pt-3 flex justify-end gap-3">
+          <button type="button" onclick="closeModal('project-modal')" class="mt-btn mt-btn--sm">Cancel</button>
+          <button type="submit" class="mt-btn mt-btn--primary mt-btn--sm">Get My Quote →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Product details -->
+  <div id="product-modal" class="mt-modal hidden" role="dialog" aria-modal="true">
+    <div id="product-modal-content" class="mt-plate max-w-2xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto"></div>
+  </div>
+
+  <!-- Notify / waitlist / free downloads -->
+  <div id="notify-modal" class="mt-modal hidden" role="dialog" aria-modal="true" aria-labelledby="notify-title">
+    <div class="mt-plate max-w-md w-full p-6 sm:p-8 relative">
+      <div class="flex items-center justify-between pb-4 mb-5 border-b border-softWhite/10">
+        <h3 id="notify-title" class="font-display font-bold text-xl text-softWhite"></h3>
+        <button type="button" onclick="closeModal('notify-modal')" class="mt-key mt-key--round !w-9" aria-label="Close"><svg viewBox="0 0 24 24"><use href="#i-close"/></svg></button>
+      </div>
+      <form onsubmit="handleNotifySubmit(event)" class="space-y-4">
+        <input type="hidden" name="topic" id="notify-topic" />
+        <div><label for="n-email" class="mt-label block mb-1.5">Email *</label><input id="n-email" name="email" type="email" required autocomplete="email" placeholder="you@email.com" class="mt-input" /></div>
+        <p class="text-xs text-industrialSage">No spam. Unsubscribe any time.</p>
+        <button type="submit" class="w-full mt-btn mt-btn--primary">Send It to Me →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cart -->
+  <div id="cart-drawer" class="hidden fixed inset-0 z-50 bg-obsidian/85 flex justify-end" onclick="if (event.target === this) toggleCartDrawer()">
+    <div class="mt-plate !rounded-none !rounded-l-3xl max-w-md w-full h-full p-6 sm:p-8 flex flex-col justify-between">
+      <div class="space-y-6 overflow-y-auto pr-1">
+        <div class="flex items-center justify-between pb-4 border-b border-softWhite/10">
+          <h3 class="font-display font-bold text-xl text-softWhite">Your Cart</h3>
+          <button type="button" onclick="toggleCartDrawer()" class="mt-key mt-key--round !w-10" aria-label="Close cart"><svg viewBox="0 0 24 24"><use href="#i-close"/></svg></button>
+        </div>
+        <div id="cart-items-list" class="space-y-3"></div>
+      </div>
+      <div class="pt-5 border-t border-softWhite/10 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="mt-label">Total</span>
+          <span id="cart-total" class="font-display font-bold text-2xl text-softWhite">$0</span>
+        </div>
+        <button type="button" onclick="checkoutCart()" class="w-full mt-btn mt-btn--primary">Checkout →</button>
+        <p class="text-center font-mono text-[10px] uppercase tracking-wider text-industrialSage">Instant download after payment</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-box" class="hidden fixed bottom-6 right-6 z-50 mt-plate border-l-4 border-l-industrialLime px-5 py-4 max-w-sm" role="status">
+    <p id="toast-message" class="text-sm text-softWhite"></p>
+  </div>
+
+  <script>
+    // =========================================================
+    // DATA
+    // =========================================================
+    const icon = (id, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24"><use href="#${id}"/></svg>`;
+
+    // Hero console — "What are you looking for?"
+    const needs = {
+      build: { icon: 'i-web',   title: 'A website or app for your business', text: 'From a one-page site to a full mobile app. Designed, built and launched for you.', cta: 'Start a Project →', action: "openProjectModal('web')" },
+      tools: { icon: 'i-tools', title: 'Tools that save you hours',         text: 'Subscribe to apps we build, like NYRA, the AI receptionist that never misses a call.', cta: 'See the Tools →', action: "scrollToSection('tools')" },
+      store: { icon: 'i-grid',  title: 'Themes, UI kits & project files',    text: 'Ready to use and fully editable. Buy once, download instantly.', cta: 'Browse the Store →', action: "scrollToSection('store')" },
+      learn: { icon: 'i-learn', title: 'Learn to build, for free',           text: 'Prompt packs, tutorials and starter files. Go Pro for full courses.', cta: 'Get Free Downloads →', action: "openNotifyModal('Academy Free', 'Get your free downloads')" }
+    };
+
+    // Services tabs
+    const services = {
+      web: {
+        label: 'Websites', title: 'Websites that win customers', text: 'Fast, mobile-friendly sites built to turn visitors into enquiries.', key: 'web', cta: 'Get a Website Quote →',
+        items: [['i-web', 'Business websites'], ['i-theme', 'Landing pages'], ['i-bag', 'Online stores'], ['i-file', 'Booking & client portals']]
+      },
+      app: {
+        label: 'Mobile Apps', title: 'Apps your customers will use', text: 'iOS and Android apps, from first sketch to the app store.', key: 'app', cta: 'Get an App Quote →',
+        items: [['i-app', 'iOS & Android apps'], ['i-grid', 'App design (UI/UX)'], ['i-auto', 'Backend & integrations'], ['i-shape', 'Prototypes & MVPs']]
+      },
+      ai: {
+        label: 'AI & Automation', title: 'AI that does real work', text: 'Hand the repetitive jobs to software that never sleeps.', key: 'ai', cta: 'Get an AI Quote →',
+        items: [['i-voice', 'NYRA AI receptionist'], ['i-auto', 'Custom AI agents'], ['i-file', 'Document & data automation'], ['i-lock', 'Private, on-site AI']]
+      },
+      creative: {
+        label: 'Ads & Video', title: 'Ads and videos, made fast', text: 'Product ads, promo videos and digital presenters, made with AI.', key: 'creative', cta: 'Get a Creative Quote →',
+        items: [['i-play', 'Product ads'], ['i-film', 'Promo & explainer videos'], ['i-voice', 'Digital presenters'], ['i-theme', 'Social campaign packs']]
+      }
+    };
+
+    // Store catalogue (placeholder products; real files, prices and previews come later)
+    const categories = {
+      themes: { label: 'Theme', icon: 'i-theme' },
+      ui:     { label: 'UI Elements', icon: 'i-grid' },
+      files:  { label: 'Project Files', icon: 'i-file' },
+      assets: { label: 'Icons & Assets', icon: 'i-shape' },
+      free:   { label: 'Free', icon: 'i-prompt' }
+    };
+
+    const storeProducts = [
+      { id: 'obsidian-ui', title: 'Obsidian Core UI Kit', category: 'ui', price: 79, summary: 'Matte dark-mode components for Figma and Tailwind.', compatibility: 'Figma, HTML, Tailwind CSS',
+        features: ['Buttons, inputs, cards and switches', 'Figma file with design tokens', 'Copy-paste HTML + Tailwind', 'Free updates'] },
+      { id: 'nexus-saas-theme', title: 'Nexus SaaS Theme', category: 'themes', price: 59, summary: 'Dark site theme for SaaS and AI startups.', compatibility: 'HTML, Next.js',
+        features: ['Home, pricing, docs and blog pages', 'Responsive on every screen', 'Easy to rebrand', 'Free updates'] },
+      { id: 'studio-portfolio', title: 'Monolith Studio Theme', category: 'themes', price: 45, summary: 'Portfolio theme for agencies and studios.', compatibility: 'HTML, Tailwind CSS, Vanilla JS',
+        features: ['Case study layouts', 'Built-in enquiry form', 'No heavy frameworks', 'Free updates'] },
+      { id: 'portal-starter', title: 'Client Portal Starter', category: 'files', price: 69, summary: 'Dashboard starter with login, billing and files.', compatibility: 'React, TypeScript, Tailwind CSS',
+        features: ['Login and account screens', 'Billing and invoice tables', 'File upload area', 'Clean, commented code'] },
+      { id: 'agentic-blueprints', title: 'Automation Workflow Pack', category: 'files', price: 49, summary: 'Ready-to-import workflows for leads and documents.', compatibility: 'n8n, Make, Python',
+        features: ['Import in one click', 'Lead and document workflows', 'Works with cloud or local AI', 'Setup guide included'] },
+      { id: 'angular-icons', title: 'GRIT Angular Icons', category: 'assets', price: 29, summary: 'Sharp, geometric line icons for interfaces.', compatibility: 'SVG, React, Figma',
+        features: ['24px grid, 2px stroke', 'SVG and React versions', 'Figma library', 'Commercial licence'] },
+      { id: 'starter-prompts', title: 'Starter Prompt Pack', category: 'free', price: 0, summary: 'Free prompts for images, video and copy.', compatibility: 'Any AI image or text tool',
+        features: ['Copy-paste prompts', 'Image, video and copy', 'Examples included', 'Free forever'] }
+    ];
+
+    let currentCategory = 'all';
+    let currentSearch = '';
+    let cart = [];
+
+    // =========================================================
+    // HERO CONSOLE
+    // =========================================================
+    function selectNeed(key) {
+      const n = needs[key];
+      if (!n) return;
+      document.querySelectorAll('#need-tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.need === key ? 'true' : 'false'));
+      document.getElementById('need-well').innerHTML = `
+        <span class="mt-key text-industrialLime">${icon(n.icon)}</span>
+        <h2 class="font-display font-bold text-xl text-softWhite">${n.title}</h2>
+        <p class="text-sm text-softWhite/75 leading-relaxed">${n.text}</p>
+        <button type="button" onclick="${n.action}" class="w-full mt-btn mt-btn--primary mt-btn--sm">${n.cta}</button>
+      `;
+    }
+
+    // =========================================================
+    // SERVICES
+    // =========================================================
+    function selectServiceTab(key) {
+      const s = services[key];
+      if (!s) return;
+      document.querySelectorAll('#services .mt-seg button').forEach(b => b.setAttribute('aria-selected', b.id === `tab-${key}` ? 'true' : 'false'));
+      document.getElementById('service-panel').innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-5 space-y-5">
+            <span class="mt-label text-industrialLime">${s.label}</span>
+            <h3 class="font-display font-bold text-2xl sm:text-3xl text-softWhite">${s.title}</h3>
+            <p class="text-base text-softWhite/75">${s.text}</p>
+            <button type="button" onclick="openProjectModal('${s.key}')" class="mt-btn mt-btn--primary">${s.cta}</button>
+          </div>
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            ${s.items.map(([ic, name]) => `
+              <div class="mt-well p-5 flex items-center gap-4">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime">${icon(ic)}</span>
+                <span class="font-display font-bold text-base text-softWhite">${name}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================
+    // STORE
+    // =========================================================
+    const priceLabel = p => p.price === 0 ? 'Free' : `$${p.price}`;
+
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const q = currentSearch.toLowerCase();
+      const list = storeProducts.filter(p =>
+        (currentCategory === 'all' || p.category === currentCategory) &&
+        (p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q)));
+
+      if (!list.length) {
+        grid.innerHTML = `
+          <div class="col-span-full mt-plate p-10 text-center space-y-4">
+            <p class="font-mono text-sm text-industrialSage">Nothing matches that yet.</p>
+            <button type="button" onclick="filterStore('all'); document.getElementById('store-search').value=''; searchStore('')" class="mt-btn mt-btn--sm">Show Everything</button>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = list.map(p => {
+        const c = categories[p.category];
+        const free = p.price === 0;
+        return `
+        <article class="mt-plate mt-lift p-5 flex flex-col gap-5">
+          <div class="mt-media" data-media="">
+            ${icon(c.icon, 'ico')}
+            <span class="mt-media__label">Preview soon</span>
+          </div>
+          <div class="space-y-2 flex-1">
+            <span class="mt-label text-industrialLime">${c.label}</span>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-display font-bold text-lg text-softWhite">${p.title}</h3>
+              <span class="font-display font-bold text-lg ${free ? 'text-industrialLime' : 'text-softWhite'}">${priceLabel(p)}</span>
+            </div>
+            <p class="text-sm text-softWhite/70">${p.summary}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button type="button" onclick="openProductPreview('${p.id}')" class="flex-1 mt-btn mt-btn--sm">Details</button>
+            ${free
+              ? `<button type="button" onclick="openNotifyModal('${p.title}', 'Get the ${p.title}')" class="flex-1 mt-btn mt-btn--primary mt-btn--sm">Download</button>`
+              : `<button type="button" onclick="addToCart('${p.id}')" class="flex-1 mt-btn mt-btn--primary mt-btn--sm">Add to Cart</button>`}
+          </div>
+        </article>`;
+      }).join('');
+    }
+
+    function filterStore(category) {
+      currentCategory = category;
+      document.querySelectorAll('#store-filters button').forEach(b => b.setAttribute('aria-selected', b.dataset.cat === category ? 'true' : 'false'));
+      renderProducts();
+    }
+
+    function searchStore(query) {
+      currentSearch = query;
+      renderProducts();
+    }
+
+    function openProductPreview(id) {
+      const p = storeProducts.find(x => x.id === id);
+      if (!p) return;
+      const c = categories[p.category];
+      const free = p.price === 0;
+      document.getElementById('product-modal-content').innerHTML = `
+        <div class="flex items-center justify-between pb-4 mb-5 border-b border-softWhite/10">
+          <div>
+            <span class="mt-label text-industrialLime">${c.label}</span>
+            <h3 class="font-display font-bold text-2xl text-softWhite">${p.title}</h3>
+          </div>
+          <button type="button" onclick="closeModal('product-modal')" class="mt-key mt-key--round !w-10" aria-label="Close">${icon('i-close')}</button>
+        </div>
+        <div class="space-y-5">
+          <div class="mt-media" data-media="">${icon(c.icon, 'ico')}<span class="mt-media__label">Preview soon</span></div>
+          <p class="text-base text-softWhite/80">${p.summary}</p>
+          <ul class="space-y-2.5 text-sm text-softWhite/85">
+            ${p.features.map(f => `<li class="flex items-center gap-3">${icon('i-check', 'ico text-industrialLime')}${f}</li>`).join('')}
+          </ul>
+          <div class="mt-well p-4 font-mono text-xs">
+            <span class="mt-label block mb-1">Works with</span>
+            <span class="text-softWhite">${p.compatibility}</span>
+          </div>
+          <div class="pt-4 border-t border-softWhite/10 flex items-center justify-between gap-4">
+            <span class="font-display font-bold text-3xl ${free ? 'text-industrialLime' : 'text-softWhite'}">${free ? 'Free' : `$${p.price}`}</span>
+            ${free
+              ? `<button type="button" onclick="closeModal('product-modal'); openNotifyModal('${p.title}', 'Get the ${p.title}')" class="mt-btn mt-btn--primary">Download Free →</button>`
+              : `<button type="button" onclick="addToCart('${p.id}'); closeModal('product-modal')" class="mt-btn mt-btn--primary">Add to Cart →</button>`}
+          </div>
+        </div>
+      `;
+      openModal('product-modal');
+    }
+
+    // =========================================================
+    // CART (simulated until payments are connected)
+    // =========================================================
+    function addToCart(id) {
+      const p = storeProducts.find(x => x.id === id);
+      if (!p) return;
+      if (cart.find(x => x.id === id)) { showToast(`${p.title} is already in your cart.`); return; }
+      cart.push(p);
+      updateCartUI();
+      showToast(`Added ${p.title} to your cart.`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(x => x.id !== id);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const count = document.getElementById('cart-count');
+      count.textContent = cart.length;
+      count.classList.toggle('hidden', cart.length === 0);
+      const list = document.getElementById('cart-items-list');
+      list.innerHTML = cart.length === 0
+        ? `<p class="font-mono text-xs text-industrialSage py-8 text-center">Your cart is empty.</p>`
+        : cart.map(p => `
+          <div class="mt-well p-3.5 flex items-center justify-between gap-3">
+            <div>
+              <span class="font-mono text-[10px] text-industrialLime block">${categories[p.category].label}</span>
+              <span class="font-display font-semibold text-sm text-softWhite">${p.title}</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-sm text-softWhite font-bold">$${p.price}</span>
+              <button type="button" onclick="removeFromCart('${p.id}')" class="text-industrialSage hover:text-softWhite" aria-label="Remove ${p.title}">${icon('i-close', 'ico')}</button>
+            </div>
+          </div>`).join('');
+      document.getElementById('cart-total').textContent = `$${cart.reduce((s, p) => s + p.price, 0)}`;
+    }
+
+    function toggleCartDrawer() {
+      document.getElementById('cart-drawer').classList.toggle('hidden');
+    }
+
+    function checkoutCart() {
+      if (!cart.length) { showToast('Your cart is empty.'); return; }
+      cart = [];
+      updateCartUI();
+      toggleCartDrawer();
+      showToast('Thanks! Your download links are on their way.');
+    }
+
+    // =========================================================
+    // ACADEMY PLAN SWITCH (.mt-state)
+    // =========================================================
+    function toggleAcademyPlan(isPro) {
+      document.getElementById('plan-free').classList.toggle('hidden', isPro);
+      document.getElementById('plan-pro').classList.toggle('hidden', !isPro);
+    }
+
+    // =========================================================
+    // ABOUT DIAL (.mt-dial)
+    // =========================================================
+    const areaLabels = {
+      all: 'All six areas',
+      '01': '01 // Software — websites & apps',
+      '02': '02 // Intelligence — AI & automation',
+      '03': '03 // Creative — ads & video',
+      '04': '04 // Resources — themes & UI kits',
+      '05': '05 // Ventures — our own tools',
+      '06': '06 // Academy — free lessons'
+    };
+
+    function selectAreaDial(val) {
+      document.getElementById('dial-readout').textContent = areaLabels[val];
+      document.querySelectorAll('.area-row').forEach(row => {
+        const on = val === 'all' || row.dataset.area === val;
+        row.style.opacity = on ? '1' : '0.45';
+        row.style.borderColor = on && val !== 'all' ? '#83A94B' : '';
+      });
+    }
+
+    function showAllAreas() {
+      document.querySelectorAll('input[name=grit_area]').forEach(r => { r.checked = false; });
+      selectAreaDial('all');
+    }
+
+    // =========================================================
+    // NAV, MODALS, FORMS
+    // =========================================================
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function openProjectModal(key = '') {
+      const select = document.getElementById('p-type');
+      if (key && [...select.options].some(o => o.value === key)) select.value = key;
+      openModal('project-modal');
+    }
+
+    function openNotifyModal(topic, title) {
+      document.getElementById('notify-topic').value = topic;
+      document.getElementById('notify-title').textContent = title;
+      openModal('notify-modal');
+    }
+
+    function setEnquiryPathway(pathway, btn) {
+      document.getElementById('enquiry-pathway').value = pathway;
+      btn.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', b === btn ? 'true' : 'false'));
+    }
+
+    // Forms are simulated until the backend is connected.
+    function handleModalProjectSubmit(e) {
+      e.preventDefault();
+      closeModal('project-modal');
+      e.target.reset();
+      showToast('Got it! We will reply within 24 hours.');
+    }
+
+    function handleNotifySubmit(e) {
+      e.preventDefault();
+      closeModal('notify-modal');
+      e.target.reset();
+      showToast("You're on the list. Check your inbox.");
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contact-form');
+      const loader = document.getElementById('contact-loader');
+      form.classList.add('hidden');
+      loader.classList.remove('hidden');
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        form.classList.remove('hidden');
+        form.reset();
+        showToast('Message sent. We will reply within 24 hours.');
+      }, 1400);
+    }
+
+    let toastTimeout;
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      document.getElementById('toast-message').textContent = msg;
+      box.classList.remove('hidden');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => box.classList.add('hidden'), 4200);
+    }
+
+    // =========================================================
+    // INIT
+    // =========================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      selectNeed('build');
+      selectServiceTab('web');
+      renderProducts();
+      updateCartUI();
+      selectAreaDial('all');
+
+      // Expanding cards (.mt-xcard)
+      document.querySelectorAll('.mt-xcard__front').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const open = btn.closest('.mt-xcard').classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', open);
+        });
+      });
+
+      // Close modals on backdrop click and Escape
+      document.querySelectorAll('.mt-modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.add('hidden'); }));
+      document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+        document.querySelectorAll('.mt-modal').forEach(m => m.classList.add('hidden'));
+        document.getElementById('cart-drawer').classList.add('hidden');
+      });
+
+      // Highlight the nav item for the section in view
+      const links = document.querySelectorAll('.nav-item');
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) links.forEach(l => l.classList.toggle('active', l.dataset.route === en.target.dataset.nav));
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      document.querySelectorAll('[data-nav]').forEach(s => spy.observe(s));
+    });
+  </script>
+</body>
+</html>
