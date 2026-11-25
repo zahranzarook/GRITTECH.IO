@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore/lite';
 
 export const firebaseConfig = {
-  apiKey: 'REPLACE_WITH_API_KEY',
+  apiKey: 'AIzaSyBElOmxhETMvumsSqQeFpzAfdli7l5x0WQ',
   authDomain: 'grittech-io.firebaseapp.com',
   projectId: 'grittech-io',
   storageBucket: 'grittech-io.firebasestorage.app',
-  messagingSenderId: 'REPLACE_WITH_SENDER_ID',
-  appId: 'REPLACE_WITH_APP_ID',
+  messagingSenderId: '95984879745',
+  appId: '1:95984879745:web:7b030012596273e0736580',
 };
 
 export const isConfigured = !Object.values(firebaseConfig).some(v => String(v).startsWith('REPLACE_'));
