@@ -117,7 +117,7 @@ function card(p) {
   return `
     <article class="mt-tile mt-plate mt-lift p-5 flex flex-col gap-4">
       <div class="mt-media" ${img ? '' : 'data-media=""'}>
-        ${img ? `<img src="${img}" alt="${p.title} preview" loading="lazy" decoding="async" />` : `${icon(cat.icon, 'ico')}<span class="mt-media__label">Preview soon</span>`}
+        ${p.video ? `<video data-live src="${p.video}" poster="${img}" muted loop playsinline preload="none" aria-label="${p.title} preview"></video>` : img ? `<img src="${img}" alt="${p.title} preview" loading="lazy" decoding="async" />` : `${icon(cat.icon, 'ico')}<span class="mt-media__label">Preview soon</span>`}
         ${badge ? `<span class="mt-badge">${badge}</span>` : ''}
       </div>
       <div class="space-y-2 flex-1">
@@ -188,6 +188,16 @@ $('store-clear')?.addEventListener('click', e => {
 if ($('store-search') && params.get('q')) $('store-search').value = params.get('q');
 $('store-search')?.addEventListener('input', () => { syncUrl(); renderProducts(); });
 $('store-sort')?.addEventListener('change', renderProducts);
+
+// ---- Live preview videos: play only while on screen (never with reduced motion) ----
+const stillMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const liveIO = new IntersectionObserver(es => es.forEach(e => {
+  const v = e.target;
+  if (e.isIntersecting && !stillMotion) { if (v.preload === 'none') v.preload = 'auto'; v.play().catch(() => {}); } else v.pause();
+}), { threshold: 0.25 });
+const watchVideos = () => document.querySelectorAll('video[data-live]:not([data-watched])').forEach(v => { v.dataset.watched = '1'; liveIO.observe(v); });
+new MutationObserver(watchVideos).observe(document.body, { childList: true, subtree: true });
+watchVideos();
 
 updateCartUI();
 if (grid) {

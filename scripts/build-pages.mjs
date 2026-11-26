@@ -31,14 +31,14 @@ const ico = (id, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidd
 // Cover slot: a slideshow when `media` is a list, one image/video when it's a path, otherwise the engraved placeholder.
 const SLIDE_NAMES = ['Overview', 'Features', 'Examples', 'How it works'];
 const srcset = src => (/\.webp$/i.test(src) ? ` srcset="${src.replace(/\.webp$/i, '-800.webp')} 800w, ${src} 1376w" sizes="(min-width: 1024px) 50vw, 100vw"` : '');
-function slide(src, alt, active) {
-  if (/\.(mp4|webm)$/i.test(src)) return `<video class="mt-slide${active ? ' is-active' : ''}" src="${src}" autoplay muted loop playsinline aria-label="${esc(alt)}"></video>`;
+function slide(src, alt, active, poster = '') {
+  if (/\.(mp4|webm)$/i.test(src)) return `<video class="mt-slide${active ? ' is-active' : ''}" data-live src="${src}"${poster ? ` poster="${poster}"` : ''} muted loop playsinline preload="none" aria-label="${esc(alt)}"></video>`;
   return `<img class="mt-slide${active ? ' is-active' : ''}" src="${src}"${srcset(src)} alt="${esc(alt)}" loading="lazy" decoding="async" />`;
 }
 function media(src, icon, label, extra = '', { name = '', controls = false } = {}) {
   const list = Array.isArray(src) ? src : (src ? [src] : []);
   if (!list.length) return `<div class="mt-media ${extra}" data-media="">${ico(icon, 'ico')}<span class="mt-media__label">${label}</span></div>`;
-  const imgs = list.map((s, i) => slide(s, `${name} ${SLIDE_NAMES[i] || ''}`.trim(), i === 0)).join('');
+  const imgs = list.map((s, i) => slide(s, `${name} ${SLIDE_NAMES[i] || ''}`.trim(), i === 0, list.find(x => !/\.(mp4|webm)$/i.test(x)))).join('');
   if (list.length === 1) return `<div class="mt-media ${extra}">${imgs}</div>`;
   const dots = list.map((_, i) => controls
     ? `<button type="button" data-dot aria-label="Show slide ${i + 1}" aria-current="${i === 0}"></button>`
@@ -145,9 +145,9 @@ ${s.demos ? `
       <span class="mt-label text-industrialLime block mb-3">Live demos</span>
       <h2 class="mt-h2 text-3xl sm:text-4xl text-softWhite mb-8">Try one before you talk to us.</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        ${s.demos.map(([n, t, href, img]) => `
+        ${s.demos.map(([n, t, href, img, vid]) => `
         <article class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4">
-          <div class="mt-media"><img src="${img}" alt="${esc(n)} demo" loading="lazy" decoding="async" /><span class="mt-badge">Live demo</span></div>
+          <div class="mt-media">${vid ? `<video data-live src="${vid}" poster="${img}" muted loop playsinline preload="none" aria-label="${esc(n)} demo"></video>` : `<img src="${img}" alt="${esc(n)} demo" loading="lazy" decoding="async" />`}<span class="mt-badge">Live demo</span></div>
           <div class="px-2 pb-2 flex items-center justify-between gap-4">
             <div><h3 class="font-display font-bold text-xl text-softWhite"><a href="${href}" target="_blank" rel="noopener" class="mt-tile__link">${esc(n)}</a></h3><p class="text-sm text-softWhite/70">${esc(t)}</p></div>
             <span class="mt-tile__arrow" aria-hidden="true">↗</span>
@@ -364,7 +364,7 @@ for (const p of PRODUCTS) {
       <div class="lg:col-span-7">
         <div class="mt-window">
           <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">${esc(p.demo ? 'grittech.io' + p.demo : p.title)}</span></div>
-          ${media(p.media, c.icon, 'Preview soon', '!rounded-none !shadow-none !border-0', { name: p.title, controls: true })}
+          ${media(p.video ? [p.video, ...(p.media || [])] : p.media, c.icon, 'Preview soon', '!rounded-none !shadow-none !border-0', { name: p.title, controls: true })}
         </div>
       </div>
       <div class="lg:col-span-5 space-y-6">

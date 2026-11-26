@@ -19,10 +19,12 @@ function setup(frame, index) {
     slides.forEach((s, n) => s.classList.toggle('is-active', n === current));
     dots.forEach((d, n) => d.setAttribute('aria-current', n === current ? 'true' : 'false'));
   };
-  const stop = () => { clearInterval(timer); timer = null; };
+  const stop = () => { clearTimeout(timer); timer = null; };
+  // A video slide stays up for its full length (at least one loop) before moving on.
+  const wait = () => { const s = slides[current]; return s.tagName === 'VIDEO' && s.duration ? Math.max(INTERVAL, s.duration * 1000) : INTERVAL; };
   const start = () => {
     if (reduceMotion || timer || !visible || hovered) return;
-    timer = setInterval(() => show(current + 1), INTERVAL);
+    timer = setTimeout(function tick() { show(current + 1); timer = setTimeout(tick, wait()); }, wait());
   };
 
   dots.forEach((d, n) => d.addEventListener('click', e => { e.preventDefault(); stop(); show(n); start(); }));

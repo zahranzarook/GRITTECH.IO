@@ -7,7 +7,7 @@ const slides = slug => [1, 2, 3, 4].map(n => `/media/${slug}-${n}.webp`);
 export const SERVICES = [
   {
     slug: 'websites', key: 'web', icon: 'i-web', name: 'Websites', media: slides('websites'),
-    demos: [['Ember & Salt', 'Restaurant with interactive menu, ordering and booking', '/demo/restaurant/', '/media/store/ember-restaurant-1.webp'], ['Atlas', 'Travel & visa agency with a 3D globe', '/demo/travel/', '/media/store/atlas-travel-1.webp']],
+    demos: [['Ember & Salt', 'Restaurant with interactive menu, ordering and booking', '/demo/restaurant/', '/media/store/ember-restaurant-1.webp', '/media/store/ember-restaurant.mp4'], ['Atlas', 'Travel & visa agency with a 3D globe', '/demo/travel/', '/media/store/atlas-travel-1.webp', '/media/store/atlas-travel.mp4']],
     title: 'Websites that win customers.',
     tagline: 'A fast, mobile-friendly website that explains what you do and turns visitors into enquiries.',
     card: 'Business sites, landing pages and online stores.',
@@ -32,7 +32,7 @@ export const SERVICES = [
   },
   {
     slug: 'mobile-apps', key: 'app', icon: 'i-app', name: 'Mobile Apps', media: slides('mobile-apps'),
-    demos: [['bite.', 'Food ordering app: browse, customise, check out, track the rider', '/demo/app-food/', '/media/store/bite-app-1.webp']],
+    demos: [['bite.', 'Food ordering app: browse, customise, check out, track the rider', '/demo/app-food/', '/media/store/bite-app-1.webp', '/media/store/bite-app.mp4']],
     title: 'Apps your customers will use.',
     tagline: 'iOS and Android apps, from first sketch to the app store.',
     card: 'iOS and Android apps, from idea to app store.',
@@ -170,7 +170,7 @@ export const STORE = [
 // demo = live preview URL; media = cover images (first is the card image).
 // Items marked placeholder: true are not built yet: swap in real files, prices and previews before selling.
 export const PRODUCTS = [
-  { id: 'ember-restaurant', title: 'Ember & Salt Restaurant Theme', cat: 'themes', price: 9.99, badge: 'New', pop: 95, added: '2026-11-26', version: '1.0',
+  { id: 'ember-restaurant', video: '/media/store/ember-restaurant.mp4', title: 'Ember & Salt Restaurant Theme', cat: 'themes', price: 9.99, badge: 'New', pop: 95, added: '2026-11-26', version: '1.0',
     seo: 'Ember & Salt: Restaurant Website Theme with Interactive Menu, Ordering & Table Booking',
     summary: 'Restaurant theme with an interactive menu, basket and table booking.',
     about: 'A warm, modern website for restaurants, cafés and cloud kitchens. Guests filter the menu by category and diet, open any dish to pick add-ons, build an order with a live basket, then choose delivery or pick-up and watch a live order tracker. A table booking form handles day, time, guests and seating. Every dish illustration is drawn in code, so it stays sharp and swaps easily for your own photos.',
@@ -178,7 +178,7 @@ export const PRODUCTS = [
     tags: ['Restaurant', 'Café', 'Food', 'Ordering', 'Booking', 'Animated'], formats: ['HTML', 'CSS', 'Vanilla JS'], compatibility: 'HTML, CSS, Vanilla JS',
     features: ['Menu tabs, search and dietary filters', 'Dish details with add-ons and quantity', 'Live basket, delivery or pick-up, order tracker', 'Table booking with day, time, guests and seating', 'Animated ember hero with pointer parallax', 'Setup guide and free updates'],
     notes: ['Menu lives in one simple file you can edit', 'Respects reduced-motion settings', 'Connect ordering to WhatsApp or your POS'] },
-  { id: 'atlas-travel', title: 'Atlas Travel & Visa Theme', cat: 'themes', price: 9.99, badge: 'New', pop: 92, added: '2026-11-26', version: '1.0',
+  { id: 'atlas-travel', video: '/media/store/atlas-travel.mp4', title: 'Atlas Travel & Visa Theme', cat: 'themes', price: 9.99, badge: 'New', pop: 92, added: '2026-11-26', version: '1.0',
     seo: 'Atlas: Travel & Visa Agency Website Theme with Interactive 3D Globe',
     summary: 'Travel and visa agency theme with an interactive 3D globe.',
     about: 'A premium website for travel agencies and visa consultants. The hero is a 3D dotted globe you can spin, with flight paths from your city to every destination. Visitors pick their passport and destination to see visa type, processing time and price, browse destination cards that tilt in 3D, explore visa types, tick off a document checklist and request a call back.',
@@ -186,7 +186,7 @@ export const PRODUCTS = [
     tags: ['Travel', 'Visa', 'Agency', '3D', 'Globe', 'Lead generation'], formats: ['HTML', 'CSS', 'Vanilla JS'], compatibility: 'HTML, CSS, Vanilla JS, Canvas',
     features: ['Interactive 3D globe with animated flight paths', 'Visa checker by passport and destination', '3D tilt destination cards', 'Visa types, document checklist with progress ring', 'Scroll-linked "how it works" steps', 'Setup guide and free updates'],
     notes: ['No WebGL or libraries needed: runs on any modern browser', 'Destinations and visa details in one editable file', 'Respects reduced-motion settings'] },
-  { id: 'grit-ui-library', title: 'GRIT UI Library', cat: 'ui', price: 0, badge: 'New', pop: 99, added: '2026-11-26', version: '0.1',
+  { id: 'grit-ui-library', video: '/media/store/grit-ui-library.mp4', title: 'GRIT UI Library', cat: 'ui', price: 0, badge: 'New', pop: 99, added: '2026-11-26', version: '0.1',
     seo: 'GRIT UI Library: Interactive UI Elements by Industry (Copy-Paste HTML, CSS & JS)',
     summary: 'Live, copy-paste UI elements for restaurants, real estate, fashion, travel, salons and fitness.',
     about: 'A growing library of modern, interactive UI elements: magnetic buttons, 3D tilt cards, booking pickers, calculators, steppers, loaders and more, grouped by industry. Every element runs live in the browser, and one click copies self-contained HTML, CSS and JavaScript you can paste into any site.',
