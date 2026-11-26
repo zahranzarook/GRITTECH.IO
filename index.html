@@ -41,6 +41,10 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16 M4 12h16 M4 17h16"/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><path d="M9 3h6l2 2v4l-2 2H9L7 9V5z M3 21v-3l3-4h12l3 4v3z"/></symbol>
+    <symbol id="i-social" viewBox="0 0 24 24"><path d="M3 4h18v12H10l-5 4v-4H3z M7 8h10 M7 12h6"/></symbol>
+    <symbol id="i-studio" viewBox="0 0 24 24"><path d="M3 4h18v16H3z M6 16h4 M12 16h6 M6 12h8 M16 12h2 M14 6.5l3 2-3 2z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-3 2c1.5 3 3 4.5 6 6l2-3 5 2v4l-2 2C10 21 3 14 3 5z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z M3 12h18 M12 3c-3.5 4-3.5 14 0 18 M12 3c3.5 4 3.5 14 0 18"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14 M19 5L5 19"/></symbol>
   </svg>
 
@@ -151,18 +155,71 @@
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
           <div class="space-y-3">
             <span class="mt-label text-industrialLime block">01 // For businesses</span>
-            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Your website or app,<br class="hidden sm:block"/> built right.</h2>
-            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">You tell us what you need. We design it, build it and launch it.</p>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Grow your business<br class="hidden sm:block"/> with the right build.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">Pick what you need to see how we build it, step by step.</p>
           </div>
-          <div class="mt-seg" role="tablist" aria-label="Services">
-            <button type="button" role="tab" aria-selected="true" id="tab-web" onclick="selectServiceTab('web')">Websites</button>
-            <button type="button" role="tab" aria-selected="false" id="tab-app" onclick="selectServiceTab('app')">Mobile Apps</button>
-            <button type="button" role="tab" aria-selected="false" id="tab-ai" onclick="selectServiceTab('ai')">AI &amp; Automation</button>
-            <button type="button" role="tab" aria-selected="false" id="tab-creative" onclick="selectServiceTab('creative')">Ads &amp; Video</button>
-          </div>
+          <a href="#contact" class="mt-btn mt-btn--sm self-start lg:self-auto">Not sure? Ask Us</a>
         </div>
 
-        <div id="service-panel" class="mt-plate p-6 sm:p-10"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+          <!-- @tiles:services -->
+          <a href="/services/websites/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-3">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-web"/></svg><span class="mt-media__label">Cover soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">01</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Websites</h3>
+              <p class="text-sm text-softWhite/70">Business sites, landing pages and online stores.</p>
+            </div>
+          </a>
+          <a href="/services/mobile-apps/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-3">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-app"/></svg><span class="mt-media__label">Cover soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">02</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Mobile Apps</h3>
+              <p class="text-sm text-softWhite/70">iOS and Android apps, from idea to app store.</p>
+            </div>
+          </a>
+          <a href="/services/ai-automation/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-2">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-auto"/></svg><span class="mt-media__label">Cover soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">03</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">AI &amp; Automation</h3>
+              <p class="text-sm text-softWhite/70">AI agents, chatbots and automated workflows.</p>
+            </div>
+          </a>
+          <a href="/services/ads-video/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-2">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg><span class="mt-media__label">Cover soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">04</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Ads &amp; Video</h3>
+              <p class="text-sm text-softWhite/70">Product ads, promo videos and presenters.</p>
+            </div>
+          </a>
+          <a href="/services/social-media/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-2">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-social"/></svg><span class="mt-media__label">Cover soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">05</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Social Media</h3>
+              <p class="text-sm text-softWhite/70">Management, content and paid ads.</p>
+            </div>
+          </a>
+          <!-- /@tiles:services -->
+        </div>
 
         <!-- How it works -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
@@ -190,25 +247,71 @@
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
           <div class="space-y-3">
             <span class="mt-label text-industrialLime block">02 // For developers &amp; designers</span>
-            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Themes, UI kits &amp;<br class="hidden sm:block"/> project files.</h2>
-            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">Ready to use, fully editable. Download right after checkout.</p>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Ready-made files<br class="hidden sm:block"/> to build faster.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">Themes, UI elements, assets, project files and prompts. Download right after checkout.</p>
           </div>
-          <div class="w-full lg:w-72">
-            <label for="store-search" class="sr-only">Search the store</label>
-            <input type="search" id="store-search" oninput="searchStore(this.value)" placeholder="Search the store…" class="mt-input font-mono text-xs" />
-          </div>
+          <a href="/store/prompt-packs/" class="mt-btn mt-btn--sm self-start lg:self-auto">Start Free →</a>
         </div>
 
-        <div class="mt-seg mb-8" id="store-filters" role="tablist" aria-label="Product categories">
-          <button type="button" role="tab" aria-selected="true" data-cat="all" onclick="filterStore('all')">All</button>
-          <button type="button" role="tab" aria-selected="false" data-cat="themes" onclick="filterStore('themes')">Themes</button>
-          <button type="button" role="tab" aria-selected="false" data-cat="ui" onclick="filterStore('ui')">UI Elements</button>
-          <button type="button" role="tab" aria-selected="false" data-cat="files" onclick="filterStore('files')">Project Files</button>
-          <button type="button" role="tab" aria-selected="false" data-cat="assets" onclick="filterStore('assets')">Icons &amp; Assets</button>
-          <button type="button" role="tab" aria-selected="false" data-cat="free" onclick="filterStore('free')">Free</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+          <!-- @tiles:store -->
+          <a href="/store/website-themes/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-3">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-theme"/></svg><span class="mt-media__label">Preview soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">01</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Website Themes</h3>
+              <p class="text-sm text-softWhite/70">Complete sites for businesses, SaaS and portfolios.</p>
+            </div>
+          </a>
+          <a href="/store/ui-elements/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-3">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-grid"/></svg><span class="mt-media__label">Preview soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">02</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">UI Elements</h3>
+              <p class="text-sm text-softWhite/70">Components, kits and full page sections.</p>
+            </div>
+          </a>
+          <a href="/store/icons-assets/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-2">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shape"/></svg><span class="mt-media__label">Preview soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">03</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Icons &amp; Assets</h3>
+              <p class="text-sm text-softWhite/70">Icon sets, graphics and visual assets.</p>
+            </div>
+          </a>
+          <a href="/store/project-files/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-2">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file"/></svg><span class="mt-media__label">Preview soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">04</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Project Files</h3>
+              <p class="text-sm text-softWhite/70">Starter kits, dashboards and workflows.</p>
+            </div>
+          </a>
+          <a href="/store/prompt-packs/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 lg:col-span-2">
+            <div class="mt-media " data-media=""><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-prompt"/></svg><span class="mt-media__label">Preview soon</span></div>
+            <div class="px-2 pb-2 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="mt-label text-industrialLime">05</span>
+                <span class="mt-tile__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-softWhite">Prompt Packs</h3>
+              <p class="text-sm text-softWhite/70">Image, video and copy prompts. Start free.</p>
+            </div>
+          </a>
+          <!-- /@tiles:store -->
         </div>
-
-        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
       </div>
     </section>
 
@@ -230,12 +333,12 @@
             </div>
             <div>
               <span class="mt-label text-industrialLime block">In the lab</span>
-              <span class="font-display font-bold text-sm text-softWhite">3 tools on the way</span>
+              <span class="font-display font-bold text-sm text-softWhite">4 tools on the way</span>
             </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-start">
           <div class="mt-xcard">
             <button type="button" class="mt-xcard__front" aria-expanded="false">
               <span class="mt-key mt-key--lg shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-voice"/></svg></span>
@@ -283,6 +386,23 @@
               </div>
               <button type="button" onclick="openNotifyModal('FrameForge', 'Get early access to FrameForge')" class="mt-xcard__status w-full">
                 <span>Prototype · Join the waitlist</span><span>→</span>
+              </button>
+            </div></div>
+          </div>
+
+          <div class="mt-xcard">
+            <button type="button" class="mt-xcard__front" aria-expanded="false">
+              <span class="mt-key mt-key--lg shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-studio"/></svg></span>
+              <span><span class="mt-label text-industrialLime block">Creator toolkit</span><span class="font-display font-bold text-xl text-softWhite">GRIT Studio</span></span>
+              <span class="mt-xcard__plus" aria-hidden="true">+</span>
+            </button>
+            <div class="mt-xcard__tray"><div>
+              <div class="mt-xcard__stats">
+                <div><div class="mt-label">Does</div><b class="text-sm text-softWhite">Transcribe, caption, subtitle</b></div>
+                <div><div class="mt-label">Plus</div><b class="text-sm text-softWhite">Background remover, audio converter</b></div>
+              </div>
+              <button type="button" onclick="openNotifyModal('GRIT Studio', 'Get early access to GRIT Studio')" class="mt-xcard__status w-full">
+                <span>Coming soon · Join the waitlist</span><span>→</span>
               </button>
             </div></div>
           </div>
@@ -398,72 +518,21 @@
     ========================================================== -->
     <section id="work" data-nav="work" class="py-20 sm:py-28 bg-deepMatte border-b border-softWhite/10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="space-y-3 mb-12">
-          <span class="mt-label text-industrialLime block">05 // Recent work</span>
-          <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Built at GRIT.</h2>
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <div class="space-y-3">
+            <span class="mt-label text-industrialLime block">05 // Recent work</span>
+            <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Built at GRIT.</h2>
+            <p class="text-base sm:text-lg text-softWhite/75 max-w-xl">Websites, apps and tools we've designed and shipped.</p>
+          </div>
+          <div class="mt-seg" id="work-filters" role="tablist" aria-label="Filter work">
+            <button type="button" role="tab" aria-selected="true" data-work="all" onclick="filterWork('all')">All</button>
+            <button type="button" role="tab" aria-selected="false" data-work="Website" onclick="filterWork('Website')">Websites</button>
+            <button type="button" role="tab" aria-selected="false" data-work="App" onclick="filterWork('App')">Apps</button>
+            <button type="button" role="tab" aria-selected="false" data-work="Tool" onclick="filterWork('Tool')">Tools</button>
+            <button type="button" role="tab" aria-selected="false" data-work="Creative" onclick="filterWork('Creative')">Ads &amp; Video</button>
+          </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <article class="mt-plate p-6 sm:p-8 space-y-6">
-            <div class="mt-window">
-              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">Client portal</span></div>
-              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-web"/></svg><span class="mt-media__label">Preview soon</span></div>
-            </div>
-            <div class="space-y-2">
-              <h3 class="font-display font-bold text-xl text-softWhite">Client Portal &amp; Billing Hub</h3>
-              <p class="text-sm text-softWhite/75">Onboarding, invoices and project tracking in one login.</p>
-            </div>
-            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
-              <span class="text-industrialSage">Web platform</span>
-              <button type="button" onclick="openProjectModal('saas')" class="text-industrialLime hover:text-softWhite">Build me one →</button>
-            </div>
-          </article>
-
-          <article class="mt-plate p-6 sm:p-8 space-y-6">
-            <div class="mt-window">
-              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">Document agent</span></div>
-              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-auto"/></svg><span class="mt-media__label">Preview soon</span></div>
-            </div>
-            <div class="space-y-2">
-              <h3 class="font-display font-bold text-xl text-softWhite">Document Reading Agent</h3>
-              <p class="text-sm text-softWhite/75">Reads invoices and contracts, then files the data for you.</p>
-            </div>
-            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
-              <span class="text-industrialSage">AI &amp; automation</span>
-              <button type="button" onclick="openProjectModal('ai')" class="text-industrialLime hover:text-softWhite">Build me one →</button>
-            </div>
-          </article>
-
-          <article class="mt-plate p-6 sm:p-8 space-y-6">
-            <div class="mt-window">
-              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">Ad campaign</span></div>
-              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-play"/></svg><span class="mt-media__label">Video soon</span></div>
-            </div>
-            <div class="space-y-2">
-              <h3 class="font-display font-bold text-xl text-softWhite">AI Product Ad Campaign</h3>
-              <p class="text-sm text-softWhite/75">Launch ads in every format, from one script.</p>
-            </div>
-            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
-              <span class="text-industrialSage">Ads &amp; video</span>
-              <button type="button" onclick="openProjectModal('creative')" class="text-industrialLime hover:text-softWhite">Make mine →</button>
-            </div>
-          </article>
-
-          <article class="mt-plate p-6 sm:p-8 space-y-6">
-            <div class="mt-window">
-              <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">NYRA</span></div>
-              <div class="mt-media !rounded-none !shadow-none !border-0" data-media=""><svg class="ico" viewBox="0 0 24 24"><use href="#i-voice"/></svg><span class="mt-media__label">Demo soon</span></div>
-            </div>
-            <div class="space-y-2">
-              <h3 class="font-display font-bold text-xl text-softWhite">NYRA AI Receptionist</h3>
-              <p class="text-sm text-softWhite/75">Answers calls and WhatsApp, books appointments, day and night.</p>
-            </div>
-            <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
-              <span class="text-industrialSage">Voice AI</span>
-              <button type="button" onclick="openProjectModal('nyra')" class="text-industrialLime hover:text-softWhite">Get NYRA →</button>
-            </div>
-          </article>
-        </div>
+        <div id="work-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
       </div>
     </section>
 
@@ -501,17 +570,17 @@
             <div data-area="01" class="area-row mt-row mt-lift justify-between gap-4">
               <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">01</span>
                 <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Software</h3><p class="text-sm text-softWhite/70">Websites, apps and platforms.</p></div></div>
-              <a href="#services" onclick="selectServiceTab('web')" class="mt-btn mt-btn--sm shrink-0">Services</a>
+              <a href="/services/websites/" class="mt-btn mt-btn--sm shrink-0">Services</a>
             </div>
             <div data-area="02" class="area-row mt-row mt-lift justify-between gap-4">
               <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">02</span>
                 <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Intelligence</h3><p class="text-sm text-softWhite/70">AI agents and automation.</p></div></div>
-              <a href="#services" onclick="selectServiceTab('ai')" class="mt-btn mt-btn--sm shrink-0">Services</a>
+              <a href="/services/ai-automation/" class="mt-btn mt-btn--sm shrink-0">Services</a>
             </div>
             <div data-area="03" class="area-row mt-row mt-lift justify-between gap-4">
               <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">03</span>
                 <div><h3 class="font-display font-bold text-base text-softWhite">GRIT Creative</h3><p class="text-sm text-softWhite/70">AI ads, video and presenters.</p></div></div>
-              <a href="#services" onclick="selectServiceTab('creative')" class="mt-btn mt-btn--sm shrink-0">Services</a>
+              <a href="/services/ads-video/" class="mt-btn mt-btn--sm shrink-0">Services</a>
             </div>
             <div data-area="04" class="area-row mt-row mt-lift justify-between gap-4">
               <div class="flex items-center gap-4"><span class="mt-key !w-11 shrink-0 font-mono text-xs font-bold text-industrialLime">04</span>
@@ -544,14 +613,22 @@
             <span class="mt-label text-industrialLime block">07 // Contact</span>
             <h2 class="mt-h2 text-3xl sm:text-5xl text-softWhite">Have something in mind? Let's build it.</h2>
             <p class="text-base sm:text-lg text-softWhite/75">Tell us a little about it. We reply within 24 hours.</p>
-            <div class="space-y-3 pt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 pt-2">
+              <a href="tel:+971545605512" class="mt-row mt-lift">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-phone"/></svg></span>
+                <div><span class="mt-label block">Phone</span><span class="font-mono text-sm text-softWhite">+971 54 560 5512</span></div>
+              </a>
               <a href="mailto:hello@grittech.io" class="mt-row mt-lift">
                 <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
                 <div><span class="mt-label block">Projects</span><span class="font-mono text-sm text-softWhite">hello@grittech.io</span></div>
               </a>
-              <a href="mailto:resources@grittech.io" class="mt-row mt-lift">
+              <a href="mailto:orders@grittech.io" class="mt-row mt-lift">
                 <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-bag"/></svg></span>
-                <div><span class="mt-label block">Store support</span><span class="font-mono text-sm text-softWhite">resources@grittech.io</span></div>
+                <div><span class="mt-label block">Store support</span><span class="font-mono text-sm text-softWhite">orders@grittech.io</span></div>
+              </a>
+              <a href="https://www.grittech.io" class="mt-row mt-lift">
+                <span class="mt-key !w-11 shrink-0 text-industrialLime"><svg viewBox="0 0 24 24"><use href="#i-globe"/></svg></span>
+                <div><span class="mt-label block">Website</span><span class="font-mono text-sm text-softWhite">www.grittech.io</span></div>
               </a>
             </div>
           </div>
@@ -581,6 +658,7 @@
                       <option>A mobile app</option>
                       <option>AI or automation</option>
                       <option>Ads or video</option>
+                      <option>Social media</option>
                       <option>Help with a store purchase</option>
                       <option>Something else</option>
                     </select>
@@ -642,18 +720,20 @@
         <div class="lg:col-span-2 space-y-3">
           <span class="mt-label block">Build</span>
           <ul class="space-y-2 text-sm text-softWhite/75">
-            <li><a href="#services" onclick="selectServiceTab('web')" class="hover:text-industrialLime">Websites</a></li>
-            <li><a href="#services" onclick="selectServiceTab('app')" class="hover:text-industrialLime">Mobile apps</a></li>
-            <li><a href="#services" onclick="selectServiceTab('ai')" class="hover:text-industrialLime">AI &amp; automation</a></li>
-            <li><a href="#services" onclick="selectServiceTab('creative')" class="hover:text-industrialLime">Ads &amp; video</a></li>
+            <li><a href="/services/websites/" class="hover:text-industrialLime">Websites</a></li>
+            <li><a href="/services/mobile-apps/" class="hover:text-industrialLime">Mobile apps</a></li>
+            <li><a href="/services/ai-automation/" class="hover:text-industrialLime">AI &amp; automation</a></li>
+            <li><a href="/services/ads-video/" class="hover:text-industrialLime">Ads &amp; video</a></li>
+            <li><a href="/services/social-media/" class="hover:text-industrialLime">Social media</a></li>
           </ul>
         </div>
         <div class="lg:col-span-2 space-y-3">
           <span class="mt-label block">Shop</span>
           <ul class="space-y-2 text-sm text-softWhite/75">
-            <li><a href="#store" onclick="filterStore('themes')" class="hover:text-industrialLime">Themes</a></li>
-            <li><a href="#store" onclick="filterStore('ui')" class="hover:text-industrialLime">UI elements</a></li>
-            <li><a href="#store" onclick="filterStore('files')" class="hover:text-industrialLime">Project files</a></li>
+            <li><a href="/store/website-themes/" class="hover:text-industrialLime">Website themes</a></li>
+            <li><a href="/store/ui-elements/" class="hover:text-industrialLime">UI elements</a></li>
+            <li><a href="/store/icons-assets/" class="hover:text-industrialLime">Icons &amp; assets</a></li>
+            <li><a href="/store/project-files/" class="hover:text-industrialLime">Project files</a></li>
             <li><a href="#tools" class="hover:text-industrialLime">Tools</a></li>
           </ul>
         </div>
@@ -661,7 +741,7 @@
           <span class="mt-label block">Learn</span>
           <ul class="space-y-2 text-sm text-softWhite/75">
             <li><a href="#academy" class="hover:text-industrialLime">Academy</a></li>
-            <li><a href="#store" onclick="filterStore('free')" class="hover:text-industrialLime">Free downloads</a></li>
+            <li><a href="/store/prompt-packs/" class="hover:text-industrialLime">Prompt packs</a></li>
           </ul>
         </div>
         <div class="lg:col-span-2 space-y-3">
@@ -670,6 +750,7 @@
             <li><a href="#work" class="hover:text-industrialLime">Work</a></li>
             <li><a href="#about" class="hover:text-industrialLime">About</a></li>
             <li><a href="#contact" class="hover:text-industrialLime">Contact</a></li>
+            <li><a href="tel:+971545605512" class="hover:text-industrialLime">+971 54 560 5512</a></li>
           </ul>
         </div>
       </div>
@@ -704,6 +785,7 @@
             <option value="nyra">NYRA AI receptionist</option>
             <option value="ai">AI agent or automation</option>
             <option value="creative">Ads or video</option>
+            <option value="social">Social media</option>
             <option value="other">Something else</option>
           </select>
         </div>
@@ -718,11 +800,6 @@
         </div>
       </form>
     </div>
-  </div>
-
-  <!-- Product details -->
-  <div id="product-modal" class="mt-modal hidden" role="dialog" aria-modal="true">
-    <div id="product-modal-content" class="mt-plate max-w-2xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto"></div>
   </div>
 
   <!-- Notify / waitlist / free downloads -->
@@ -780,55 +857,13 @@
       learn: { icon: 'i-learn', title: 'Learn to build, for free',           text: 'Prompt packs, tutorials and starter files. Go Pro for full courses.', cta: 'Get Free Downloads →', action: "location.href='/account/?mode=signup&tab=academy'" }
     };
 
-    // Services tabs
-    const services = {
-      web: {
-        label: 'Websites', title: 'Websites that win customers', text: 'Fast, mobile-friendly sites built to turn visitors into enquiries.', key: 'web', cta: 'Get a Website Quote →',
-        items: [['i-web', 'Business websites'], ['i-theme', 'Landing pages'], ['i-bag', 'Online stores'], ['i-file', 'Booking & client portals']]
-      },
-      app: {
-        label: 'Mobile Apps', title: 'Apps your customers will use', text: 'iOS and Android apps, from first sketch to the app store.', key: 'app', cta: 'Get an App Quote →',
-        items: [['i-app', 'iOS & Android apps'], ['i-grid', 'App design (UI/UX)'], ['i-auto', 'Backend & integrations'], ['i-shape', 'Prototypes & MVPs']]
-      },
-      ai: {
-        label: 'AI & Automation', title: 'AI that does real work', text: 'Hand the repetitive jobs to software that never sleeps.', key: 'ai', cta: 'Get an AI Quote →',
-        items: [['i-voice', 'NYRA AI receptionist'], ['i-auto', 'Custom AI agents'], ['i-file', 'Document & data automation'], ['i-lock', 'Private, on-site AI']]
-      },
-      creative: {
-        label: 'Ads & Video', title: 'Ads and videos, made fast', text: 'Product ads, promo videos and digital presenters, made with AI.', key: 'creative', cta: 'Get a Creative Quote →',
-        items: [['i-play', 'Product ads'], ['i-film', 'Promo & explainer videos'], ['i-voice', 'Digital presenters'], ['i-theme', 'Social campaign packs']]
-      }
-    };
-
-    // Store catalogue (placeholder products; real files, prices and previews come later)
-    const categories = {
-      themes: { label: 'Theme', icon: 'i-theme' },
-      ui:     { label: 'UI Elements', icon: 'i-grid' },
-      files:  { label: 'Project Files', icon: 'i-file' },
-      assets: { label: 'Icons & Assets', icon: 'i-shape' },
-      free:   { label: 'Free', icon: 'i-prompt' }
-    };
-
-    const storeProducts = [
-      { id: 'obsidian-ui', title: 'Obsidian Core UI Kit', category: 'ui', price: 79, summary: 'Matte dark-mode components for Figma and Tailwind.', compatibility: 'Figma, HTML, Tailwind CSS',
-        features: ['Buttons, inputs, cards and switches', 'Figma file with design tokens', 'Copy-paste HTML + Tailwind', 'Free updates'] },
-      { id: 'nexus-saas-theme', title: 'Nexus SaaS Theme', category: 'themes', price: 59, summary: 'Dark site theme for SaaS and AI startups.', compatibility: 'HTML, Next.js',
-        features: ['Home, pricing, docs and blog pages', 'Responsive on every screen', 'Easy to rebrand', 'Free updates'] },
-      { id: 'studio-portfolio', title: 'Monolith Studio Theme', category: 'themes', price: 45, summary: 'Portfolio theme for agencies and studios.', compatibility: 'HTML, Tailwind CSS, Vanilla JS',
-        features: ['Case study layouts', 'Built-in enquiry form', 'No heavy frameworks', 'Free updates'] },
-      { id: 'portal-starter', title: 'Client Portal Starter', category: 'files', price: 69, summary: 'Dashboard starter with login, billing and files.', compatibility: 'React, TypeScript, Tailwind CSS',
-        features: ['Login and account screens', 'Billing and invoice tables', 'File upload area', 'Clean, commented code'] },
-      { id: 'agentic-blueprints', title: 'Automation Workflow Pack', category: 'files', price: 49, summary: 'Ready-to-import workflows for leads and documents.', compatibility: 'n8n, Make, Python',
-        features: ['Import in one click', 'Lead and document workflows', 'Works with cloud or local AI', 'Setup guide included'] },
-      { id: 'angular-icons', title: 'GRIT Angular Icons', category: 'assets', price: 29, summary: 'Sharp, geometric line icons for interfaces.', compatibility: 'SVG, React, Figma',
-        features: ['24px grid, 2px stroke', 'SVG and React versions', 'Figma library', 'Commercial licence'] },
-      { id: 'starter-prompts', title: 'Starter Prompt Pack', category: 'free', price: 0, summary: 'Free prompts for images, video and copy.', compatibility: 'Any AI image or text tool',
-        features: ['Copy-paste prompts', 'Image, video and copy', 'Examples included', 'Free forever'] }
+    // Recent work (add real projects here; set media to a screenshot or video in /public/media/)
+    const work = [
+      { type: 'Website', title: 'GRIT Technologies Website', text: 'This site: services, store and member area in one matte design.', icon: 'i-web', bar: 'grittech.io', tag: 'Website · Store · Accounts', link: '/', linkText: 'You\'re on it →' },
+      { type: 'Website', title: 'Client Portal & Billing Hub', text: 'Onboarding, invoices and project tracking in one login.', icon: 'i-file', bar: 'Client portal', tag: 'Web platform', start: 'saas', linkText: 'Build me one →' },
+      { type: 'Tool', title: 'NYRA AI Receptionist', text: 'Answers calls and WhatsApp, books appointments, day and night.', icon: 'i-voice', bar: 'NYRA', tag: 'Voice AI', start: 'nyra', linkText: 'Get NYRA →' },
+      { type: 'Creative', title: 'AI Product Ad Campaign', text: 'Launch ads in every format, from one script.', icon: 'i-play', bar: 'Ad campaign', tag: 'Ads & video', start: 'creative', linkText: 'Make mine →' },
     ];
-
-    let currentCategory = 'all';
-    let currentSearch = '';
-    let cart = [];
 
     // =========================================================
     // HERO CONSOLE
@@ -846,152 +881,57 @@
     }
 
     // =========================================================
-    // SERVICES
+    // RECENT WORK
     // =========================================================
-    function selectServiceTab(key) {
-      const s = services[key];
-      if (!s) return;
-      document.querySelectorAll('#services .mt-seg button').forEach(b => b.setAttribute('aria-selected', b.id === `tab-${key}` ? 'true' : 'false'));
-      document.getElementById('service-panel').innerHTML = `
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div class="lg:col-span-5 space-y-5">
-            <span class="mt-label text-industrialLime">${s.label}</span>
-            <h3 class="font-display font-bold text-2xl sm:text-3xl text-softWhite">${s.title}</h3>
-            <p class="text-base text-softWhite/75">${s.text}</p>
-            <button type="button" onclick="openProjectModal('${s.key}')" class="mt-btn mt-btn--primary">${s.cta}</button>
+    function filterWork(type) {
+      document.querySelectorAll('#work-filters button').forEach(b => b.setAttribute('aria-selected', b.dataset.work === type ? 'true' : 'false'));
+      const list = work.filter(w => type === 'all' || w.type === type);
+      document.getElementById('work-grid').innerHTML = list.length ? list.map(w => `
+        <article class="mt-plate p-6 sm:p-8 space-y-6">
+          <div class="mt-window">
+            <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">${w.bar}</span></div>
+            ${w.media
+              ? `<div class="mt-media !rounded-none !shadow-none !border-0">${/\.(mp4|webm)$/i.test(w.media) ? `<video src="${w.media}" autoplay muted loop playsinline></video>` : `<img src="${w.media}" alt="" loading="lazy" />`}</div>`
+              : `<div class="mt-media !rounded-none !shadow-none !border-0" data-media="">${icon(w.icon, 'ico')}<span class="mt-media__label">Preview soon</span></div>`}
           </div>
-          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            ${s.items.map(([ic, name]) => `
-              <div class="mt-well p-5 flex items-center gap-4">
-                <span class="mt-key !w-11 shrink-0 text-industrialLime">${icon(ic)}</span>
-                <span class="font-display font-bold text-base text-softWhite">${name}</span>
-              </div>`).join('')}
+          <div class="space-y-2">
+            <span class="mt-label text-industrialLime">${w.type}</span>
+            <h3 class="font-display font-bold text-xl text-softWhite">${w.title}</h3>
+            <p class="text-sm text-softWhite/75">${w.text}</p>
           </div>
-        </div>
-      `;
-    }
-
-    // =========================================================
-    // STORE
-    // =========================================================
-    const priceLabel = p => p.price === 0 ? 'Free' : `$${p.price}`;
-
-    function renderProducts() {
-      const grid = document.getElementById('product-grid');
-      const q = currentSearch.toLowerCase();
-      const list = storeProducts.filter(p =>
-        (currentCategory === 'all' || p.category === currentCategory) &&
-        (p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q)));
-
-      if (!list.length) {
-        grid.innerHTML = `
-          <div class="col-span-full mt-plate p-10 text-center space-y-4">
-            <p class="font-mono text-sm text-industrialSage">Nothing matches that yet.</p>
-            <button type="button" onclick="filterStore('all'); document.getElementById('store-search').value=''; searchStore('')" class="mt-btn mt-btn--sm">Show Everything</button>
-          </div>`;
-        return;
-      }
-
-      grid.innerHTML = list.map(p => {
-        const c = categories[p.category];
-        const free = p.price === 0;
-        return `
-        <article class="mt-plate mt-lift p-5 flex flex-col gap-5">
-          <div class="mt-media" data-media="">
-            ${icon(c.icon, 'ico')}
-            <span class="mt-media__label">Preview soon</span>
+          <div class="pt-3 border-t border-softWhite/10 flex items-center justify-between font-mono text-xs">
+            <span class="text-industrialSage">${w.tag}</span>
+            ${w.link ? `<a href="${w.link}" class="text-industrialLime hover:text-softWhite">${w.linkText}</a>`
+                     : `<button type="button" onclick="openProjectModal('${w.start}')" class="text-industrialLime hover:text-softWhite">${w.linkText}</button>`}
           </div>
-          <div class="space-y-2 flex-1">
-            <span class="mt-label text-industrialLime">${c.label}</span>
-            <div class="flex items-start justify-between gap-4">
-              <h3 class="font-display font-bold text-lg text-softWhite">${p.title}</h3>
-              <span class="font-display font-bold text-lg ${free ? 'text-industrialLime' : 'text-softWhite'}">${priceLabel(p)}</span>
-            </div>
-            <p class="text-sm text-softWhite/70">${p.summary}</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <button type="button" onclick="openProductPreview('${p.id}')" class="flex-1 mt-btn mt-btn--sm">Details</button>
-            ${free
-              ? `<a href="/account/?mode=signup&tab=academy" class="flex-1 mt-btn mt-btn--primary mt-btn--sm">Download</a>`
-              : `<button type="button" onclick="addToCart('${p.id}')" class="flex-1 mt-btn mt-btn--primary mt-btn--sm">Add to Cart</button>`}
-          </div>
-        </article>`;
-      }).join('');
-    }
-
-    function filterStore(category) {
-      currentCategory = category;
-      document.querySelectorAll('#store-filters button').forEach(b => b.setAttribute('aria-selected', b.dataset.cat === category ? 'true' : 'false'));
-      renderProducts();
-    }
-
-    function searchStore(query) {
-      currentSearch = query;
-      renderProducts();
-    }
-
-    function openProductPreview(id) {
-      const p = storeProducts.find(x => x.id === id);
-      if (!p) return;
-      const c = categories[p.category];
-      const free = p.price === 0;
-      document.getElementById('product-modal-content').innerHTML = `
-        <div class="flex items-center justify-between pb-4 mb-5 border-b border-softWhite/10">
-          <div>
-            <span class="mt-label text-industrialLime">${c.label}</span>
-            <h3 class="font-display font-bold text-2xl text-softWhite">${p.title}</h3>
-          </div>
-          <button type="button" onclick="closeModal('product-modal')" class="mt-key mt-key--round !w-10" aria-label="Close">${icon('i-close')}</button>
-        </div>
-        <div class="space-y-5">
-          <div class="mt-media" data-media="">${icon(c.icon, 'ico')}<span class="mt-media__label">Preview soon</span></div>
-          <p class="text-base text-softWhite/80">${p.summary}</p>
-          <ul class="space-y-2.5 text-sm text-softWhite/85">
-            ${p.features.map(f => `<li class="flex items-center gap-3">${icon('i-check', 'ico text-industrialLime')}${f}</li>`).join('')}
-          </ul>
-          <div class="mt-well p-4 font-mono text-xs">
-            <span class="mt-label block mb-1">Works with</span>
-            <span class="text-softWhite">${p.compatibility}</span>
-          </div>
-          <div class="pt-4 border-t border-softWhite/10 flex items-center justify-between gap-4">
-            <span class="font-display font-bold text-3xl ${free ? 'text-industrialLime' : 'text-softWhite'}">${free ? 'Free' : `$${p.price}`}</span>
-            ${free
-              ? `<a href="/account/?mode=signup&tab=academy" class="mt-btn mt-btn--primary">Download Free →</a>`
-              : `<button type="button" onclick="addToCart('${p.id}'); closeModal('product-modal')" class="mt-btn mt-btn--primary">Add to Cart →</button>`}
-          </div>
-        </div>
-      `;
-      openModal('product-modal');
+        </article>`).join('')
+        : `<div class="md:col-span-2 mt-well p-10 text-center space-y-2"><p class="font-display font-bold text-softWhite">Our first apps are on the way.</p><p class="text-sm text-softWhite/70">Have an app idea? <button type="button" onclick="openProjectModal('app')" class="text-industrialLime hover:text-softWhite">Let's build it →</button></p></div>`;
     }
 
     // =========================================================
-    // CART (simulated until payments are connected)
+    // CART (shared with store pages via localStorage; simulated until payments are connected)
     // =========================================================
-    function addToCart(id) {
-      const p = storeProducts.find(x => x.id === id);
-      if (!p) return;
-      if (cart.find(x => x.id === id)) { showToast(`${p.title} is already in your cart.`); return; }
-      cart.push(p);
-      updateCartUI();
-      showToast(`Added ${p.title} to your cart.`);
-    }
+    const CART_KEY = 'grit-cart';
+    const readCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
+    const writeCart = items => { try { localStorage.setItem(CART_KEY, JSON.stringify(items)); } catch {} };
 
     function removeFromCart(id) {
-      cart = cart.filter(x => x.id !== id);
+      writeCart(readCart().filter(x => x.id !== id));
       updateCartUI();
     }
 
     function updateCartUI() {
+      const cart = readCart();
       const count = document.getElementById('cart-count');
       count.textContent = cart.length;
       count.classList.toggle('hidden', cart.length === 0);
       const list = document.getElementById('cart-items-list');
       list.innerHTML = cart.length === 0
-        ? `<p class="font-mono text-xs text-industrialSage py-8 text-center">Your cart is empty.</p>`
+        ? `<p class="font-mono text-xs text-industrialSage py-8 text-center">Your cart is empty. <a href="#store" onclick="toggleCartDrawer()" class="text-industrialLime">Browse the store</a></p>`
         : cart.map(p => `
           <div class="mt-well p-3.5 flex items-center justify-between gap-3">
             <div>
-              <span class="font-mono text-[10px] text-industrialLime block">${categories[p.category].label}</span>
+              <span class="font-mono text-[10px] text-industrialLime block">${p.categoryLabel}</span>
               <span class="font-display font-semibold text-sm text-softWhite">${p.title}</span>
             </div>
             <div class="flex items-center gap-3">
@@ -1007,8 +947,8 @@
     }
 
     function checkoutCart() {
-      if (!cart.length) { showToast('Your cart is empty.'); return; }
-      cart = [];
+      if (!readCart().length) { showToast('Your cart is empty.'); return; }
+      writeCart([]);
       updateCartUI();
       toggleCartDrawer();
       showToast('Thanks! Your download links are on their way.');
@@ -1129,9 +1069,13 @@
     // =========================================================
     window.addEventListener('DOMContentLoaded', () => {
       selectNeed('build');
-      selectServiceTab('web');
-      renderProducts();
+      filterWork('all');
       updateCartUI();
+      window.addEventListener('storage', updateCartUI);
+
+      // Links from other pages: /?start=web opens the project form with that service chosen
+      const start = new URLSearchParams(location.search).get('start');
+      if (start !== null) { openProjectModal(start); history.replaceState(null, '', location.pathname); }
       selectAreaDial('all');
 
       // Expanding cards (.mt-xcard)

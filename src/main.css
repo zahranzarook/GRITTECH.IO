@@ -935,4 +935,10 @@ button.mt-xcard__status:hover { color: var(--mt-ink); }
 section[id] { scroll-margin-top: 90px; }
 .mt-label.text-industrialLime { color: var(--mt-accent); }
 
+/* ===== CLICKABLE TILES (services & store) ===== */
+.mt-tile { color: inherit; text-decoration: none; }
+.mt-tile__arrow { font: 600 16px var(--mt-mono); color: var(--mt-sub); transition: transform var(--mt-med) var(--mt-ease), color var(--mt-med); }
+.mt-tile:hover .mt-tile__arrow, .mt-row:hover .mt-tile__arrow { transform: translateX(4px); color: var(--mt-accent); }
+.mt-tile:focus-visible { outline: 2px solid var(--mt-accent); outline-offset: 3px; }
+
 @tailwind utilities;
