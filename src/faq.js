@@ -2,6 +2,25 @@
 // Each group ends with its cost question, so price comes last. Answers are plain text; links go in `more`.
 export const FAQ_GROUPS = [
   {
+    id: 'ai-tools', title: 'AI tools: ChatGPT, Claude, Gemini & Google Antigravity', more: ['/#contact', 'Talk to us about your project'],
+    qa: [
+      ['What are AI tools like ChatGPT, Claude and Gemini?',
+        'They are AI assistants you talk to in plain language. ChatGPT is made by OpenAI, Claude by Anthropic and Gemini by Google. They can write and edit text, answer questions, analyse documents and spreadsheets, create images and write code. Each has its own strengths, and many people use more than one.'],
+      ['What is Google Antigravity?',
+        'Google Antigravity is an AI-powered coding tool for developers. Instead of only suggesting code, its AI agents can plan a task, write the code, run it and check the result in a browser, while showing their work as task lists and screenshots. Similar tools include Claude Code from Anthropic, Codex from OpenAI and Cursor.'],
+      ['What is "vibe coding"?',
+        'Vibe coding means describing what you want in everyday words and letting an AI write the code. It has made it possible for non-developers to build simple pages, tools and prototypes in hours. It works best for quick ideas and experiments; production websites and apps still need someone who understands what the code is doing.'],
+      ['Can I build my own website or app with AI?',
+        'For something simple, often yes. AI tools like Claude and ChatGPT have made the process much easier. Where people get stuck is everything around the code: a design that fits the brand, writing that sells, speed on phones, Google rankings, security, payments, app store approval and fixing things when they break. That is why many business owners try it themselves first, then hire people with technical knowledge to get a result that works for their business.'],
+      ['If AI can write code, why do businesses still hire developers and designers?',
+        'Because AI does what it is told, and the hard part is knowing what to tell it. Business owners expect a website or app that brings in customers, looks original and keeps working. That takes research into the market and competitors, real design decisions, testing on real devices, and someone who can spot when the AI is confidently wrong. AI makes skilled people faster; it does not replace their judgement.'],
+      ['How does GRIT Technologies use AI in its work?',
+        'Strategically, and only where it helps. Every project starts with proper business research and understanding what you actually need. The creative direction, design and final decisions stay in our hands. We then use modern AI to speed up the work around them: drafting, prototyping, testing and repetitive build tasks. You get original work that fits your business, delivered faster.'],
+      ['Does using AI make a website or app cheaper?',
+        'It makes the work faster, which usually means fewer hours and an earlier launch. The price still depends on what you need built. GRIT Technologies gives a fixed written quote after a free first conversation, so the AI speed-up shows in the price and the timeline, not in shortcuts.'],
+    ],
+  },
+  {
     id: 'websites', title: 'Building a website in Dubai & the UAE', more: ['/services/websites/', 'Website design & development'],
     qa: [
       ['How do I create a website for my business in Dubai?',

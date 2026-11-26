@@ -442,7 +442,7 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
     <section class="max-w-3xl space-y-6 pb-12 border-b border-softWhite/10">
       <span class="mt-pill">${ico('i-learn', 'ico text-industrialLime')}Guides &amp; FAQ</span>
       <h1 class="mt-h1 text-4xl sm:text-6xl text-softWhite">Websites, apps &amp; digital assets: your questions answered.</h1>
-      <p class="text-lg text-softWhite/75">Straight answers on building a website or app in Dubai and the UAE, using AI in your business, making video ads, and finding themes, UI elements and 3D assets.</p>
+      <p class="text-lg text-softWhite/75">Straight answers on AI tools like ChatGPT, Claude and Google Antigravity, building a website or app in Dubai and the UAE, using AI in your business, making video ads, and finding themes, UI elements and 3D assets.</p>
       <nav class="flex flex-wrap gap-2" aria-label="Topics">
         ${FAQ_GROUPS.map(g => `<a href="#${g.id}" class="mt-tag">${esc(g.title)}</a>`).join('')}
       </nav>
@@ -477,7 +477,7 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
   mkdirSync('faq', { recursive: true });
   writeFileSync('faq/index.html', page({
     title: 'Web Design, App Development & 3D Assets FAQ: Dubai, UAE | GRIT Technologies',
-    desc: 'How to create a website or app in Dubai and the UAE, use AI in your business, make video ads, and download website themes, UI elements and 3D assets. Clear answers from GRIT Technologies.',
+    desc: 'AI tools like ChatGPT, Claude and Google Antigravity explained, plus how to create a website or app in Dubai and the UAE, use AI in your business, make video ads, and download website themes, UI elements and 3D assets. Clear answers from GRIT Technologies.',
     route: 'faq', body,
     head: `  <link rel="canonical" href="${SITE}/faq/" />\n  <meta property="og:title" content="Web Design, App Development &amp; 3D Assets FAQ: Dubai, UAE" />\n  <meta property="og:url" content="${SITE}/faq/" />\n  <script type="application/ld+json">${JSON.stringify(faqLd)}</script>` }));
 }
