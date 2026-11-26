@@ -103,7 +103,7 @@ export function createGlobe(canvas, { dots, home, dests, color = '#7fd1ff', arc 
           ctx.strokeStyle = `rgba(255,181,71,${1 - pr})`; ctx.lineWidth = 1.5 * dpr;
           ctx.beginPath(); ctx.arc(e[0], e[1], (5 + pr * 18) * dpr, 0, 7); ctx.stroke();
           ctx.font = `600 ${13 * dpr}px Manrope, system-ui, sans-serif`;
-          const label = `${d.city}`, w = ctx.measureText(label).width + 20 * dpr;
+          const label = `${d.label || d.city}`, w = ctx.measureText(label).width + 20 * dpr;
           ctx.fillStyle = 'rgba(7,12,31,.85)'; ctx.beginPath(); ctx.roundRect(e[0] + 12 * dpr, e[1] - 14 * dpr, w, 28 * dpr, 14 * dpr); ctx.fill();
           ctx.fillStyle = '#fff'; ctx.fillText(label, e[0] + 22 * dpr, e[1] + 5 * dpr);
         }
@@ -120,6 +120,7 @@ export function createGlobe(canvas, { dots, home, dests, color = '#7fd1ff', arc 
   canvas.style.cursor = 'grab';
 
   return {
+    labels(fn) { D.forEach(d => { d.label = fn(d.id); }); },
     focus(id) {
       const d = D.find(x => x.id === id); if (!d) return;
       active = id;

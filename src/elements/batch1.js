@@ -159,20 +159,25 @@ export const ELEMENTS = [
   {
     id: 'tilt-property-card', name: '3D Property Card', industry: 'Real estate', tags: ['3D', 'Card', 'Pointer', 'Photo'], stage: '#dfe5ee',
     desc: 'A listing card that tilts in real 3D with spring physics. The photo shifts inside its frame, the price and badges float above it, and the details lift on hover.',
-    html: `<div class="gk-scene"><article class="gk-card">
+    html: `<div class="gk-scene"><div class="gk-lang" role="group" aria-label="Language"><button class="on" data-l="en">EN</button><button data-l="ar">عربي</button></div><article class="gk-card">
   <div class="gk-card__img"><img src="https://grittech.io/demo/restaurant/img/interior.webp" alt="Marina Vista living room with marina view"></div>
-  <span class="gk-card__tag">● For sale</span>
+  <span class="gk-card__tag" data-ar="● للبيع">● For sale</span>
   <button class="gk-card__fav" aria-label="Save">♥</button>
-  <span class="gk-card__price">AED 3.45M</span>
+  <span class="gk-card__price" data-ar="3.45 مليون د.إ">AED 3.45M</span>
   <div class="gk-card__body">
-    <h3>Marina Vista Residence</h3>
-    <p>Dubai Marina · Full sea view</p>
-    <ul class="gk-card__specs"><li><b>2</b>Beds</li><li><b>3</b>Baths</li><li><b>1,420</b>sq ft</li></ul>
-    <div class="gk-card__foot"><span class="gk-card__agent"><i>RS</i>Rania S.<small>Agent</small></span><button class="gk-card__cta">Tour →</button></div>
+    <h3 data-ar="مارينا فيستا ريزيدنس">Marina Vista Residence</h3>
+    <p data-ar="دبي مارينا · إطلالة كاملة على البحر">Dubai Marina · Full sea view</p>
+    <ul class="gk-card__specs"><li><b>2</b><span data-ar="غرف">Beds</span></li><li><b>3</b><span data-ar="حمّامات">Baths</span></li><li><b>1,420</b><span data-ar="قدم²">sq ft</span></li></ul>
+    <div class="gk-card__foot"><span class="gk-card__agent"><i>RS</i><span><span data-ar="رانيا س.">Rania S.</span><small data-ar="وكيلة عقارية">Agent</small></span></span><button class="gk-card__cta" data-ar="جولة ←">Tour →</button></div>
   </div>
   <span class="gk-card__glare"></span>
 </article></div>`,
-    css: `.gk-scene{perspective:1000px;padding:20px}
+    css: `.gk-scene{perspective:1000px;padding:20px;display:grid;justify-items:center;gap:14px}
+.gk-lang{display:inline-flex;padding:3px;border-radius:99px;background:rgba(15,27,51,.08)}
+.gk-lang button{height:28px;padding:0 12px;border:0;border-radius:99px;background:none;color:#5b6680;font:700 12px system-ui,sans-serif;cursor:pointer;transition:background .25s,color .25s}
+.gk-lang button.on{background:#0f1b33;color:#fff}
+.gk-card[dir=rtl]{font-family:'IBM Plex Sans Arabic','Noto Sans Arabic',Tahoma,system-ui,sans-serif}
+.gk-card[dir=rtl] .gk-card__tag{left:auto;right:14px}.gk-card[dir=rtl] .gk-card__fav{right:auto;left:12px}.gk-card[dir=rtl] .gk-card__price{left:auto;right:14px}
 .gk-card{position:relative;width:300px;border-radius:24px;background:#fff;font:14px system-ui,sans-serif;color:#0f1b33;transform-style:preserve-3d;box-shadow:0 40px 60px -30px rgba(15,27,51,.55);will-change:transform}
 .gk-card__img{position:relative;height:200px;border-radius:24px 24px 0 0;overflow:hidden;transform:translateZ(0)}
 .gk-card__img img{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;will-change:transform}
@@ -207,6 +212,13 @@ export const ELEMENTS = [
     c.style.setProperty('--gx', (tx + .5) * 100 + '%'); c.style.setProperty('--gy', (ty + .5) * 100 + '%'); if (!raf) raf = requestAnimationFrame(loop); });
   c.addEventListener('pointerleave', function () { tx = ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
   c.querySelector('.gk-card__fav').onclick = function () { this.classList.toggle('on'); };
+  var sw = c.parentNode.querySelector('.gk-lang');
+  if (sw) sw.querySelectorAll('button').forEach(function (b) { b.onclick = function () {
+    var ar = b.dataset.l === 'ar';
+    sw.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    c.setAttribute('dir', ar ? 'rtl' : 'ltr'); c.setAttribute('lang', ar ? 'ar' : 'en');
+    c.querySelectorAll('[data-ar]').forEach(function (el) { if (!el.dataset.en) el.dataset.en = el.textContent; el.textContent = ar ? el.dataset.ar : el.dataset.en; });
+  }; });
 });`,
   },
   {

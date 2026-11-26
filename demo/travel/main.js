@@ -3,6 +3,13 @@ import { createGlobe } from './globe.js';
 import { smooth, revealHeadings, rise, gsap, ScrollTrigger, reduced } from '../../src/demo/motion.js';
 import LAND from './land.js';
 import { HOME, DEST, NATIONS, FREE, TYPES, CHECK } from './data.js';
+import { i18n } from '../../src/demo/i18n.js';
+import { DICT, DEST_AR, NATIONS_AR, TYPES_AR, CHECK_AR, HL_AR } from './ar.js';
+
+let L = 'en';
+const tr = (en, ar) => (L === 'ar' ? ar : en);
+const f = (d, k) => (L === 'ar' ? DEST_AR[d.id][k] : d[k]);
+const aed = n => tr(`AED ${n}`, `${n} د.إ`);
 
 demobar({ name: 'Atlas — travel & visa agency theme', buy: '/store/website-themes/atlas-travel/', start: 'web' });
 
@@ -13,14 +20,20 @@ const toast = m => { const t = $('#toast'); t.textContent = m; t.classList.add('
 
 // ---------- Globe + city pills ----------
 const globe = createGlobe($('#globe'), { dots: LAND, home: HOME, dests: DEST });
-$('#pills').innerHTML = DEST.slice(0, 6).map(d => `<button type="button" data-d="${d.id}">${d.city}</button>`).join('');
+const paintPills = () => { const on = $('#pills .is-on')?.dataset.d; $('#pills').innerHTML = DEST.slice(0, 6).map(d => `<button type="button" data-d="${d.id}" class="${d.id === on ? 'is-on' : ''}">${f(d, 'city')}</button>`).join(''); globe.labels(id => f(DEST.find(x => x.id === id), 'city')); };
+paintPills();
 $('#pills').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (b) pick(b.dataset.d, true); });
 
 // ---------- Visa checker ----------
-$('#nation').innerHTML = NATIONS.map(n => `<option>${n}</option>`).join('');
-const destOpts = DEST.map(d => `<option value="${d.id}">${d.country}</option>`).join('');
-$('#dest').innerHTML = destOpts;
-$('#leadDest').innerHTML = `<option value="">Where are you going?</option>` + destOpts;
+function paintSelects() {
+  const keep = [$('#nation').value, $('#dest').value, $('#leadDest').value];
+  $('#nation').innerHTML = NATIONS.map(n => `<option value="${n}">${tr(n, NATIONS_AR[n])}</option>`).join('');
+  const destOpts = DEST.map(d => `<option value="${d.id}">${f(d, 'country')}</option>`).join('');
+  $('#dest').innerHTML = destOpts;
+  $('#leadDest').innerHTML = `<option value="">${tr('Where are you going?', 'إلى أين ستسافر؟')}</option>` + destOpts;
+  if (keep[0]) [$('#nation').value, $('#dest').value, $('#leadDest').value] = keep;
+}
+paintSelects();
 function pick(id, fromPill) {
   $('#dest').value = id;
   $$('#pills button').forEach(b => b.classList.toggle('is-on', b.dataset.d === id));
@@ -31,12 +44,12 @@ function showResult() {
   const d = DEST.find(x => x.id === $('#dest').value), n = $('#nation').value;
   const free = (FREE[n] || []).includes(d.id);
   $('#result').outerHTML = `<div class="result" id="result" aria-live="polite">
-    <p class="tag">${d.city}, ${d.country} ${free ? '<i class="free">No visa needed</i>' : `<i>${d.visa}</i>`}</p>
-    <div><span>Processing</span><b>${free ? 'Not required' : d.days}</b></div>
-    <div><span>Documents</span><b>${free ? 'Passport only' : d.docs + ' items'}</b></div>
-    <div><span>Service from</span><b>${free ? '—' : 'AED ' + d.from}</b></div>
-    <a href="#contact" class="btn btn--amber" data-apply="${d.id}">${free ? 'Plan the trip' : 'Start application'}</a>
-    <p class="demo">Sample information for this demo. ${d.note}.</p>
+    <p class="tag">${f(d, 'city')}، ${f(d, 'country')} ${free ? `<i class="free">${tr('No visa needed', 'لا تحتاج تأشيرة')}</i>` : `<i>${f(d, 'visa')}</i>`}</p>
+    <div><span>${tr('Processing', 'مدة المعالجة')}</span><b>${free ? tr('Not required', 'غير مطلوبة') : f(d, 'days')}</b></div>
+    <div><span>${tr('Documents', 'المستندات')}</span><b>${free ? tr('Passport only', 'الجواز فقط') : tr(d.docs + ' items', d.docs + ' مستندات')}</b></div>
+    <div><span>${tr('Service from', 'الخدمة من')}</span><b>${free ? '—' : aed(d.from)}</b></div>
+    <a href="#contact" class="btn btn--amber" data-apply="${d.id}">${free ? tr('Plan the trip', 'خطط لرحلتك') : tr('Start application', 'ابدأ الطلب')}</a>
+    <p class="demo">${tr('Sample information for this demo.', 'معلومات تجريبية لهذا العرض.')} ${f(d, 'note')}.</p>
   </div>`;
 }
 $('#nation').addEventListener('change', showResult);
@@ -46,7 +59,8 @@ pick('uk');
 
 // ---------- Marquee ----------
 const HL = ['12,400+ visas processed', '98% approval rate', '60+ countries', 'Reply in 30 minutes', 'Documents checked by specialists', 'Passport pick-up & drop-off', 'Open 7 days'];
-$('#marquee').innerHTML = [...HL, ...HL].map(h => `<span>${h}</span>`).join('');
+const paintMarquee = () => { const H = L === 'ar' ? HL_AR : HL; $('#marquee').innerHTML = [...H, ...H].map(h => `<span>${h}</span>`).join(''); };
+paintMarquee();
 
 // ---------- Postcards (generated art, 3D tilt) ----------
 function postcard(d) {
@@ -60,6 +74,13 @@ function postcard(d) {
 }
 const rail = $('#rail');
 rail.innerHTML = DEST.map(postcard).join('');
+const paintCards = () => $$('.pc').forEach(c => {
+  const d = DEST.find(x => x.id === c.dataset.pc);
+  c.querySelector('h3').textContent = f(d, 'city');
+  c.querySelector('.pc__body p').textContent = `${f(d, 'country')} · ${f(d, 'visa')}`;
+  c.querySelector('.pc__row span').textContent = f(d, 'days');
+  c.querySelector('.pc__row b').textContent = tr(`from AED ${d.from}`, `من ${d.from} د.إ`);
+});
 rail.addEventListener('pointermove', e => {
   const c = e.target.closest('.pc'); if (!c || e.pointerType !== 'mouse') return;
   const b = c.getBoundingClientRect(), x = (e.clientX - b.left) / b.width, y = (e.clientY - b.top) / b.height;
@@ -72,11 +93,15 @@ rail.addEventListener('click', e => { const c = e.target.closest('[data-pc]'); i
 $$('[data-scroll]').forEach(b => b.onclick = () => rail.scrollBy({ left: +b.dataset.scroll * 320, behavior: 'smooth' }));
 
 // ---------- Visa types ----------
-$('#vtabs').innerHTML = TYPES.map(([n, d], i) => `<button type="button" role="tab" class="${i ? '' : 'is-on'}" data-t="${i}">${n} <span>${d.split(',')[0]}</span></button>`).join('');
+let vcur = 0;
+const T = i => (L === 'ar' ? TYPES_AR[i] : TYPES[i]);
+const paintVtabs = () => { $('#vtabs').innerHTML = TYPES.map((_, i) => `<button type="button" role="tab" class="${i === vcur ? 'is-on' : ''}" data-t="${i}">${T(i)[0]} <span>${T(i)[1].split(/[,،]/)[0].replace(/\.$/, '')}</span></button>`).join(''); };
+paintVtabs();
 function vt(i) {
-  const [n, d, docs] = TYPES[i];
+  vcur = i;
+  const en = TYPES[i][0], [n, d, docs] = T(i);
   $$('#vtabs button').forEach(b => b.classList.toggle('is-on', +b.dataset.t === i));
-  $('#vpanel').innerHTML = `<figure class="vpanel__img"><img src="/demo/travel/img/visa-${n.toLowerCase()}.webp" alt="${n} visa"></figure><p class="eyebrow">${n} visa</p><h3>${d}</h3><ul>${docs.map(x => `<li>${x}</li>`).join('')}</ul><a href="#contact" class="btn">Get a ${n.toLowerCase()} visa quote</a>`;
+  $('#vpanel').innerHTML = `<figure class="vpanel__img"><img src="/demo/travel/img/visa-${en.toLowerCase()}.webp" alt="${n}"></figure><p class="eyebrow">${tr(`${n} visa`, `تأشيرة ${n}`)}</p><h3>${d}</h3><ul>${docs.map(x => `<li>${x}</li>`).join('')}</ul><a href="#contact" class="btn">${tr(`Get a ${n.toLowerCase()} visa quote`, `اطلب عرض سعر لتأشيرة ${n}`)}</a>`;
 }
 $('#vtabs').addEventListener('click', e => { const b = e.target.closest('[data-t]'); if (b) vt(+b.dataset.t); });
 vt(0);
@@ -94,19 +119,20 @@ addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
 // ---------- Checklist ring ----------
 $('#list').innerHTML = CHECK.map((c, i) => `<li><label><input type="checkbox" data-c="${i}"><i>✓</i><span>${c}</span></label></li>`).join('');
+const paintList = () => $$('#list span').forEach((sp, i) => { sp.textContent = tr(CHECK[i], CHECK_AR[i]); });
 $('#list').addEventListener('change', () => {
   const n = $$('#list input:checked').length, k = n / CHECK.length;
   $('#ringFg').style.strokeDashoffset = 327 * (1 - k);
   $('#ringFg').style.stroke = k === 1 ? '#3ddc97' : '';
   $('#ringPct').textContent = Math.round(k * 100) + '%';
-  if (k === 1) toast('All set. You\'re ready to apply!');
+  if (k === 1) toast(tr('All set. You\'re ready to apply!', 'كل شيء جاهز. يمكنك التقديم الآن!'));
 });
 
 // ---------- Lead form ----------
 $('#lead').addEventListener('submit', e => {
   e.preventDefault();
-  const f = e.target;
-  f.innerHTML = `<div style="padding:20px 0"><h3 style="font:400 40px/1 var(--serif)">Thanks, ${f.name.value.split(' ')[0]}.</h3><p class="muted">A specialist will WhatsApp you within 30 minutes.</p></div>`;
+  const fm = e.target;
+  fm.innerHTML = `<div style="padding:20px 0"><h3 style="font:400 40px/1 var(--serif)">${tr(`Thanks, ${fm.name.value.split(' ')[0]}.`, `شكراً يا ${fm.name.value.split(' ')[0]}.`)}</h3><p class="muted">${tr('A specialist will WhatsApp you within 30 minutes.', 'سيتواصل معك مختص عبر واتساب خلال 30 دقيقة.')}</p></div>`;
 });
 
 // ---------- Smooth motion ----------
@@ -123,9 +149,17 @@ if (!reduced) {
     const r = $('#rail');
     r.classList.add('is-pinned');
     const dist = () => r.scrollWidth - innerWidth;
-    const tw = gsap.to(r, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.dest', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
+    const tw = gsap.to(r, { x: () => (document.documentElement.dir === 'rtl' ? dist() : -dist()), ease: 'none', scrollTrigger: { trigger: '.dest', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
     gsap.utils.toArray('.pc__bg img').forEach(img => gsap.fromTo(img, { xPercent: -8 }, { xPercent: 8, ease: 'none', scrollTrigger: { trigger: img.closest('.pc'), containerAnimation: tw, start: 'left right', end: 'right left', scrub: true } }));
     return () => r.classList.remove('is-pinned');
   });
   gsap.fromTo('.contact__card', { clipPath: 'inset(10% 6% round 36px)' }, { clipPath: 'inset(0% 0% round 36px)', ease: 'none', scrollTrigger: { trigger: '.contact', start: 'top 90%', end: 'top 30%', scrub: true } });
 }
+
+// ---------- Language (EN / Arabic) ----------
+const lang = i18n({ key: 'atlas-lang', mount: $('#head'), before: $('#head > .btn'), dict: DICT, onChange: l => {
+  L = l;
+  paintPills(); paintSelects(); showResult(); paintMarquee(); paintCards(); paintVtabs(); vt(vcur); paintList();
+  ScrollTrigger.refresh();
+} });
+lang.start();

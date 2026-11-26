@@ -383,6 +383,12 @@ for (const p of PRODUCTS) {
           ${buy}
           ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="mt-btn">Live Demo ↗</a>` : ''}
         </div>
+        ${p.cat === 'themes' ? `
+        <div class="mt-row !items-start flex-col sm:flex-row sm:!items-center gap-4 border-industrialLime/30">
+          <div class="flex-1"><h3 class="font-display font-bold text-softWhite text-base">Rather have it done for you?</h3>
+            <p class="text-sm text-softWhite/70">We set this theme up with your content, logo, domain and an Arabic version, and the theme is free when we build your site.</p></div>
+          <a href="/?start=web&theme=${p.id}" class="mt-btn mt-btn--sm shrink-0">Build it for me →</a>
+        </div>` : ''}
         <dl class="mt-well p-5 grid grid-cols-[auto,1fr] gap-x-6 gap-y-2.5 text-sm">
           ${meta.map(([k, v]) => `<dt class="mt-label">${k}</dt><dd class="text-softWhite/85">${v}</dd>`).join('')}
         </dl>

@@ -1,15 +1,24 @@
 import { demobar } from '../../src/demo/demobar.js';
 import { smooth, revealHeadings, rise, gsap, reduced } from '../../src/demo/motion.js';
-import { CATS, DIET, MENU } from './menu.js';
+import { CATS, DIET, MENU, AR, CATS_AR, DIET_AR } from './menu.js';
+import { i18n } from '../../src/demo/i18n.js';
+import { DICT } from './ar.js';
 
 demobar({ name: 'Ember & Salt — restaurant theme', buy: '/store/website-themes/ember-restaurant/', start: 'web' });
 
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const ICON = { veg: ['🌿', 'Vegetarian'], spicy: ['🌶', 'Spicy'], gf: ['GF', 'Gluten-free'], df: ['DF', 'Dairy-free'] };
+let L = 'en';
+const tr = (en, ar) => (L === 'ar' ? ar : en);
+const nm = d => tr(d.name, AR[d.id][0]);
+const ds = d => tr(d.desc, AR[d.id][1]);
+const addonName = (d, n) => tr(n, AR[d.id][2][d.addons.findIndex(a => a[0] === n)] || n);
+const catName = k => tr(CATS.find(c => c[0] === k)[1], CATS_AR[k]);
+const dietName = k => tr(ICON[k][1], DIET_AR[k]);
 const IMG = id => `/demo/restaurant/img/${id}.webp`;
-const artOf = d => `<img src="${IMG(d.id)}" alt="${d.name}" loading="lazy" decoding="async">`;
-const aed = n => `AED ${n}`;
+const artOf = d => `<img src="${IMG(d.id)}" alt="${nm(d)}" loading="lazy" decoding="async">`;
+const aed = n => (L === 'ar' ? `${n} د.إ` : `AED ${n}`);
 
 let toastT;
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('is-on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('is-on'), 2600); }
@@ -73,7 +82,8 @@ tabs.addEventListener('click', e => {
 addEventListener('resize', moveInk);
 document.fonts?.ready.then(moveInk);
 
-$('#diet').innerHTML = DIET.map(([k, n]) => `<button type="button" class="chip" data-diet="${k}" aria-pressed="false"><i>${ICON[k][0]}</i>${n}</button>`).join('');
+const paintDiet = () => { $('#diet').innerHTML = DIET.map(([k]) => `<button type="button" class="chip" data-diet="${k}" aria-pressed="${state.diet.has(k)}"><i>${ICON[k][0]}</i>${dietName(k)}</button>`).join(''); };
+paintDiet();
 $('#diet').addEventListener('click', e => {
   const b = e.target.closest('[data-diet]'); if (!b) return;
   const k = b.dataset.diet, on = !state.diet.has(k);
@@ -89,18 +99,18 @@ function control(d) {
     : `<button type="button" class="add" data-quick="${d.id}" aria-label="Add ${d.name}">+</button>`;
 }
 function render() {
-  const list = MENU.filter(d => (state.q ? (d.name + ' ' + d.desc).toLowerCase().includes(state.q) : d.cat === state.cat) && [...state.diet].every(t => d.tags.includes(t)));
+  const list = MENU.filter(d => (state.q ? (d.name + ' ' + d.desc + ' ' + AR[d.id][0] + ' ' + AR[d.id][1]).toLowerCase().includes(state.q) : d.cat === state.cat) && [...state.diet].every(t => d.tags.includes(t)));
   $('#grid').innerHTML = list.length ? list.map((d, i) => `
     <article class="card" tabindex="0" data-open="${d.id}" style="animation-delay:${i * 60}ms">
-      <div class="card__art">${artOf(d)}${d.sig ? '<span class="card__sig">Signature</span>' : ''}</div>
-      <h3>${d.name}</h3>
-      <p>${d.desc}</p>
+      <div class="card__art">${artOf(d)}${d.sig ? `<span class="card__sig">${tr('Signature', 'طبق مميّز')}</span>` : ''}</div>
+      <h3>${nm(d)}</h3>
+      <p>${ds(d)}</p>
       <div class="card__foot">
-        <span class="price"><small>AED</small>${d.price}</span>
-        <span class="icons">${d.tags.map(t => `<span title="${ICON[t][1]}">${ICON[t][0]}</span>`).join('')}</span>
+        <span class="price">${L === 'ar' ? `${d.price}<small> د.إ</small>` : `<small>AED</small>${d.price}`}</span>
+        <span class="icons">${d.tags.map(t => `<span title="${dietName(t)}">${ICON[t][0]}</span>`).join('')}</span>
         ${control(d)}
       </div>
-    </article>`).join('') : `<div class="empty">No dishes match those filters. Try removing one.</div>`;
+    </article>`).join('') : `<div class="empty">${tr('No dishes match those filters. Try removing one.', 'لا توجد أطباق تطابق هذه الفلاتر. جرّب إزالة أحدها.')}</div>`;
 }
 function refreshControls() { $$('.card').forEach(c => { const d = MENU.find(m => m.id === c.dataset.open); c.querySelector('.add, .mini').outerHTML = control(d); }); }
 
@@ -121,9 +131,9 @@ function paintBasket() {
   $('#subtotal').textContent = aed(sub); $('#fee').textContent = aed(fee); $('#total').textContent = aed(sub + fee);
   $('#feeRow').style.display = pickup ? 'none' : '';
   $('#basketItems').innerHTML = basket.size ? [...basket].map(([k, l]) => `
-    <div class="line">${artOf(l.d)}<div><b>${l.d.name}</b><small>${l.add.length ? l.add.join(', ') + ' · ' : ''}${aed(l.unit)}</small></div>
+    <div class="line">${artOf(l.d)}<div><b>${nm(l.d)}</b><small>${l.add.length ? l.add.map(n => addonName(l.d, n)).join('، ') + ' · ' : ''}${aed(l.unit)}</small></div>
       <div class="mini"><button type="button" data-line="${k}" data-d="-1" aria-label="Less">−</button><output>${l.qty}</output><button type="button" data-line="${k}" data-d="1" aria-label="More">+</button></div></div>`).join('')
-    : `<p class="muted" style="text-align:center;padding:40px 0">Your order is empty.<br>Add something from the fire.</p>`;
+    : `<p class="muted" style="text-align:center;padding:40px 0">${tr('Your order is empty.<br>Add something from the fire.', 'طلبك فارغ.<br>أضف شيئاً من الشواية.')}</p>`;
   refreshControls();
 }
 function fly(fromEl, d) {
@@ -140,11 +150,11 @@ const open = el => { el.classList.add('is-open'); el.setAttribute('aria-hidden',
 const close = el => { el.classList.remove('is-open'); el.setAttribute('aria-hidden', 'true'); };
 $('#basketBtn').onclick = () => open($('#basket'));
 $('#checkout').onclick = () => {
-  if (!basket.size) return toast('Add a dish first');
+  if (!basket.size) return toast(tr('Add a dish first', 'أضف طبقاً أولاً'));
   const no = 1000 + Math.floor(Math.random() * 9000);
   basket.clear(); paintBasket();
-  $('#basketItems').innerHTML = `<div class="done"><div class="done__tick">✓</div><h3>Order #${no}</h3><p class="muted">${pickup ? 'Ready for pick-up in about 20 minutes.' : 'Arriving in about 35 minutes.'}</p>
-    <ol class="track">${['Order received', 'On the grill', pickup ? 'Ready at the counter' : 'Out for delivery', pickup ? 'Collected' : 'Delivered'].map((s, i) => `<li${i === 0 ? ' class="is-done"' : ''}>${s}</li>`).join('')}</ol></div>`;
+  $('#basketItems').innerHTML = `<div class="done"><div class="done__tick">✓</div><h3>${tr('Order', 'الطلب')} #${no}</h3><p class="muted">${pickup ? tr('Ready for pick-up in about 20 minutes.', 'جاهز للاستلام خلال 20 دقيقة تقريباً.') : tr('Arriving in about 35 minutes.', 'يصل خلال 35 دقيقة تقريباً.')}</p>
+    <ol class="track">${(L === 'ar' ? ['تم استلام الطلب', 'على الشواية', pickup ? 'جاهز عند الكاونتر' : 'في الطريق إليك', pickup ? 'تم الاستلام' : 'تم التوصيل'] : ['Order received', 'On the grill', pickup ? 'Ready at the counter' : 'Out for delivery', pickup ? 'Collected' : 'Delivered']).map((s, i) => `<li${i === 0 ? ' class="is-done"' : ''}>${s}</li>`).join('')}</ol></div>`;
   $$('.track li').forEach((li, i) => setTimeout(() => li.classList.add('is-done'), i * 1400));
 };
 
@@ -153,21 +163,21 @@ let cur, curQty = 1;
 function openDish(d) {
   cur = d; curQty = 1;
   $('#dArt').innerHTML = artOf(d);
-  $('#dCat').textContent = CATS.find(c => c[0] === d.cat)[1];
-  $('#dName').textContent = d.name;
-  $('#dDesc').textContent = d.desc;
-  $('#dMeta').innerHTML = [`${d.kcal} kcal`, d.spice ? `<span class="spice">${'🌶'.repeat(d.spice)}</span>` : 'Not spicy', ...d.tags.filter(t => t !== 'spicy').map(t => ICON[t][1])].map(x => `<span>${x}</span>`).join('');
-  $('#dAddons').innerHTML = d.addons.map(([n, p]) => `<label class="addon"><input type="checkbox" value="${n}"><span>${n}</span><b>${p ? '+ ' + aed(p) : 'Free'}</b></label>`).join('');
+  $('#dCat').textContent = catName(d.cat);
+  $('#dName').textContent = nm(d);
+  $('#dDesc').textContent = ds(d);
+  $('#dMeta').innerHTML = [`${d.kcal} ${tr('kcal', 'سعرة')}`, d.spice ? `<span class="spice">${'🌶'.repeat(d.spice)}</span>` : tr('Not spicy', 'غير حار'), ...d.tags.filter(t => t !== 'spicy').map(dietName)].map(x => `<span>${x}</span>`).join('');
+  $('#dAddons').innerHTML = d.addons.map(([n, p]) => `<label class="addon"><input type="checkbox" value="${n}"><span>${addonName(d, n)}</span><b>${p ? '+ ' + aed(p) : tr('Free', 'مجاناً')}</b></label>`).join('');
   $('#dQty output').textContent = 1;
   priceBtn(); open($('#dishSheet'));
 }
 function priceBtn() {
   const extra = $$('#dAddons input:checked').reduce((s, i) => s + cur.addons.find(a => a[0] === i.value)[1], 0);
-  $('#dAdd').textContent = `Add ${curQty} · ${aed((cur.price + extra) * curQty)}`;
+  $('#dAdd').textContent = `${tr('Add', 'أضف')} ${curQty} · ${aed((cur.price + extra) * curQty)}`;
 }
 $('#dAddons').addEventListener('change', priceBtn);
 $('#dQty').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; curQty = Math.max(1, curQty + +b.dataset.d); $('#dQty output').textContent = curQty; priceBtn(); });
-$('#dAdd').onclick = () => { fly($('#dArt'), cur); addLine(cur, curQty, $$('#dAddons input:checked').map(i => i.value)); close($('#dishSheet')); toast(`${cur.name} added`); };
+$('#dAdd').onclick = () => { fly($('#dArt'), cur); addLine(cur, curQty, $$('#dAddons input:checked').map(i => i.value)); close($('#dishSheet')); toast(tr(`${cur.name} added`, `تمت إضافة ${nm(cur)}`)); };
 
 // ---------- Delegated clicks ----------
 document.addEventListener('click', e => {
@@ -189,8 +199,11 @@ document.addEventListener('keydown', e => {
 function segment(el, cb) { el.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; [...el.children].forEach(x => x.classList.toggle('is-on', x === b)); cb?.([...el.children].indexOf(b)); }); }
 segment($('#seating'));
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DAYS_AR = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
 const today = new Date();
-$('#days').innerHTML = Array.from({ length: 7 }, (_, i) => { const d = new Date(today); d.setDate(d.getDate() + i); return `<button type="button" class="${i ? '' : 'is-on'}" data-i="${i}"><span>${i ? DAYS[d.getDay()] : 'Today'}</span><b>${d.getDate()}</b></button>`; }).join('');
+$('#days').innerHTML = Array.from({ length: 7 }, (_, i) => { const d = new Date(today); d.setDate(d.getDate() + i); return `<button type="button" class="${i ? '' : 'is-on'}" data-i="${i}" data-dow="${d.getDay()}"><span></span><b>${d.getDate()}</b></button>`; }).join('');
+const paintDays = () => $$('#days button').forEach((b, i) => { b.querySelector('span').textContent = i ? tr(DAYS[b.dataset.dow], DAYS_AR[b.dataset.dow]) : tr('Today', 'اليوم'); });
+paintDays();
 const TIMES = ['12:30', '13:30', '14:30', '18:00', '19:00', '19:30', '20:00', '20:30', '21:30', '22:30'];
 function slots(day) {
   const full = new Set(TIMES.filter((_, i) => (i * 7 + day * 3) % 5 === 0));
@@ -204,10 +217,10 @@ $('[data-stepper]').addEventListener('click', e => { const b = e.target.closest(
 $('#bookForm').addEventListener('submit', e => {
   e.preventDefault();
   const time = $('#slots .is-on')?.textContent;
-  if (!time) return toast('Pick a time');
+  if (!time) return toast(tr('Pick a time', 'اختر وقتاً'));
   const day = $('#days .is-on');
   const f = e.target;
-  f.innerHTML = `<div class="done"><div class="done__tick">✓</div><h3>See you soon, ${f.name.value.split(' ')[0]}.</h3><p class="muted">Table for ${guests} · ${day.querySelector('span').textContent} ${day.querySelector('b').textContent} at ${time}<br>${$('#seating .is-on')?.textContent || 'Indoor'} · confirmation sent by SMS</p></div>`;
+  f.innerHTML = `<div class="done"><div class="done__tick">✓</div><h3>${tr(`See you soon, ${f.name.value.split(' ')[0]}.`, `نراك قريباً يا ${f.name.value.split(' ')[0]}.`)}</h3><p class="muted">${tr(`Table for ${guests}`, `طاولة لـ ${guests}`)} · ${day.querySelector('span').textContent} ${day.querySelector('b').textContent} ${tr('at', 'الساعة')} ${time}<br>${$('#seating .is-on')?.textContent || ''} · ${tr('confirmation sent by SMS', 'تم إرسال التأكيد برسالة نصية')}</p></div>`;
 });
 
 // ---------- Count-up stats ----------
@@ -237,3 +250,11 @@ if (!reduced) {
   gsap.fromTo('.book__chef img', { yPercent: -10 }, { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '.book__chef', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.fromTo('.visit .map img', { scale: 1.2 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.visit', start: 'top bottom', end: 'bottom top', scrub: true } });
 }
+
+// ---------- Language (EN / Arabic) ----------
+const lang = i18n({ key: 'ember-lang', mount: $('.head__end'), dict: DICT, onChange: l => {
+  L = l;
+  $$('#tabs [data-cat]').forEach(b => { b.textContent = catName(b.dataset.cat); });
+  paintDiet(); render(); paintBasket(); paintDays(); requestAnimationFrame(moveInk);
+} });
+lang.start();
