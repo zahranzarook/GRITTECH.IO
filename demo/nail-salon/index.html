@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Lumi Nail Lounge — Try your shade in 3D | Theme demo by GRIT</title>
-  <meta name="description" content="Lumi is a 3D nail salon website theme: try shades on a live 3D hand, see prices, shop polish and book an appointment.">
-  <meta name="theme-color" content="#f6e6ff">
+  <title>LUMI — Nail Lounge, Dubai · Theme demo by GRIT</title>
+  <meta name="description" content="LUMI is an editorial nail salon website theme: try every shade on a real hand, see the menu, shop polish and book a chair.">
+  <meta name="theme-color" content="#c8113f">
   <meta name="color-scheme" content="light only">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/demo/nail-salon/looks/fair-1.webp" type="image/webp">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -17,258 +18,178 @@
 <!-- GRIT live-demo bar (not part of the theme) -->
 <div class="demobar" id="demobar">
   <span class="demobar__tag">Live demo</span>
-  <span class="demobar__text">Lumi — 3D nail salon website theme by <b>GRIT Technologies</b></span>
+  <span class="demobar__text">LUMI — editorial nail salon theme by <b>GRIT Technologies</b></span>
   <a class="demobar__btn" href="/store/website-themes/">Get this theme</a>
   <a class="demobar__btn demobar__btn--ghost" href="/?start=web">Build one for my salon</a>
   <button class="demobar__close" type="button" aria-label="Hide demo bar" onclick="document.getElementById('demobar').remove()">×</button>
 </div>
 
-<header class="nav" id="top">
-  <a class="logo" href="#top" aria-label="Lumi Nail Lounge home">
-    <span class="logo__mark"></span>lumi<span class="logo__dot">.</span>
-  </a>
-  <nav class="nav__links" id="navLinks">
-    <a href="#tryon">Try on</a>
-    <a href="#services">Services</a>
+<header class="head" id="top">
+  <nav class="head__nav" aria-label="Main">
+    <a href="#shades">Shades</a>
+    <a href="#menu">Menu</a>
     <a href="#looks">Looks</a>
     <a href="#shop">Shop</a>
-    <a href="#visit">Visit</a>
   </nav>
-  <div class="nav__end">
-    <button class="iconbtn" type="button" id="bagBtn" aria-label="Open bag">
-      <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
-      <span class="iconbtn__count" id="bagCount">0</span>
-    </button>
-    <a class="btn btn--glossy btn--sm" href="#book">Book now</a>
-    <button class="iconbtn nav__menu" type="button" aria-label="Menu" onclick="document.body.classList.toggle('menu-open')">
-      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-    </button>
+  <a class="head__logo" href="#top" aria-label="LUMI home">LUMI</a>
+  <div class="head__end">
+    <a href="#book" class="head__link">Book</a>
+    <button type="button" class="head__link" id="bagBtn">Bag (<span id="bagCount">0</span>)</button>
+    <button type="button" class="head__menu" aria-label="Menu" onclick="document.body.classList.toggle('menu-open')"><span></span><span></span></button>
   </div>
 </header>
 
 <main>
-  <!-- HERO / TRY-ON -->
-  <section class="hero" id="tryon">
-    <div class="hero__copy">
-      <p class="eyebrow"><span class="spark">✦</span> Nail lounge · Jumeirah, Dubai</p>
-      <h1>Try your next shade <em>before</em> you sit down.</h1>
-      <p class="lede">Pick a colour, finish and shape — watch it land on your nails in 3D, then book the look in seconds.</p>
+  <!-- HERO: the try-on -->
+  <section class="hero" id="shades" aria-label="Try a shade">
+    <canvas class="hero__canvas" id="studio" aria-hidden="true"></canvas>
 
-      <div class="picker glass">
-        <div class="picker__row">
-          <div class="picker__label"><span>Shade</span><b id="shadeName">Raspberry</b>
-            <span class="skins" id="skins" role="group" aria-label="Skin tone">
-              <button type="button" class="skin is-active" data-skin="fair" style="--s:#eab39b" aria-label="Fair skin"></button>
-              <button type="button" class="skin" data-skin="deep" style="--s:#7e4f35" aria-label="Deep skin"></button>
-            </span></div>
-          <div class="collections" role="tablist" id="collections"></div>
-          <div class="swatches" id="swatches" role="listbox" aria-label="Nail shades"></div>
-        </div>
-        <div class="picker__row picker__row--split">
-          <div>
-            <div class="picker__label"><span>Finish</span></div>
-            <div class="chips" id="finishes"></div>
-          </div>
-          <div>
-            <div class="picker__label"><span>Shape</span></div>
-            <div class="chips" id="shapes"></div>
-          </div>
-        </div>
-        <div class="look">
-          <div class="look__nails" id="lookNails" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="look__text">
-            <b id="lookTitle">Gel manicure</b>
-            <span id="lookMeta">50 min · lasts 3 weeks</span>
-          </div>
-          <div class="look__price" id="lookPrice">AED 160</div>
-          <button class="btn btn--glossy" type="button" id="bookLook">Book this look</button>
-        </div>
+    <div class="hero__info">
+      <p class="kicker"><span id="shadeNo">N°04</span> — Gel colour</p>
+      <h1 class="hero__name" id="shadeName">Cerise</h1>
+      <p class="hero__desc" id="shadeDesc">A lit-from-within raspberry red.</p>
+      <div class="hero__buy">
+        <span class="hero__price">AED 55</span>
+        <button type="button" class="pill pill--solid" id="addShade">Add to bag</button>
+        <button type="button" class="pill" id="bookShade">Book this look</button>
       </div>
+      <dl class="hero__opts">
+        <div><dt>Finish</dt><dd class="opts" id="finishes"></dd></div>
+        <div><dt>Skin</dt><dd class="opts" id="skins">
+          <button type="button" data-skin="fair" class="is-on">Fair</button>
+          <button type="button" data-skin="deep">Deep</button></dd></div>
+      </dl>
     </div>
 
-    <div class="hero__stage">
-      <div class="stage__glow"></div>
-      <div class="stage__orb stage__orb--a"></div>
-      <div class="stage__orb stage__orb--b"></div>
-      <canvas id="handCanvas" aria-label="3D hand showing your selected nail look"></canvas>
-      <div class="stage__loading" id="stageLoading"><span></span>Warming up the polish…</div>
-      <div class="stage__hint" id="stageHint">
-        <svg viewBox="0 0 24 24"><path d="M8 12h8M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3"/></svg>Drag to turn the hand
-      </div>
-      <div class="stage__badge glass">
-        <b>4.9</b><span>★★★★★</span><small>1,200+ happy hands</small>
-      </div>
+    <div class="hero__angles" role="tablist" aria-label="Angle">
+      <button type="button" role="tab" data-pose="1" class="is-on">01</button>
+      <button type="button" role="tab" data-pose="2">02</button>
+      <button type="button" role="tab" data-pose="3">03</button>
+      <button type="button" role="tab" data-pose="4">04</button>
+      <span class="hero__hint">Drag to turn</span>
     </div>
+
+    <div class="lineup" id="lineup" role="listbox" aria-label="Shades"></div>
   </section>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
-      <span>Gel</span><i>✦</i><span>BIAB</span><i>✦</i><span>Chrome</span><i>✦</i><span>Acrylic extensions</span><i>✦</i><span>Nail art</span><i>✦</i><span>Spa pedicure</span><i>✦</i><span>Glazed donut</span><i>✦</i><span>French</span><i>✦</i>
-      <span>Gel</span><i>✦</i><span>BIAB</span><i>✦</i><span>Chrome</span><i>✦</i><span>Acrylic extensions</span><i>✦</i><span>Nail art</span><i>✦</i><span>Spa pedicure</span><i>✦</i><span>Glazed donut</span><i>✦</i><span>French</span><i>✦</i>
-    </div>
-  </div>
+  <!-- STATEMENT -->
+  <section class="statement">
+    <p class="statement__text">A nail lounge for people who <em>notice</em> the details. Gel, BIAB and nail art, done slowly and precisely in Jumeirah.</p>
+    <ul class="facts">
+      <li><b>21</b><span>days of wear, guaranteed</span></li>
+      <li><b>12</b><span>signature shades, made in-house</span></li>
+      <li><b>4.9</b><span>average from 1,200 reviews</span></li>
+    </ul>
+  </section>
 
-  <!-- SERVICES -->
-  <section class="section" id="services">
-    <div class="section__head">
-      <p class="eyebrow">Menu &amp; prices</p>
-      <h2>Treatments that <em>actually</em> last.</h2>
-      <div class="tabs" id="serviceTabs" role="tablist">
-        <button class="tab is-active" data-tab="hands" role="tab">Hands</button>
-        <button class="tab" data-tab="feet" role="tab">Feet</button>
-        <button class="tab" data-tab="extras" role="tab">Extras</button>
-      </div>
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="menu__head">
+      <p class="kicker">The menu</p>
+      <h2>Treatments <em>&amp; prices</em></h2>
+      <p class="muted">Every treatment includes shaping, cuticle care and a hand massage. Prices in AED.</p>
     </div>
-    <div class="services" id="serviceGrid"></div>
+    <div class="menu__list" id="menuList"></div>
   </section>
 
   <!-- LOOKS -->
-  <section class="section section--tint" id="looks">
-    <div class="section__head">
-      <p class="eyebrow">Trending looks</p>
-      <h2>Tap a look. <em>Wear it</em> in 3D.</h2>
-      <p class="sub">Our artists' most-booked sets this month — try any of them on the hand above.</p>
+  <section class="looks" id="looks">
+    <div class="sec-head">
+      <p class="kicker">Looks of the season</p>
+      <h2>Worn in <em>Jumeirah</em></h2>
     </div>
-    <div class="looks" id="lookGrid"></div>
+    <div class="looks__grid" id="lookGrid"></div>
   </section>
 
   <!-- SHOP -->
-  <section class="section" id="shop">
-    <div class="section__head">
-      <p class="eyebrow">Lumi at home</p>
-      <h2>Take the <em>shine</em> home.</h2>
-      <p class="sub">Salon-grade gels and care, shipped across the UAE in 24 hours.</p>
+  <section class="shop" id="shop">
+    <div class="sec-head">
+      <p class="kicker">Lumi at home</p>
+      <h2>Take the <em>shine</em> home</h2>
     </div>
-    <div class="shop" id="shopGrid"></div>
+    <div class="shop__grid" id="shopGrid"></div>
   </section>
 
-  <!-- BOOKING -->
-  <section class="section section--book" id="book">
-    <div class="section__head">
-      <p class="eyebrow">Book an appointment</p>
-      <h2>Your chair is <em>waiting.</em></h2>
-    </div>
-
-    <div class="booking glass">
+  <!-- BOOK -->
+  <section class="book" id="book">
+    <div class="book__head">
+      <p class="kicker">Appointments</p>
+      <h2>Book a <em>chair</em></h2>
       <ol class="steps" id="steps">
-        <li class="is-active"><span>1</span>Treatment</li>
-        <li><span>2</span>Artist</li>
-        <li><span>3</span>Date &amp; time</li>
-        <li><span>4</span>Your details</li>
+        <li class="is-on"><span>01</span>Treatment</li><li><span>02</span>Artist</li><li><span>03</span>Date &amp; time</li><li><span>04</span>Details</li>
       </ol>
-
-      <div class="booking__body">
-        <div class="booking__panes">
-          <div class="pane is-active" data-pane="1">
-            <h3>What are we doing today?</h3>
-            <div class="optlist" id="bookServices"></div>
-          </div>
-          <div class="pane" data-pane="2">
-            <h3>Choose your artist</h3>
-            <div class="artists" id="bookArtists"></div>
-          </div>
-          <div class="pane" data-pane="3">
-            <h3>Pick a date</h3>
-            <div class="dates" id="bookDates"></div>
-            <h3 class="mt">Available times</h3>
-            <div class="times" id="bookTimes"></div>
-          </div>
-          <div class="pane" data-pane="4">
-            <h3>Almost done</h3>
-            <form class="form" id="bookForm" novalidate>
-              <label>Full name<input name="name" required autocomplete="name" placeholder="Aisha Khan"></label>
-              <label>Mobile<input name="phone" required autocomplete="tel" inputmode="tel" placeholder="+971 50 123 4567"></label>
-              <label class="full">Email <small>(optional)</small><input name="email" type="email" autocomplete="email" placeholder="you@email.com"></label>
-              <label class="full">Notes for your artist<textarea name="note" rows="3" placeholder="Inspo, allergies, removal needed…"></textarea></label>
-            </form>
-          </div>
-          <div class="pane pane--done" data-pane="5">
-            <div class="done__icon">✓</div>
-            <h3>You're booked, <span id="doneName">gorgeous</span>!</h3>
-            <p id="doneText">We've sent a confirmation by SMS.</p>
-            <p class="done__ref">Booking ref <b id="doneRef">LUMI-0000</b></p>
-            <div class="done__actions">
-              <button class="btn btn--glossy" type="button" id="addCal">Add to calendar</button>
-              <button class="btn btn--ghost" type="button" id="bookAgain">Book another</button>
-            </div>
+    </div>
+    <div class="book__body">
+      <div class="book__panes">
+        <div class="pane is-on" data-pane="1"><div class="optlist" id="bookServices"></div></div>
+        <div class="pane" data-pane="2"><div class="artists" id="bookArtists"></div></div>
+        <div class="pane" data-pane="3">
+          <div class="dates" id="bookDates"></div>
+          <div class="times" id="bookTimes"></div>
+        </div>
+        <div class="pane" data-pane="4">
+          <form class="form" id="bookForm" novalidate>
+            <label>Full name<input name="name" required autocomplete="name" placeholder="Aisha Khan"></label>
+            <label>Mobile<input name="phone" required autocomplete="tel" inputmode="tel" placeholder="+971 50 123 4567"></label>
+            <label class="full">Email <small>(optional)</small><input name="email" type="email" autocomplete="email" placeholder="you@email.com"></label>
+            <label class="full">Notes for your artist<textarea name="note" rows="3" placeholder="Inspiration, removal needed…"></textarea></label>
+          </form>
+        </div>
+        <div class="pane pane--done" data-pane="5">
+          <p class="kicker">Confirmed</p>
+          <h3>See you soon, <em id="doneName">gorgeous</em>.</h3>
+          <p id="doneText">A confirmation is on its way by SMS.</p>
+          <p class="done__ref">Ref <b id="doneRef">LUMI-0000</b></p>
+          <div class="done__actions">
+            <button class="pill pill--solid" type="button" id="addCal">Add to calendar</button>
+            <button class="pill" type="button" id="bookAgain">Book another</button>
           </div>
         </div>
-
-        <aside class="summary">
-          <p class="summary__title">Your appointment</p>
-          <div class="summary__look" id="sumLook">
-            <div class="look__nails" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-            <span id="sumLookText">Look: Raspberry · Gloss · Almond</span>
-          </div>
-          <ul class="summary__list" id="sumList"><li class="muted">No treatment yet</li></ul>
-          <dl class="summary__meta">
-            <div><dt>Artist</dt><dd id="sumArtist">—</dd></div>
-            <div><dt>When</dt><dd id="sumWhen">—</dd></div>
-            <div><dt>Duration</dt><dd id="sumDur">—</dd></div>
-          </dl>
-          <div class="summary__total"><span>Total</span><b id="sumTotal">AED 0</b></div>
-          <div class="summary__nav">
-            <button class="btn btn--ghost" type="button" id="prevStep" disabled>Back</button>
-            <button class="btn btn--glossy" type="button" id="nextStep">Continue</button>
-          </div>
-          <p class="summary__note">Free cancellation up to 4 hours before. Pay at the lounge.</p>
-        </aside>
       </div>
-    </div>
-  </section>
-
-  <!-- REVIEWS -->
-  <section class="section" id="reviews">
-    <div class="section__head">
-      <p class="eyebrow">Kind words</p>
-      <h2>Hands down, <em>the best.</em></h2>
-    </div>
-    <div class="reviews">
-      <figure class="review glass"><div class="stars">★★★★★</div><blockquote>Tried chrome on the 3D hand at midnight, booked it, and it looked exactly like that the next day. Obsessed.</blockquote><figcaption><span class="av">S</span>Sara M. <small>Glazed chrome · almond</small></figcaption></figure>
-      <figure class="review glass"><div class="stars">★★★★★</div><blockquote>My BIAB lasted almost four weeks with zero lifting. Maya is a genius with shape.</blockquote><figcaption><span class="av">R</span>Reem A. <small>BIAB · oval</small></figcaption></figure>
-      <figure class="review glass"><div class="stars">★★★★★</div><blockquote>Calm, spotless and so pretty inside. The spa pedicure is my monthly treat now.</blockquote><figcaption><span class="av">L</span>Lina K. <small>Spa pedicure</small></figcaption></figure>
+      <aside class="summary">
+        <div class="summary__look" id="sumLook"><i id="sumSwatch"></i><span id="sumLookText">Cerise · Gloss</span></div>
+        <ul class="summary__list" id="sumList"></ul>
+        <dl class="summary__meta">
+          <div><dt>Artist</dt><dd id="sumArtist">—</dd></div>
+          <div><dt>When</dt><dd id="sumWhen">—</dd></div>
+          <div><dt>Duration</dt><dd id="sumDur">—</dd></div>
+        </dl>
+        <div class="summary__total"><span>Total</span><b id="sumTotal">AED 0</b></div>
+        <div class="summary__nav">
+          <button class="pill" type="button" id="prevStep" disabled>Back</button>
+          <button class="pill pill--solid" type="button" id="nextStep">Continue</button>
+        </div>
+        <p class="summary__note">Free cancellation up to 4 hours before. Pay at the lounge.</p>
+      </aside>
     </div>
   </section>
 
   <!-- VISIT -->
-  <section class="section" id="visit">
-    <div class="visit glass">
-      <div class="visit__info">
-        <p class="eyebrow">Visit the lounge</p>
-        <h2>Pink door, <em>Jumeirah.</em></h2>
-        <ul class="visit__list">
-          <li><b>Address</b><span>Villa 12, Al Wasl Road, Jumeirah 1, Dubai</span></li>
-          <li><b>Hours</b><span>Sat – Thu 10:00 – 22:00 · Fri 14:00 – 22:00</span></li>
-          <li><b>Call / WhatsApp</b><span>+971 4 000 0000</span></li>
-          <li><b>Parking</b><span>Free valet at the door</span></li>
-        </ul>
-        <a class="btn btn--glossy" href="#book">Book a chair</a>
-      </div>
-      <div class="visit__map" aria-label="Map placeholder">
-        <div class="map__pin"><span>lumi.</span></div>
-        <div class="map__road map__road--a"></div><div class="map__road map__road--b"></div><div class="map__road map__road--c"></div>
-      </div>
-    </div>
+  <section class="visit" id="visit">
+    <div><p class="kicker">Visit</p><p class="visit__big">Villa 12, Al Wasl Road<br>Jumeirah 1, Dubai</p></div>
+    <div><p class="kicker">Hours</p><p>Saturday – Thursday<br>10:00 – 22:00</p><p>Friday<br>14:00 – 22:00</p></div>
+    <div><p class="kicker">Contact</p><p>+971 4 000 0000<br>hello@lumi.ae</p><p>Free valet at the door</p></div>
   </section>
 </main>
 
-<footer class="footer">
-  <a class="logo" href="#top"><span class="logo__mark"></span>lumi<span class="logo__dot">.</span></a>
-  <p>Nail lounge &amp; shop · Dubai</p>
-  <nav><a href="#services">Services</a><a href="#shop">Shop</a><a href="#book">Book</a><a href="#visit">Contact</a></nav>
-  <p class="footer__small">© <span id="year"></span> Lumi Nail Lounge — a demo brand. Theme designed &amp; built by <a href="/">GRIT Technologies</a>.</p>
+<footer class="foot">
+  <p class="foot__word" aria-hidden="true">LUMI</p>
+  <div class="foot__row">
+    <span>© <span id="year"></span> Lumi Nail Lounge — a demo brand</span>
+    <nav><a href="#shades">Shades</a><a href="#menu">Menu</a><a href="#shop">Shop</a><a href="#book">Book</a></nav>
+    <span>Theme by <a href="/">GRIT Technologies</a></span>
+  </div>
 </footer>
 
 <!-- BAG -->
 <div class="drawer" id="bag" aria-hidden="true">
   <div class="drawer__scrim" data-close></div>
   <aside class="drawer__panel" role="dialog" aria-label="Your bag">
-    <div class="drawer__head"><h3>Your bag</h3><button class="iconbtn" type="button" data-close aria-label="Close bag">×</button></div>
+    <div class="drawer__head"><h3>Bag</h3><button type="button" class="head__link" data-close>Close</button></div>
     <ul class="bag" id="bagList"></ul>
     <div class="drawer__foot">
       <div class="summary__total"><span>Subtotal</span><b id="bagTotal">AED 0</b></div>
-      <button class="btn btn--glossy btn--block" type="button" id="checkout">Checkout</button>
-      <p class="summary__note">Free delivery over AED 150 across the UAE.</p>
+      <button class="pill pill--solid pill--block" type="button" id="checkout">Checkout</button>
     </div>
   </aside>
 </div>
