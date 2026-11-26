@@ -70,67 +70,101 @@ function addToCart(id) {
 // ---- Store grid -----------------------------------------------------------
 const grid = $('product-grid');
 const priceLabel = p => (p.price === 0 ? 'Free' : `$${p.price}`);
+const productUrl = p => `/store/${catOf(p.cat)?.slug}/${p.id}/`;
 const buyButton = (p, big = false) => p.price === 0
   ? `<a href="${SIGNUP}" class="${big ? '' : 'flex-1 '}mt-btn mt-btn--primary${big ? '' : ' mt-btn--sm'}">${big ? 'Download Free →' : 'Download'}</a>`
   : `<button type="button" data-add="${p.id}" class="${big ? '' : 'flex-1 '}mt-btn mt-btn--primary${big ? '' : ' mt-btn--sm'}">${big ? 'Add to Cart →' : 'Add to Cart'}</button>`;
+const badgeOf = p => p.badge || (p.price === 0 ? 'Free' : '');
 
-function renderProducts() {
-  if (!grid) return;
-  const cat = catOf(grid.dataset.cat);
-  const q = ($('store-search')?.value || '').toLowerCase();
-  const sort = $('store-sort')?.value || 'featured';
-  let list = PRODUCTS.filter(p => p.cat === grid.dataset.cat && (p.title + ' ' + p.summary).toLowerCase().includes(q));
-  if (sort === 'low') list = [...list].sort((a, b) => a.price - b.price);
-  if (sort === 'high') list = [...list].sort((a, b) => b.price - a.price);
-  $('product-count').textContent = `${list.length} ${list.length === 1 ? 'product' : 'products'}`;
+// Filters live in the URL (?tag=WebGL&format=HTML&price=free) so tag links on product pages land pre-filtered.
+const params = new URLSearchParams(location.search);
+const picked = { tag: new Set(params.getAll('tag')), format: new Set(params.getAll('format')), price: new Set(params.getAll('price')) };
+const inCat = () => PRODUCTS.filter(p => p.cat === grid.dataset.cat);
 
-  grid.innerHTML = list.length ? list.map(p => `
-    <article class="mt-plate mt-lift p-5 flex flex-col gap-5">
-      <div class="mt-media" data-media="">${icon(cat.icon, 'ico')}<span class="mt-media__label">Preview soon</span></div>
+function counts(list, key) {
+  const m = new Map();
+  list.forEach(p => (p[key] || []).forEach(v => m.set(v, (m.get(v) || 0) + 1)));
+  return [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+function checkbox(group, value, n) {
+  return `<label class="mt-check"><input type="checkbox" data-filter="${group}" value="${value}" ${picked[group].has(value) ? 'checked' : ''} /><span>${value}</span><em>${n}</em></label>`;
+}
+function renderFilters() {
+  const box = $('store-filters');
+  if (!box) return;
+  const list = inCat();
+  const free = list.filter(p => p.price === 0).length;
+  const group = (title, body) => body ? `<div class="space-y-1.5"><span class="mt-label block mb-2">${title}</span>${body}</div>` : '';
+  box.innerHTML = [
+    group('Tags', counts(list, 'tags').map(([v, n]) => checkbox('tag', v, n)).join('')),
+    group('Formats', counts(list, 'formats').map(([v, n]) => checkbox('format', v, n)).join('')),
+    group('Price', (free ? checkbox('price', 'Free', free) : '') + (list.length - free ? checkbox('price', 'Paid', list.length - free) : '')),
+  ].join('');
+}
+function syncUrl() {
+  const q = new URLSearchParams();
+  for (const [k, set] of Object.entries(picked)) set.forEach(v => q.append(k, v));
+  const s = $('store-search')?.value.trim();
+  if (s) q.set('q', s);
+  history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+}
+
+function card(p) {
+  const cat = catOf(p.cat);
+  const img = p.media?.[0];
+  const badge = badgeOf(p);
+  return `
+    <article class="mt-tile mt-plate mt-lift p-5 flex flex-col gap-4">
+      <div class="mt-media" ${img ? '' : 'data-media=""'}>
+        ${img ? `<img src="${img}" alt="${p.title} preview" loading="lazy" decoding="async" />` : `${icon(cat.icon, 'ico')}<span class="mt-media__label">Preview soon</span>`}
+        ${badge ? `<span class="mt-badge">${badge}</span>` : ''}
+      </div>
       <div class="space-y-2 flex-1">
         <div class="flex items-start justify-between gap-4">
-          <h3 class="font-display font-bold text-lg text-softWhite">${p.title}</h3>
+          <h3 class="font-display font-bold text-lg text-softWhite"><a href="${productUrl(p)}" class="mt-tile__link">${p.title}</a></h3>
           <span class="font-display font-bold text-lg ${p.price === 0 ? 'text-industrialLime' : 'text-softWhite'}">${priceLabel(p)}</span>
         </div>
         <p class="text-sm text-softWhite/70">${p.summary}</p>
+        <p class="font-mono text-[10px] uppercase tracking-wider text-industrialSage">${(p.formats || []).join(' · ')} <span class="mx-1">/</span> By GRIT</p>
       </div>
+      <div class="flex flex-wrap gap-1.5">${(p.tags || []).slice(0, 4).map(t => `<span class="mt-tag">${t}</span>`).join('')}</div>
       <div class="flex items-center gap-3">
-        <button type="button" data-details="${p.id}" class="flex-1 mt-btn mt-btn--sm">Details</button>
+        ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="flex-1 mt-btn mt-btn--sm">Live Demo ↗</a>` : `<a href="${productUrl(p)}" class="flex-1 mt-btn mt-btn--sm">Details</a>`}
         ${buyButton(p)}
       </div>
-    </article>`).join('')
-    : `<div class="col-span-full mt-well p-10 text-center font-mono text-sm text-industrialSage">Nothing matches that search yet.</div>`;
+    </article>`;
 }
 
-function openProductPreview(id) {
-  const p = PRODUCTS.find(x => x.id === id);
-  if (!p) return;
-  const cat = catOf(p.cat);
-  $('product-modal-content').innerHTML = `
-    <div class="flex items-center justify-between pb-4 mb-5 border-b border-softWhite/10">
-      <div><span class="mt-label text-industrialLime">${cat.name}</span><h3 class="font-display font-bold text-2xl text-softWhite">${p.title}</h3></div>
-      <button type="button" data-close-modal class="mt-key mt-key--round !w-10" aria-label="Close">${icon('i-close')}</button>
-    </div>
-    <div class="space-y-5">
-      <div class="mt-media" data-media="">${icon(cat.icon, 'ico')}<span class="mt-media__label">Preview soon</span></div>
-      <p class="text-base text-softWhite/80">${p.summary}</p>
-      <ul class="space-y-2.5 text-sm text-softWhite/85">${p.features.map(f => `<li class="flex items-center gap-3">${icon('i-check', 'ico text-industrialLime')}${f}</li>`).join('')}</ul>
-      <div class="mt-well p-4 font-mono text-xs"><span class="mt-label block mb-1">Works with</span><span class="text-softWhite">${p.compatibility}</span></div>
-      <div class="pt-4 border-t border-softWhite/10 flex items-center justify-between gap-4">
-        <span class="font-display font-bold text-3xl ${p.price === 0 ? 'text-industrialLime' : 'text-softWhite'}">${priceLabel(p)}</span>
-        ${buyButton(p, true)}
-      </div>
-    </div>`;
-  $('product-modal').classList.remove('hidden');
+function renderProducts() {
+  if (!grid) return;
+  const q = ($('store-search')?.value || '').toLowerCase().trim();
+  const sort = $('store-sort')?.value || 'featured';
+  const has = (set, vals) => !set.size || [...set].some(v => vals.includes(v));
+  let list = inCat().filter(p =>
+    [p.title, p.summary, ...(p.tags || []), ...(p.formats || [])].join(' ').toLowerCase().includes(q)
+    && has(picked.tag, p.tags || []) && has(picked.format, p.formats || [])
+    && has(picked.price, [p.price === 0 ? 'Free' : 'Paid']));
+  const by = {
+    popular: (a, b) => (b.pop || 0) - (a.pop || 0),
+    newest: (a, b) => (b.added || '').localeCompare(a.added || ''),
+    az: (a, b) => a.title.localeCompare(b.title),
+    low: (a, b) => a.price - b.price,
+    high: (a, b) => b.price - a.price,
+  }[sort];
+  if (by) list = [...list].sort(by);
+  const active = picked.tag.size + picked.format.size + picked.price.size;
+  $('product-count').textContent = `${list.length} ${list.length === 1 ? 'product' : 'products'}${active ? ` · ${active} filter${active > 1 ? 's' : ''}` : ''}`;
+  $('store-clear')?.classList.toggle('hidden', !active && !q);
+  grid.innerHTML = list.length ? list.map(card).join('')
+    : `<div class="col-span-full mt-well p-10 text-center font-mono text-sm text-industrialSage">Nothing matches those filters yet.</div>`;
 }
 
 // ---- Events --------------------------------------------------------------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-add],[data-details],[data-remove],[data-close-modal]');
-  if (t?.dataset.add) { addToCart(t.dataset.add); $('product-modal')?.classList.add('hidden'); }
-  else if (t?.dataset.details) openProductPreview(t.dataset.details);
+  const t = e.target.closest('[data-add],[data-remove],[data-close-modal]');
+  if (t?.dataset.add) addToCart(t.dataset.add);
   else if (t?.dataset.remove) window.removeFromCart(t.dataset.remove);
-  else if (t?.hasAttribute('data-close-modal')) $('product-modal').classList.add('hidden');
+  else if (t?.hasAttribute('data-close-modal')) t.closest('.mt-modal')?.classList.add('hidden');
   else if (e.target.classList?.contains('mt-modal')) e.target.classList.add('hidden');
 });
 document.addEventListener('keydown', e => {
@@ -138,8 +172,26 @@ document.addEventListener('keydown', e => {
   document.querySelectorAll('.mt-modal').forEach(m => m.classList.add('hidden'));
   $('cart-drawer').classList.add('hidden');
 });
-$('store-search')?.addEventListener('input', renderProducts);
+document.addEventListener('change', e => {
+  const f = e.target.dataset?.filter;
+  if (!f) return;
+  picked[f][e.target.checked ? 'add' : 'delete'](e.target.value);
+  syncUrl(); renderProducts();
+});
+$('store-clear')?.addEventListener('click', e => {
+  e.preventDefault();
+  Object.values(picked).forEach(set => set.clear());
+  if ($('store-search')) $('store-search').value = '';
+  syncUrl(); renderFilters(); renderProducts();
+});
+if ($('store-search') && params.get('q')) $('store-search').value = params.get('q');
+$('store-search')?.addEventListener('input', () => { syncUrl(); renderProducts(); });
 $('store-sort')?.addEventListener('change', renderProducts);
 
 updateCartUI();
-renderProducts();
+if (grid) {
+  renderFilters(); renderProducts();
+  // Phones: start with the filter panel folded so products come first (open if a filter is already set).
+  const panel = $('store-filters')?.closest('details');
+  if (panel && matchMedia('(max-width: 1023px)').matches && !location.search) panel.open = false;
+}

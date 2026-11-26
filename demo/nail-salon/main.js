@@ -97,6 +97,7 @@ function paintInfo(animate = true) {
   $('meta[name="theme-color"]').content = s.bg;
   $('#shadeNo').textContent = `N°${s.no}`;
   const nm = $('#shadeName');
+  nm.style.setProperty('--len', s.name.length);
   if (animate) nm.innerHTML = [...s.name].map((c, i) => `<span class="ch" style="animation-delay:${i * 35}ms">${c}</span>`).join('');
   $('#shadeDesc').textContent = s.desc;
   $$('.bottle').forEach(b => b.classList.toggle('is-on', b.dataset.id === s.id));

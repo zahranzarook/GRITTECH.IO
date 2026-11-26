@@ -973,4 +973,32 @@ section[id] { scroll-margin-top: 90px; }
 .mt-tile:focus-within { outline: 2px solid var(--mt-accent); outline-offset: 3px; }
 .mt-tile .mt-slides__arrow, .mt-tile .mt-slides__dots { z-index: 3; }
 
+/* ===== STORE: tags, badges, filter checkboxes ===== */
+.mt-tag {
+  display: inline-flex; align-items: center; padding: 4px 10px; border-radius: var(--mt-r-pill);
+  background: var(--mt-bg-lo); border: 1px solid rgba(233, 236, 231, 0.06); box-shadow: var(--mt-well-sm);
+  font: 500 10px var(--mt-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mt-sub);
+}
+a.mt-tag { transition: color var(--mt-med), border-color var(--mt-med); }
+a.mt-tag:hover { color: var(--mt-accent-hi); border-color: rgba(131, 169, 75, 0.45); }
+.mt-badge {
+  position: absolute; top: 10px; left: 10px; z-index: 2; padding: 4px 10px; border-radius: var(--mt-r-pill);
+  background: var(--mt-accent); color: #101211; font: 700 10px var(--mt-mono); letter-spacing: .1em; text-transform: uppercase;
+}
+.mt-tile .mt-btn, .mt-tile .mt-tag { position: relative; z-index: 3; }
+.mt-check { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 10px; cursor: pointer; font-size: 14px; color: var(--mt-ink-soft); }
+.mt-check:hover { background: var(--mt-bg-lo); color: var(--mt-ink); }
+.mt-check input {
+  appearance: none; flex: none; width: 16px; height: 16px; margin: 0; border-radius: 5px; cursor: pointer;
+  background: var(--mt-bg-lo); border: 1px solid var(--mt-rim); box-shadow: var(--mt-well-sm); display: grid; place-items: center;
+}
+.mt-check input:checked { background: var(--mt-accent); border-color: var(--mt-accent); }
+.mt-check input:checked::after { content: ""; width: 8px; height: 4px; border: 2px solid #101211; border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg); }
+.mt-check input:focus-visible { outline: 2px solid var(--mt-accent); outline-offset: 2px; }
+.mt-check em { margin-left: auto; font: 500 11px var(--mt-mono); font-style: normal; color: var(--mt-sub); }
+.mt-faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.mt-faq summary::-webkit-details-marker { display: none; }
+.mt-faq summary::after { content: "+"; font: 600 18px var(--mt-mono); color: var(--mt-sub); transition: transform var(--mt-med) var(--mt-ease), color var(--mt-med); }
+.mt-faq[open] summary::after { transform: rotate(45deg); color: var(--mt-accent); }
+
 @tailwind utilities;

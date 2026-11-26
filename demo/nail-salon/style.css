@@ -59,7 +59,7 @@ h2 em, h3 em, .statement__text em, .hero__name em { font-style: italic; }
 .hero__canvas.is-ready { opacity: 1; }
 .hero__canvas:active { cursor: grabbing; }
 .hero__info { position: absolute; z-index: 2; left: var(--pad); top: clamp(24px, 6vh, 70px); width: min(440px, 40vw); }
-.hero__name { font-size: clamp(64px, 9.5vw, 168px); line-height: .86; font-style: italic; margin-left: -.04em; }
+.hero__name { font-size: min(clamp(64px, 9.5vw, 168px), calc(min(440px, 40vw) * 2.1 / var(--len, 6))); line-height: .86; font-style: italic; margin-left: -.04em; white-space: nowrap; }
 .hero__name .ch { display: inline-block; animation: rise .8s var(--ease) both; }
 @keyframes rise { from { opacity: 0; transform: translateY(.35em); } }
 .hero__desc { margin: 18px 0 26px; font-size: 15px; max-width: 300px; opacity: .85; }
@@ -262,7 +262,7 @@ h2 em, h3 em, .statement__text em, .hero__name em { font-style: italic; }
   .hero::before { content: ''; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 46%; background: linear-gradient(var(--bg) 62%, transparent); pointer-events: none; transition: background .9s var(--ease); }
   .opts { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .opts::-webkit-scrollbar { display: none; }
-  .hero__name { font-size: clamp(54px, 15vw, 96px); }
+  .hero__name { font-size: min(clamp(54px, 15vw, 96px), calc((100vw - 2 * var(--pad)) * 1.9 / var(--len, 6))); }
   .hero__desc { margin: 10px 0 14px; font-size: 13px; }
   .hero__buy .pill { height: 38px; padding: 0 16px; font-size: 11px; }
   .hero__opts { margin-top: 16px; gap: 8px; }
