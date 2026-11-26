@@ -43,7 +43,8 @@ function updateCartUI() {
           <button type="button" data-remove="${p.id}" class="text-industrialSage hover:text-softWhite" aria-label="Remove ${p.title}">${icon('i-close', 'ico')}</button>
         </div>
       </div>`).join('');
-  $('cart-total').textContent = `$${cart.reduce((s, p) => s + p.price, 0)}`;
+  const total = cart.reduce((s, p) => s + p.price, 0);
+  $('cart-total').textContent = `$${Number.isInteger(total) ? total : total.toFixed(2)}`;
 }
 
 window.toggleCartDrawer = () => $('cart-drawer').classList.toggle('hidden');

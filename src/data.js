@@ -168,7 +168,7 @@ export const STORE = [
 // demo = live preview URL; media = cover images (first is the card image).
 // Items marked placeholder: true are not built yet: swap in real files, prices and previews before selling.
 export const PRODUCTS = [
-  { id: 'lumi-nail-salon', title: 'LUMI Nail Salon Theme', cat: 'themes', price: 79, badge: 'New', pop: 90, added: '2026-11-26', version: '1.0',
+  { id: 'lumi-nail-salon', title: 'LUMI Nail Salon Theme', cat: 'themes', price: 9.99, badge: 'New', pop: 90, added: '2026-11-26', version: '1.0',
     seo: 'LUMI: Editorial Nail Salon Website Theme with Live Colour Try-On',
     summary: 'Editorial salon theme with a live nail-colour try-on.',
     about: 'A fashion-magazine style website for nail salons and beauty studios. Visitors pick a shade and watch it paint onto a real hand in four angles, switch between six finishes and two skin tones, then book that exact look. Comes with a service menu, lookbook, product shop with bag, and a four-step booking flow that sends a calendar invite.',

@@ -943,7 +943,8 @@
               <button type="button" onclick="removeFromCart('${p.id}')" class="text-industrialSage hover:text-softWhite" aria-label="Remove ${p.title}">${icon('i-close', 'ico')}</button>
             </div>
           </div>`).join('');
-      document.getElementById('cart-total').textContent = `$${cart.reduce((s, p) => s + p.price, 0)}`;
+      const total = cart.reduce((s, p) => s + p.price, 0);
+      document.getElementById('cart-total').textContent = `$${Number.isInteger(total) ? total : total.toFixed(2)}`;
     }
 
     function toggleCartDrawer() {

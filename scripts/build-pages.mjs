@@ -206,7 +206,7 @@ const HOW = [
 ];
 const FAQ = [
   ['Is this a one-time payment?', 'Yes. You pay once and keep the files, including every update to that product.'],
-  ['Can I use it for client projects?', 'Yes. The GRIT licence covers your own projects and work you build for clients. You just can\'t resell or share the files themselves.'],
+  ['Can I use it commercially?', 'Yes. You get full access and full commercial rights: use it for your business, your clients and anything you sell. Just don\'t resell the files themselves.'],
   ['Do I need to know how to code?', 'Themes come with a step-by-step setup guide. If you\'d rather not touch code, we can set it up for you as a service.'],
   ['What if something doesn\'t work?', 'Email orders@grittech.io and a real person will help you fix it.'],
   ['Can you customise it for my business?', 'Yes. Every theme can be tailored by our team. Start a project and tell us what you need.'],
@@ -242,7 +242,7 @@ const includes = `
       <span class="mt-label text-industrialLime block mb-6">Every purchase includes</span>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="mt-well p-5 space-y-2"><span class="mt-key !w-11 text-industrialLime">${ico('i-down')}</span><h3 class="font-display font-bold text-softWhite">Instant download</h3><p class="text-sm text-softWhite/70">Files are in your account right after checkout.</p></div>
-        <div class="mt-well p-5 space-y-2"><span class="mt-key !w-11 text-industrialLime">${ico('i-file')}</span><h3 class="font-display font-bold text-softWhite">Clear licence</h3><p class="text-sm text-softWhite/70">Use it for yourself or for clients. <a href="/licence/" class="text-industrialLime hover:text-softWhite">Read it</a></p></div>
+        <div class="mt-well p-5 space-y-2"><span class="mt-key !w-11 text-industrialLime">${ico('i-file')}</span><h3 class="font-display font-bold text-softWhite">Commercial rights</h3><p class="text-sm text-softWhite/70">Full access, use it for anything. <a href="/licence/" class="text-industrialLime hover:text-softWhite">Read it</a></p></div>
         <div class="mt-well p-5 space-y-2"><span class="mt-key !w-11 text-industrialLime">${ico('i-auto')}</span><h3 class="font-display font-bold text-softWhite">Free updates</h3><p class="text-sm text-softWhite/70">Download new versions any time.</p></div>
         <div class="mt-well p-5 space-y-2"><span class="mt-key !w-11 text-industrialLime">${ico('i-mail')}</span><h3 class="font-display font-bold text-softWhite">Real support</h3><p class="text-sm text-softWhite/70"><a href="mailto:orders@grittech.io" class="hover:text-softWhite">orders@grittech.io</a></p></div>
       </div>
@@ -334,7 +334,7 @@ for (const p of PRODUCTS) {
     ...(p.version ? [['Version', esc(p.version)]] : []),
     ['Updated', new Date(p.added + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })],
     ['Made by', 'GRIT Technologies'],
-    ['Licence', `<a href="/licence/" class="hover:text-industrialLime">Personal &amp; client use</a>`],
+    ['Licence', `<a href="/licence/" class="hover:text-industrialLime">Full access + commercial rights</a>`],
   ];
   const body = `
     <nav class="font-mono text-[11px] uppercase tracking-wider text-industrialSage mb-8" aria-label="Breadcrumb">
@@ -414,15 +414,15 @@ ${faq}
 
 // --- Licence page ---------------------------------------------------------
 const LICENCE = [
-  ['What you can do', ['Use the product in unlimited projects of your own.', 'Use it in websites, apps and designs you build for clients.', 'Change it as much as you like.', 'Use it in commercial projects that make money.']],
-  ['What you can\'t do', ['Resell, share or give away the files, changed or not.', 'Include the files in another template, theme, kit or marketplace product.', 'Claim the original design as your own work.']],
-  ['Updates & support', ['Every update to a product you bought is free.', 'Support by email at orders@grittech.io.']],
+  ['Full access', ['Every file in the download is yours, source included.', 'Use it in unlimited projects.', 'Change anything you like.']],
+  ['Commercial rights', ['Use it for your business or your clients.', 'Sell the websites, apps and designs you build with it.', 'No attribution needed.']],
+  ['One rule', ['Don\'t resell or share the files themselves as a template, kit or download.']],
 ];
 mkdirSync('licence', { recursive: true });
-writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc: 'What you can and can\'t do with GRIT themes, UI elements, assets and files.', route: 'store', body: `${crumb('Store', '/#store', 'Licence')}
+writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc: 'Full access and commercial rights on every GRIT store product.', route: 'store', body: `${crumb('Store', '/#store', 'Licence')}
     <section class="max-w-3xl space-y-6 pb-12">
       <h1 class="mt-h1 text-4xl sm:text-5xl text-softWhite">One simple licence.</h1>
-      <p class="text-lg text-softWhite/75">Every product in the GRIT store comes with the same licence. Buy once, then use it for yourself and your clients.</p>
+      <p class="text-lg text-softWhite/75">We build everything in the GRIT store ourselves, so once you buy, you get full access and full commercial rights. Pay once, use it forever.</p>
     </section>
     <section class="grid grid-cols-1 md:grid-cols-3 gap-5 pb-12">
       ${LICENCE.map(([h, items]) => `
