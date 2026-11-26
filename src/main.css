@@ -7,6 +7,8 @@
    Shoh2008, Nawsome, Pradeepsaranbishnoi, Praashoo7, Smit-Prajapati, Galahhad).
    ========================================================================== */
 :root {
+  /* The site is designed dark: stop browsers (Android Chrome / Samsung Internet dark mode) from re-darkening it */
+  color-scheme: dark;
   /* GRIT Matte Material Surface Tokens */
   --mt-bg: #171C18;
   --mt-bg-hi: #252A26;
@@ -790,9 +792,11 @@ body::after {
 .mt-seg {
   display: inline-flex;
   flex-wrap: wrap;
+  max-width: 100%;
   gap: 4px;
   padding: 5px;
-  border-radius: var(--mt-r-pill);
+  /* 24px: still a pill on one line, a rounded panel when the buttons wrap on small screens */
+  border-radius: 24px;
   background: var(--mt-bg-lo);
   border: 1px solid var(--mt-rim);
   box-shadow: var(--mt-well-sm);
