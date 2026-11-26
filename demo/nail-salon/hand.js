@@ -1,22 +1,10 @@
 // Lumi — 3D try-on hand.
-// Loads a rigged hand, poses it, bakes it into a static mesh, then grows
-// five nails that hug the real fingertip surface. Shade, finish and shape can be
+// Loads a sculpted female hand, then grows five nails that hug the real
+// fingertip surface. Shade, finish and shape can be
 // changed live; the polish bottle beside the hand follows the shade.
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-
-const FINGERS = ['thumb', 'index-finger', 'middle-finger', 'ring-finger', 'pinky-finger'];
-
-// Relaxed, elegant pose (radians, negative = curl toward the palm).
-const POSE = {
-  'index-finger':  [-0.04, -0.08, -0.05],
-  'middle-finger': [-0.06, -0.10, -0.06],
-  'ring-finger':   [-0.10, -0.14, -0.08],
-  'pinky-finger':  [-0.16, -0.18, -0.10],
-};
-const SPREAD = { 'index-finger': -0.05, 'middle-finger': 0.0, 'ring-finger': 0.06, 'pinky-finger': 0.14 };
 
 // Nail width as a share of finger width, nail length share of the distal segment.
 const NAIL = {
@@ -39,7 +27,7 @@ const SHAPES = {
 const LENGTHS = { square: 0.15, oval: 0.3, almond: 0.55, stiletto: 0.9, coffin: 0.7 };
 function cuticle(v) { const c = 0.16; return v < c ? Math.sqrt(Math.max(0, 1 - ((c - v) / c) ** 2)) * 0.9 + 0.1 : 1; }
 
-export async function createHandStage(canvas, { url, onReady } = {}) {
+export async function createHandStage(canvas, { url, framesUrl, onReady } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -53,90 +41,65 @@ export async function createHandStage(canvas, { url, onReady } = {}) {
   const camera = new THREE.PerspectiveCamera(28, 1, 0.01, 10);
   camera.position.set(0, 0, 0.62);
 
-  scene.add(new THREE.HemisphereLight(0xfff0fb, 0x6b3a8f, 0.55));
-  const key = new THREE.DirectionalLight(0xfff4ee, 1.8); key.position.set(-0.6, 1, 1.2); scene.add(key);
+  scene.add(new THREE.HemisphereLight(0xfff3f6, 0x5b2a6f, 0.32));
+  const key = new THREE.DirectionalLight(0xfff1e8, 2.4); key.position.set(-0.9, 1.1, 0.9); scene.add(key);
   const rim = new THREE.DirectionalLight(0xff7ad9, 1.5); rim.position.set(1.2, 0.4, -0.8); scene.add(rim);
-  const fill = new THREE.DirectionalLight(0xb18cff, 1.2); fill.position.set(-1.2, -0.6, 0.4); scene.add(fill);
+  const fill = new THREE.DirectionalLight(0xb18cff, 0.6); fill.position.set(-1.2, -0.6, 0.4); scene.add(fill);
 
   // ---------- hand ----------
-  const gltf = await new GLTFLoader().loadAsync(url);
-  let skinned;
-  gltf.scene.traverse(o => { if (o.isSkinnedMesh) skinned = o; });
-  const bone = name => gltf.scene.getObjectByName(name);
-
-  // The joints are siblings (not a hierarchy), so curling a joint means rotating
-  // it and every joint after it in the chain around its own position.
-  const chain = f => (f === 'thumb'
-    ? ['metacarpal', 'phalanx-proximal', 'phalanx-distal', 'tip']
-    : ['metacarpal', 'phalanx-proximal', 'phalanx-intermediate', 'phalanx-distal', 'tip']).map(j => bone(`${f}-${j}`));
-  function bend(f, from, axis, angle) {
-    const js = chain(f), pivotJ = js[from];
-    const ax = axis.clone().applyQuaternion(pivotJ.quaternion).normalize();
-    const q = new THREE.Quaternion().setFromAxisAngle(ax, angle);
-    for (let k = from; k < js.length; k++) {
-      const j = js[k];
-      if (k > from) j.position.sub(pivotJ.position).applyQuaternion(q).add(pivotJ.position);
-      j.quaternion.premultiply(q);
-    }
-  }
-  const X = new THREE.Vector3(1, 0, 0), Y = new THREE.Vector3(0, 1, 0);
-  for (const f of Object.keys(POSE)) {
-    const [a, b, c] = POSE[f];
-    bend(f, 1, Y, SPREAD[f]);
-    bend(f, 1, X, a); bend(f, 2, X, b); bend(f, 3, X, c);
-  }
-  bend('thumb', 1, X, -0.08); bend('thumb', 2, X, -0.12);
-  bend('thumb', 1, new THREE.Vector3(0, 0, 1), -0.55);
+  // A sculpted female hand (generated, then refined in Blender). Its vertex
+  // colours carry baked shading: red = ambient occlusion, green = natural rosiness.
+  const [gltf, frameData] = await Promise.all([
+    new GLTFLoader().loadAsync(url),
+    fetch(framesUrl).then(r => r.json()),
+  ]);
+  let src; gltf.scene.traverse(o => { if (o.isMesh) src = o; });
   gltf.scene.updateMatrixWorld(true);
-  skinned.skeleton.update();
+  const geo = src.geometry.clone().applyMatrix4(src.matrixWorld);
+  if (!geo.attributes.normal) geo.computeVertexNormals();
+  const bakedAttr = geo.attributes.color;
+  const n = geo.attributes.position.count;
+  const ao = new Float32Array(n), rosy = new Float32Array(n);
+  for (let i = 0; i < n; i++) { ao[i] = bakedAttr ? bakedAttr.getX(i) : 1; rosy[i] = bakedAttr ? bakedAttr.getY(i) : 0; }
+  const skinCol = new THREE.BufferAttribute(new Float32Array(n * 3), 3);
+  geo.setAttribute('color', skinCol);
 
-  // Bake the posed skin into a static, smoothed mesh.
-  const src = skinned.geometry;
-  const pos = src.attributes.position, v = new THREE.Vector3();
-  const baked = new THREE.BufferGeometry();
-  const arr = new Float32Array(pos.count * 3);
-  for (let i = 0; i < pos.count; i++) {
-    v.fromBufferAttribute(pos, i); skinned.applyBoneTransform(i, v); v.applyMatrix4(skinned.matrixWorld);
-    arr.set([v.x, v.y, v.z], i * 3);
-  }
-  baked.setAttribute('position', new THREE.BufferAttribute(arr, 3));
-  baked.setIndex(src.index.clone());
-  let geo = mergeVertices(baked, 1e-5);
-  geo.computeVertexNormals();
-
+  const SKIN = {
+    fair: { base: '#e5aa90', rosy: '#d97a70', sheen: '#ffc9d4', shade: 0.6 },
+    deep: { base: '#7e4f35', rosy: '#6f3426', sheen: '#c98a6a', shade: 0.6 },
+  };
   const skinMat = new THREE.MeshPhysicalMaterial({
-    color: 0xdc9474, roughness: 0.55, metalness: 0, envMapIntensity: 0.35,
-    sheen: 0.35, sheenColor: new THREE.Color(0xff9fb8), sheenRoughness: 0.5,
-    clearcoat: 0.05, clearcoatRoughness: 0.6,
+    vertexColors: true, roughness: 0.5, metalness: 0, envMapIntensity: 0.28,
+    sheen: 0.45, sheenRoughness: 0.45, clearcoat: 0.12, clearcoatRoughness: 0.45,
   });
+  function paintSkin(tone) {
+    const t = SKIN[tone] || SKIN.fair;
+    const base = new THREE.Color(t.base), rose = new THREE.Color(t.rosy), c = new THREE.Color();
+    for (let i = 0; i < n; i++) {
+      const occl = (1 - t.shade) + t.shade * ao[i] ** 1.4;
+      c.copy(base).lerp(rose, Math.min(1, rosy[i] * 0.45)).multiplyScalar(occl);
+      skinCol.setXYZ(i, c.r, c.g, c.b);
+    }
+    skinCol.needsUpdate = true;
+    skinMat.sheenColor.set(t.sheen);
+  }
+  paintSkin('fair');
   const skin = new THREE.Mesh(geo, skinMat);
 
-  // Joint frames for the nails, in the same (world == hand-local) space.
-  const frames = FINGERS.map(f => {
-    const d = bone(`${f}-phalanx-distal`), t = bone(`${f}-tip`);
-    const p0 = d.getWorldPosition(new THREE.Vector3()), p1 = t.getWorldPosition(new THREE.Vector3());
-    const q = d.getWorldQuaternion(new THREE.Quaternion());
-    const fwd = p1.clone().sub(p0).normalize();
-    const up = new THREE.Vector3(0, 1, 0).applyQuaternion(q);
-    up.sub(fwd.clone().multiplyScalar(up.dot(fwd))).normalize();
+  const V3 = a => new THREE.Vector3(...a);
+  const frames = frameData.map(d => {
+    const p0 = V3(d.p0), p1 = V3(d.p1), fwd = V3(d.fwd).normalize(), up = V3(d.up).normalize();
     const side = new THREE.Vector3().crossVectors(fwd, up).normalize();
-    return { f, p0, p1, fwd, up, side, len: p0.distanceTo(p1) };
+    return { f: d.f, p0, p1, fwd, up, side, len: p0.distanceTo(p1) };
   });
 
-  // Rest the hand: back of hand toward the camera, fingers up and leaning left.
+  // Rest pose: back of the hand to camera, fingers leaning gracefully left.
   const hand = new THREE.Group();
   hand.add(skin);
-  const basis = new THREE.Matrix4().makeBasis(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, -1, 0), new THREE.Vector3(1, 0, 0));
-  const rest = new THREE.Quaternion().setFromRotationMatrix(basis);
-  const tilt = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.08, -0.38, 0.38, 'YXZ'));
-  rest.premultiply(tilt);
+  const rest = new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.12, -0.42, 0.3, 'YXZ'));
   const pivot = new THREE.Group(); pivot.add(hand); scene.add(pivot);
   hand.quaternion.copy(rest);
-  // centre on the knuckles/fingers, wrist drifts off the bottom edge
-  const mid = frames[2].p0.clone().lerp(bone('wrist').getWorldPosition(new THREE.Vector3()), 0.42);
-  hand.position.copy(mid.applyQuaternion(rest).multiplyScalar(-1));
-  hand.position.y -= 0.012;
-  hand.position.x += 0.012;
+  hand.position.copy(new THREE.Vector3(0.0, 0.035, 0).applyQuaternion(rest).multiplyScalar(-1));
 
   // ---------- nails ----------
   const ray = new THREE.Raycaster();
@@ -349,7 +312,7 @@ export async function createHandStage(canvas, { url, onReady } = {}) {
     layout = w / h < 0.9 ? 'tall' : 'wide';
     camera.position.set(layout === 'tall' ? 0.004 : -0.004, 0, layout === 'tall' ? 0.5 : 0.43);
     camera.updateProjectionMatrix();
-    bottle.position.set(layout === 'tall' ? 0.06 : 0.082, layout === 'tall' ? -0.07 : -0.06, -0.03);
+    bottle.position.set(layout === 'tall' ? 0.068 : 0.098, layout === 'tall' ? -0.075 : -0.065, -0.03);
   }
   new ResizeObserver(resize).observe(canvas); resize();
 
@@ -428,6 +391,7 @@ export async function createHandStage(canvas, { url, onReady } = {}) {
       if (!SHAPES[name]) return; state.shape = name;
       nails.forEach((n, i) => { n.mesh.geometry.dispose(); n.mesh.geometry = buildNail(n.fr, name); n.t0 = performance.now(); n.delay = i * 60; n.glint = 0.6; n.burst = false; n.sparkle = false; n.from.copy(n.to); });
     },
+    setSkin(tone) { paintSkin(tone); },
     get state() { return { ...state }; },
   };
 }

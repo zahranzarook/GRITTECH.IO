@@ -154,7 +154,7 @@ async function bootStage() {
   if (!(test.getContext('webgl2') || test.getContext('webgl'))) return stageFallback();
   try {
     const { createHandStage } = await import('./hand.js');
-    stage = await createHandStage(canvas, { url: '/demo/nail-salon/hand.glb' });
+    stage = await createHandStage(canvas, { url: '/demo/nail-salon/hand.glb', framesUrl: '/demo/nail-salon/hand-frames.json' });
     stage.setShape(look.shape.id); stage.setFinish(look.finish.id); stage.setShade(look.shade.hex);
     $('#stageLoading').classList.add('is-done');
     const hide = () => $('#stageHint').classList.add('is-gone');
@@ -360,6 +360,12 @@ $$('#navLinks a').forEach(a => a.addEventListener('click', () => document.body.c
 $('#year').textContent = new Date().getFullYear();
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: 0.12 });
 $$('.reveal').forEach(el => io.observe(el));
+
+$('#skins').addEventListener('click', e => {
+  const b = e.target.closest('[data-skin]'); if (!b) return;
+  $$('.skin').forEach(x => x.classList.toggle('is-active', x === b));
+  stage && stage.setSkin(b.dataset.skin);
+});
 
 renderPicker();
 setLook({});

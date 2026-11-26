@@ -416,3 +416,7 @@ h1 em, h2 em { font-style: italic; background: var(--grad); -webkit-background-c
   html { scroll-behavior: auto; }
 }
 .summary__nav[hidden], .summary__look[hidden] { display: none; }
+
+.skins { margin-left: auto; display: inline-flex; gap: 6px; align-items: center; }
+.skin { width: 22px; height: 22px; border-radius: 50%; background: var(--s); box-shadow: inset 2px 2px 3px rgba(255,255,255,.45), inset -2px -2px 4px rgba(0,0,0,.25); }
+.skin.is-active { outline: 2px solid var(--plum); outline-offset: 2px; }

@@ -56,7 +56,11 @@
 
       <div class="picker glass">
         <div class="picker__row">
-          <div class="picker__label"><span>Shade</span><b id="shadeName">Raspberry</b></div>
+          <div class="picker__label"><span>Shade</span><b id="shadeName">Raspberry</b>
+            <span class="skins" id="skins" role="group" aria-label="Skin tone">
+              <button type="button" class="skin is-active" data-skin="fair" style="--s:#eab39b" aria-label="Fair skin"></button>
+              <button type="button" class="skin" data-skin="deep" style="--s:#7e4f35" aria-label="Deep skin"></button>
+            </span></div>
           <div class="collections" role="tablist" id="collections"></div>
           <div class="swatches" id="swatches" role="listbox" aria-label="Nail shades"></div>
         </div>
