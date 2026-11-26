@@ -1,5 +1,6 @@
 import { demobar } from '../../src/demo/demobar.js';
 import { createGlobe } from './globe.js';
+import { smooth, revealHeadings, rise, gsap, ScrollTrigger, reduced } from '../../src/demo/motion.js';
 import LAND from './land.js';
 import { HOME, DEST, NATIONS, FREE, TYPES, CHECK } from './data.js';
 
@@ -48,16 +49,9 @@ const HL = ['12,400+ visas processed', '98% approval rate', '60+ countries', 'Re
 $('#marquee').innerHTML = [...HL, ...HL].map(h => `<span>${h}</span>`).join('');
 
 // ---------- Postcards (generated art, 3D tilt) ----------
-function postcard(d, i) {
-  const [h1, h2] = d.hue;
-  let seed = i * 97 + 13; const r = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-  const hill = (y, amp, col) => { let p = `M0 ${y}`; for (let x = 0; x <= 300; x += 30) p += ` Q${x + 15} ${y - amp * r()} ${x + 30} ${y - amp * .3 * r()}`; return `<path d="${p} V240 H0Z" fill="${col}"/>`; };
-  let sky = ''; for (let k = 0; k < 14; k++) { const w = 10 + r() * 16, hgt = 30 + r() * 80, x = 20 + k * 19; sky += `<rect x="${x}" y="${170 - hgt}" width="${w}" height="${hgt + 10}" rx="2" fill="hsl(${h1} 45% 22% / .55)"/>`; }
+function postcard(d) {
   return `<article class="pc" tabindex="0" data-pc="${d.id}">
-    <div class="pc__bg" style="background:linear-gradient(170deg,hsl(${h1} 70% 62%),hsl(${h2} 80% 66%))">
-      <span class="pc__sun"></span>
-      <svg class="pc__hills" viewBox="0 0 300 240" preserveAspectRatio="none" aria-hidden="true">${sky}${hill(150, 40, `hsl(${h1} 45% 38% / .65)`)}${hill(185, 30, `hsl(${h1} 50% 24% / .8)`)}${hill(215, 20, `hsl(${h1} 55% 14%)`)}</svg>
-    </div>
+    <div class="pc__bg"><img src="/demo/travel/img/${d.img}.webp" alt="${d.city}" loading="lazy" decoding="async"></div>
     <span class="pc__code">${d.code}</span>
     <div class="pc__body"><h3>${d.city}</h3><p>${d.country} · ${d.visa}</p>
       <div class="pc__row"><span>${d.days}</span><b>from AED ${d.from}</b></div></div>
@@ -82,7 +76,7 @@ $('#vtabs').innerHTML = TYPES.map(([n, d], i) => `<button type="button" role="ta
 function vt(i) {
   const [n, d, docs] = TYPES[i];
   $$('#vtabs button').forEach(b => b.classList.toggle('is-on', +b.dataset.t === i));
-  $('#vpanel').innerHTML = `<p class="eyebrow">${n} visa</p><h3>${d}</h3><ul>${docs.map(x => `<li>${x}</li>`).join('')}</ul><a href="#contact" class="btn">Get a ${n.toLowerCase()} visa quote</a>`;
+  $('#vpanel').innerHTML = `<figure class="vpanel__img"><img src="/demo/travel/img/visa-${n.toLowerCase()}.webp" alt="${n} visa"></figure><p class="eyebrow">${n} visa</p><h3>${d}</h3><ul>${docs.map(x => `<li>${x}</li>`).join('')}</ul><a href="#contact" class="btn">Get a ${n.toLowerCase()} visa quote</a>`;
 }
 $('#vtabs').addEventListener('click', e => { const b = e.target.closest('[data-t]'); if (b) vt(+b.dataset.t); });
 vt(0);
@@ -114,3 +108,24 @@ $('#lead').addEventListener('submit', e => {
   const f = e.target;
   f.innerHTML = `<div style="padding:20px 0"><h3 style="font:400 40px/1 var(--serif)">Thanks, ${f.name.value.split(' ')[0]}.</h3><p class="muted">A specialist will WhatsApp you within 30 minutes.</p></div>`;
 });
+
+// ---------- Smooth motion ----------
+smooth();
+revealHeadings('.hero h1', { immediate: true });
+revealHeadings('h2');
+rise('.vtabs button, .list li, .lead-form > *');
+if (!reduced) {
+  gsap.from('.hero .eyebrow, .lead, .checker', { y: 30, autoAlpha: 0, duration: 1, ease: 'power3.out', stagger: .1, delay: .4 });
+  gsap.from('.hero__globe', { scale: .8, autoAlpha: 0, duration: 1.6, ease: 'expo.out', delay: .1 });
+  gsap.to('.hero__globe', { yPercent: 14, scale: .92, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  // Destinations: pin the section and scroll the postcards sideways (desktop)
+  gsap.matchMedia().add('(min-width: 981px)', () => {
+    const r = $('#rail');
+    r.classList.add('is-pinned');
+    const dist = () => r.scrollWidth - innerWidth;
+    const tw = gsap.to(r, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.dest', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
+    gsap.utils.toArray('.pc__bg img').forEach(img => gsap.fromTo(img, { xPercent: -8 }, { xPercent: 8, ease: 'none', scrollTrigger: { trigger: img.closest('.pc'), containerAnimation: tw, start: 'left right', end: 'right left', scrub: true } }));
+    return () => r.classList.remove('is-pinned');
+  });
+  gsap.fromTo('.contact__card', { clipPath: 'inset(10% 6% round 36px)' }, { clipPath: 'inset(0% 0% round 36px)', ease: 'none', scrollTrigger: { trigger: '.contact', start: 'top 90%', end: 'top 30%', scrub: true } });
+}

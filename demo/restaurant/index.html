@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/demo/restaurant/img/hummus.webp">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -62,6 +63,7 @@
   </section>
 
   <section class="story" id="story">
+    <div class="story__media" aria-hidden="true"><img src="/demo/restaurant/img/story-grill.webp" alt="" loading="lazy"></div>
     <div class="wrap story__grid">
       <div class="story__text">
         <p class="eyebrow">Our story</p>
@@ -82,6 +84,7 @@
         <p class="eyebrow">Reservations</p>
         <h2>Save a seat by the fire.</h2>
         <p class="muted">Tables are held for 15 minutes. For groups over 8, call us.</p>
+        <figure class="book__chef"><img src="/demo/restaurant/img/chef.webp" alt="Chef placing skewers on the charcoal grill" loading="lazy"></figure>
       </div>
       <form class="book__form" id="bookForm">
         <fieldset><legend>Day</legend><div class="days" id="days"></div></fieldset>
@@ -115,7 +118,7 @@
           <dt>Brunch</dt><dd>Sat 12:30 – 16:00</dd>
         </dl>
       </div>
-      <div class="map" aria-hidden="true"><span class="map__pin"></span><span class="map__label">Ember &amp; Salt</span></div>
+      <div class="map"><img src="/demo/restaurant/img/interior.webp" alt="Ember &amp; Salt dining room overlooking Dubai Marina" loading="lazy"><span class="map__label"><span class="map__pin"></span>Marina Walk · Open now</span></div>
     </div>
   </section>
 </main>

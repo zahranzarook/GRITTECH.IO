@@ -68,12 +68,11 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .promo { position: relative; flex: none; width: 300px; height: 150px; scroll-snap-align: center; overflow: hidden; padding: 20px; border-radius: 24px; color: #fff; text-align: left; }
 .promo b { display: block; max-width: 170px; font-size: 21px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; }
 .promo small { display: block; margin-top: 8px; font-size: 12px; opacity: .85; max-width: 160px; }
-.promo svg { position: absolute; right: -40px; bottom: -40px; width: 180px; transform: rotate(-12deg); }
+.promo img { position: absolute; right: -36px; bottom: -36px; width: 170px; transform: rotate(-12deg); filter: drop-shadow(0 14px 16px rgba(0,0,0,.3)); }
 .rest { display: block; width: 100%; margin-bottom: 18px; text-align: left; }
 .rest__art { position: relative; height: 170px; overflow: hidden; border-radius: 24px; }
-.rest__art svg { position: absolute; width: 58%; right: -6%; top: 50%; transform: translateY(-50%) rotate(-10deg); transition: transform .8s var(--ease); }
-.rest:active .rest__art svg { transform: translateY(-50%) rotate(20deg); }
-.rest__art svg + svg { width: 40%; right: 46%; top: 62%; }
+.rest__art .cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.rest:active .rest__art .cover { transform: scale(1.04); }
 .rest__promo { position: absolute; left: 12px; top: 12px; padding: 6px 11px; border-radius: 99px; background: #fff; font-size: 11px; font-weight: 700; }
 .rest__fav { position: absolute; right: 12px; top: 12px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .9); }
 .rest__fav svg { position: static !important; width: 18px !important; transform: none !important; fill: none; stroke: var(--ink); stroke-width: 2; transition: fill .2s, stroke .2s; }
@@ -85,7 +84,9 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 
 /* Restaurant */
 .hero { position: relative; height: 280px; margin-top: -54px; overflow: hidden; }
-.hero > svg { position: absolute; width: 330px; right: -60px; top: 40px; animation: spin 60s linear infinite; }
+.hero .cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kb 10s ease-out both; }
+.hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0) 40%, rgba(0,0,0,.25)); }
+@keyframes kb { from { transform: scale(1.12); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 .hero__top { position: absolute; z-index: 2; top: 60px; left: 20px; right: 20px; display: flex; justify-content: space-between; }
 .info { position: relative; margin: -40px 16px 0; padding: 18px; border-radius: 26px; background: #fff; box-shadow: 0 10px 30px rgba(0, 0, 0, .06); }
@@ -103,7 +104,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .item__txt .price { font-weight: 800; }
 .item__txt .tag { margin-left: 6px; padding: 2px 8px; border-radius: 99px; background: var(--acc-2); color: var(--acc); font-size: 10px; font-weight: 800; }
 .item__art { position: relative; flex: none; width: 104px; height: 104px; border-radius: 22px; background: #fff; display: grid; place-items: center; }
-.item__art > svg { width: 88%; }
+.item__art > img { width: 90%; height: auto; filter: drop-shadow(0 6px 8px rgba(0,0,0,.15)); }
 .plus { position: absolute; right: -4px; bottom: -4px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, .2); transition: transform .3s var(--ease), background .2s; }
 .plus.has { background: var(--acc); font-size: 13px; font-weight: 800; }
 
@@ -130,7 +131,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .sheet.is-on .sheet__panel { transform: none; }
 .grab { width: 40px; height: 5px; margin: 0 auto 10px; border-radius: 9px; background: #ddd; }
 .sheet__art { display: grid; place-items: center; height: 220px; margin: 0 -20px; background: radial-gradient(circle at 50% 50%, #fff, #f3eee6); }
-.sheet__art svg { width: 210px; animation: spin 30s linear infinite; }
+.sheet__art img { width: 210px; animation: spin 40s linear infinite; filter: drop-shadow(0 18px 20px rgba(0,0,0,.25)); }
 .opt { margin-top: 18px; }
 .opt h4 { margin: 0 0 8px; font-size: 14px; display: flex; justify-content: space-between; }
 .opt h4 small { color: var(--sub); font-weight: 600; }
@@ -155,7 +156,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .card { padding: 16px; border-radius: 22px; background: #fff; }
 .line { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
 .line + .line { border-top: 1px solid var(--line); }
-.line svg { width: 54px; flex: none; }
+.line > img { width: 54px; flex: none; }
 .line div { flex: 1; min-width: 0; } .line b { display: block; font-size: 14px; } .line small { color: var(--sub); font-size: 12px; }
 .line .qty { height: 38px; padding: 0 2px; border-radius: 12px; } .line .qty button { width: 30px; height: 30px; font-size: 16px; }
 .addr { display: flex; align-items: center; gap: 12px; }
@@ -185,7 +186,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .steps li.is-on { color: var(--ink); }
 .steps li.is-on::before { background: var(--ok); box-shadow: 0 0 0 4px rgba(31, 164, 99, .2); }
 .courier { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
-.avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #ffb18f, #ff5a1f); display: grid; place-items: center; color: #fff; font-weight: 800; }
+.avatar { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: linear-gradient(135deg, #ffb18f, #ff5a1f); display: grid; place-items: center; color: #fff; font-weight: 800; }
 
 /* Splash */
 .splash { position: absolute; z-index: 30; inset: 0; display: grid; place-items: center; background: var(--acc); color: #fff; transition: opacity .6s var(--ease), transform .6s var(--ease); }
