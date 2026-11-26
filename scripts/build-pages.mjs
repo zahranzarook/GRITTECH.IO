@@ -43,24 +43,26 @@ function media(src, icon, label, extra = '', { name = '', controls = false } = {
     ? `<button type="button" data-dot aria-label="Show slide ${i + 1}" aria-current="${i === 0}"></button>`
     : `<span data-dot aria-hidden="true" aria-current="${i === 0}"></span>`).join('');
   const arrows = controls
-    ? `<button type="button" class="mt-slides__arrow mt-slides__arrow--prev" data-prev aria-label="Previous slide">←</button><button type="button" class="mt-slides__arrow mt-slides__arrow--next" data-next aria-label="Next slide">→</button>`
+    ? `<button type="button" class="mt-slides__arrow mt-slides__arrow--prev" data-prev aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button><button type="button" class="mt-slides__arrow mt-slides__arrow--next" data-next aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>`
     : '';
   return `<div class="mt-media mt-slides ${extra}" data-slides>${imgs}${arrows}<div class="mt-slides__dots">${dots}</div></div>`;
 }
 
 function tiles(items, base, label) {
+  // A card, not one big link: the slideshow arrows/dots are real buttons, and the title link
+  // stretches over the rest of the card so clicking anywhere else still opens the page.
   return items.map((it, i) => `
-          <a href="${base}/${it.slug}/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 ${i < 2 ? 'lg:col-span-3' : 'lg:col-span-2'}">
-            ${media(it.media, it.icon, label, '', { name: it.name })}
+          <article class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 ${i < 2 ? 'lg:col-span-3' : 'lg:col-span-2'}">
+            ${media(it.media, it.icon, label, '', { name: it.name, controls: true })}
             <div class="px-2 pb-2 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="mt-label text-industrialLime">${String(i + 1).padStart(2, '0')}</span>
                 <span class="mt-tile__arrow" aria-hidden="true">→</span>
               </div>
-              <h3 class="font-display font-bold text-xl text-softWhite">${esc(it.name)}</h3>
+              <h3 class="font-display font-bold text-xl text-softWhite"><a href="${base}/${it.slug}/" class="mt-tile__link">${esc(it.name)}</a></h3>
               <p class="text-sm text-softWhite/70">${esc(it.card)}</p>
             </div>
-          </a>`).join('');
+          </article>`).join('');
 }
 
 function miniTiles(items, base, current) {

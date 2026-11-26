@@ -1,8 +1,9 @@
 // Cover slideshows: cross-fades the images inside every [data-slides] frame.
-// Tiles advance on their own; page heroes also get dots and arrows.
-// Respects reduced-motion (no auto-advance) and pauses when off screen or while hovered.
+// Every slideshow advances on its own and has arrows and dots.
+// Respects reduced-motion (no auto-advance), pauses off screen and while a mouse hovers; swipe on touch.
 const INTERVAL = 4500;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 function setup(frame, index) {
   const slides = [...frame.querySelectorAll('.mt-slide')];
@@ -27,8 +28,22 @@ function setup(frame, index) {
   dots.forEach((d, n) => d.addEventListener('click', e => { e.preventDefault(); stop(); show(n); start(); }));
   frame.querySelector('[data-prev]')?.addEventListener('click', e => { e.preventDefault(); stop(); show(current - 1); start(); });
   frame.querySelector('[data-next]')?.addEventListener('click', e => { e.preventDefault(); stop(); show(current + 1); start(); });
-  frame.addEventListener('mouseenter', () => { hovered = true; stop(); });
-  frame.addEventListener('mouseleave', () => { hovered = false; start(); });
+  // Pause on hover only with a real mouse (on touch screens a tap would "hover" forever and freeze the slides).
+  if (canHover) {
+    frame.addEventListener('mouseenter', () => { hovered = true; stop(); });
+    frame.addEventListener('mouseleave', () => { hovered = false; start(); });
+  }
+
+  // Swipe on touch screens (on a tile the whole card is the swipe area).
+  const zone = frame.closest('.mt-tile') || frame;
+  let x0 = null, y0 = null;
+  zone.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  zone.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    x0 = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { stop(); show(current + (dx < 0 ? 1 : -1)); start(); }
+  }, { passive: true });
 
   new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
