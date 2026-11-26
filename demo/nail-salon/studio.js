@@ -189,9 +189,12 @@ export async function createStudio(canvas, { base, layout }) {
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) kick(); }).observe(canvas);
   new ResizeObserver(resize).observe(canvas);
 
+  let req = 0;
   async function show(skin, i, dir = 1) {
-    const p = await pose(skin, i);
+    const my = ++req;
     st.skin = skin; st.pose = i;
+    const p = await pose(skin, i);
+    if (my !== req) return;   // a newer request won while this one was loading
     if (!st.slots[0]) { st.slots[0] = p; kick(); return; }
     if (st.animating) { st.slots = [st.slots[1], null]; }
     st.slots[1] = p; st.dir = dir; st.t0 = performance.now(); st.animating = true; kick();
