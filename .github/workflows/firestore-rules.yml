@@ -1,9 +1,7 @@
-# Publishes firestore.rules whenever they change on main.
+# Publishes firestore.rules. Manual only (Actions tab -> Run workflow):
+# the current deploy key can't publish rules, so rules are published in the Firebase console for now.
 name: Deploy Firestore rules
 on:
-  push:
-    branches: [main]
-    paths: [firestore.rules]
   workflow_dispatch:
 jobs:
   rules:
