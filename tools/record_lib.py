@@ -6,7 +6,8 @@ ROOT=pathlib.Path(__file__).resolve().parent.parent
 F=str(ROOT/'node_modules/@fontsource')+'/'
 FAM={'Fraunces':('fraunces',[(400,'normal'),(600,'normal'),(400,'italic')]),'Inter':('inter',[(400,'normal'),(500,'normal'),(600,'normal')]),
 'Instrument Serif':('instrument-serif',[(400,'normal'),(400,'italic')]),'Manrope':('manrope',[(w,'normal') for w in (400,500,600,700)]),
-'Plus Jakarta Sans':('plus-jakarta-sans',[(w,'normal') for w in (400,500,600,700,800)])}
+'Plus Jakarta Sans':('plus-jakarta-sans',[(w,'normal') for w in (400,500,600,700,800)]),
+'JetBrains Mono':('jetbrains-mono',[(w,'normal') for w in (400,500,600,700,800)])}
 CSS=''.join(f"@font-face{{font-family:'{fam}';font-style:{st};font-weight:{w};font-display:block;src:url(https://fonts.gstatic.com/x/{d}/{d}-latin-{w}-{st}.woff2) format('woff2')}}" for fam,(d,ws) in FAM.items() for w,st in ws)
 GS={'gsap.min.js':'gsap/dist/gsap.min.js','ScrollTrigger.min.js':'gsap/dist/ScrollTrigger.min.js','lenis.min.js':'lenis/dist/lenis.min.js'}
 async def fonts(r):

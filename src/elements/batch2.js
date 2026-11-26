@@ -16,7 +16,7 @@ ${sel} .sm-hint{position:sticky;top:12px;z-index:5;width:max-content;margin:0 12
 
 export const ELEMENTS2 = [
   {
-    id: 'scroll-text-fill', name: 'Scroll Text Fill', industry: 'Scroll & Motion', tags: ['GSAP', 'Lenis', 'Typography'], stage: '#0e0e10', full: true, libs: CDN,
+    id: 'scroll-text-fill', free: true, name: 'Scroll Text Fill', industry: 'Scroll & Motion', tags: ['GSAP', 'Lenis', 'Typography'], stage: '#0e0e10', full: true, libs: CDN,
     desc: 'A statement paragraph that lights up word by word as you scroll, with Lenis smooth scrolling.',
     html: `<div class="sm-fill"><div>${HINT}<div class="sm-fill__pad"></div><p class="sm-fill__txt">We design websites that feel effortless. Every scroll, every hover and every tap is tuned so your customers glide from first look to booking.</p><div class="sm-fill__pad"></div></div></div>`,
     css: `${BASE('.sm-fill')}

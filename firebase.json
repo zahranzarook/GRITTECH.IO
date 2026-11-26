@@ -34,6 +34,37 @@
             "value": "public, max-age=604800"
           }
         ]
+      },
+      {
+        "source": "**/*.@(webp|jpg|jpeg|png|svg|mp4|webm|glb|woff2)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=604800, stale-while-revalidate=86400"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/store/ui-elements/library",
+        "destination": "/store/ui-elements/",
+        "type": 301
+      },
+      {
+        "source": "/store/ui-elements/library/**",
+        "destination": "/store/ui-elements/",
+        "type": 301
+      },
+      {
+        "source": "/store/ui-elements/grit-ui-library",
+        "destination": "/store/ui-elements/",
+        "type": 301
+      },
+      {
+        "source": "/store/ui-elements/grit-ui-library/**",
+        "destination": "/store/ui-elements/",
+        "type": 301
       }
     ]
   },

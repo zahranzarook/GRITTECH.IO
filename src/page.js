@@ -115,7 +115,7 @@ function card(p) {
   const img = p.media?.[0];
   const badge = badgeOf(p);
   return `
-    <article class="mt-tile mt-plate mt-lift p-5 flex flex-col gap-4">
+    <article class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-3">
       <div class="mt-media" ${img ? '' : 'data-media=""'}>
         ${p.video ? `<video data-live src="${p.video}" poster="${img}" muted loop playsinline preload="none" aria-label="${p.title} preview"></video>` : img ? `<img src="${img}" alt="${p.title} preview" loading="lazy" decoding="async" />` : `${icon(cat.icon, 'ico')}<span class="mt-media__label">Preview soon</span>`}
         ${badge ? `<span class="mt-badge">${badge}</span>` : ''}
@@ -127,6 +127,7 @@ function card(p) {
         </div>
         <p class="text-sm text-softWhite/70">${p.summary}</p>
         <p class="font-mono text-[10px] uppercase tracking-wider text-industrialSage">${(p.formats || []).join(' · ')} <span class="mx-1">/</span> By GRIT</p>
+        ${p.cat === 'themes' ? `<a href="/?start=web&theme=${p.id}" class="relative z-[3] inline-flex items-center gap-1.5 text-xs text-industrialLime hover:text-softWhite">✦ Free when we build your site →</a>` : ''}
       </div>
       <div class="flex flex-wrap gap-1.5">${(p.tags || []).slice(0, 4).map(t => `<span class="mt-tag">${t}</span>`).join('')}</div>
       <div class="flex items-center gap-3">

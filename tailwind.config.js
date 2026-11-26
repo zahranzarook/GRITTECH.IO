@@ -14,8 +14,8 @@ export default {
         industrialSage: '#788078',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        sans: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        display: ['JetBrains Mono', 'ui-monospace', 'monospace'],
         mono: ['JetBrains Mono', 'monospace'],
       },
     },

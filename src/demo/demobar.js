@@ -19,7 +19,7 @@ export function demobar({ name, kind = 'theme', buy, start = 'web' }) {
   bar.innerHTML = `<span class="gritbar__tag">Live demo</span>
     <span class="gritbar__text">${name} by <b>GRIT Technologies</b></span>
     ${buy ? `<a class="is-main" href="${buy}">Get this ${kind}</a>` : ''}
-    <a ${buy ? '' : 'class="is-main"'} href="/?start=${start}">Build one for me</a>
+    <a ${buy ? '' : 'class="is-main"'} href="/?start=${start}">${buy ? 'We build it · theme free' : 'Build one for me'}</a>
     <button type="button" aria-label="Hide demo bar">×</button>`;
   bar.querySelector('button').onclick = () => bar.remove();
   document.body.prepend(bar);

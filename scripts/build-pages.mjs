@@ -265,6 +265,7 @@ const includes = `
     </section>`;
 
 for (const c of STORE) {
+  if (c.cat === 'ui') continue; // UI Elements is the live library page (built below)
   const body = `${crumb('Store', '/#store', c.name)}
 
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pb-16 border-b border-softWhite/10">
@@ -382,6 +383,12 @@ for (const p of PRODUCTS) {
           ${buy}
           ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="mt-btn">Live Demo ↗</a>` : ''}
         </div>
+        ${p.cat === 'themes' ? `
+        <div class="mt-row !items-start flex-col sm:flex-row sm:!items-center gap-4 border-industrialLime/30">
+          <div class="flex-1"><h3 class="font-display font-bold text-softWhite text-base">Rather have it done for you?</h3>
+            <p class="text-sm text-softWhite/70">We set this theme up with your content, logo, domain and an Arabic version, and the theme is free when we build your site.</p></div>
+          <a href="/?start=web&theme=${p.id}" class="mt-btn mt-btn--sm shrink-0">Build it for me →</a>
+        </div>` : ''}
         <dl class="mt-well p-5 grid grid-cols-[auto,1fr] gap-x-6 gap-y-2.5 text-sm">
           ${meta.map(([k, v]) => `<dt class="mt-label">${k}</dt><dd class="text-softWhite/85">${v}</dd>`).join('')}
         </dl>
@@ -449,18 +456,16 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
     </section>
     <p class="font-mono text-xs text-industrialSage">GRIT Technologies FZE LLC · Questions: <a href="mailto:orders@grittech.io" class="hover:text-softWhite">orders@grittech.io</a></p>` }));
 
-// --- UI Library gallery ---------------------------------------------------
+// --- UI Elements: the live library IS the category page ---------------------
 {
-  const body = `
-    <nav class="font-mono text-[11px] uppercase tracking-wider text-industrialSage mb-8" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-softWhite">Home</a> <span class="mx-2">/</span>
-      <a href="/store/ui-elements/" class="hover:text-softWhite">UI Elements</a> <span class="mx-2">/</span>
-      <span class="text-industrialLime">Library</span>
-    </nav>
+  const c = STORE.find(x => x.cat === 'ui');
+  const bundle = PRODUCTS.find(p => p.id === 'grit-ui-bundle');
+  const ELEMENTS_COUNT = (await import('../src/elements/batch1.js')).ELEMENTS.length + (await import('../src/elements/batch2.js')).ELEMENTS2.length;
+  const body = `${crumb('Store', '/#store', c.name)}
     <section class="max-w-3xl space-y-5 pb-10">
-      <span class="mt-pill">${ico('i-grid', 'ico text-industrialLime')}GRIT UI Library</span>
+      <span class="mt-pill">${ico(c.icon, 'ico text-industrialLime')}${esc(c.name)}</span>
       <h1 class="mt-h1 text-4xl sm:text-6xl text-softWhite">Interactive UI, ready to paste.</h1>
-      <p class="text-lg text-softWhite/75">Buttons, cards, pickers and calculators for real industries. Everything below is live: play with it, then copy self-contained HTML, CSS and JavaScript.</p>
+      <p class="text-lg text-softWhite/75">Buttons, cards, pickers, calculators and scroll effects for real industries. Everything below is live. Play with any of them, copy the free ones, and unlock the full set with one bundle.</p>
     </section>
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
       <div id="ui-filters" class="flex flex-wrap gap-2"></div>
@@ -470,16 +475,28 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
       </div>
     </div>
     <div id="ui-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+    <div class="ui-bundle" id="ui-bundle">
+      <div class="ui-bundle__txt"><b>GRIT UI Bundle</b><span>All ${ELEMENTS_COUNT} elements + every new one · commercial licence · free updates</span></div>
+      <div class="ui-bundle__buy"><span class="ui-bundle__price">$${bundle.price}</span><button type="button" class="mt-btn mt-btn--primary mt-btn--sm" data-add="grit-ui-bundle">Get the bundle</button></div>
+    </div>
+
+
     <section class="mt-16 mt-row justify-between flex-col sm:flex-row items-start sm:items-center">
       <div><h2 class="font-display font-bold text-base text-softWhite">Need a custom element for your brand?</h2><p class="text-sm text-softWhite/70">We design and build interactive UI for websites and apps.</p></div>
       <a href="/?start=web" class="mt-btn mt-btn--sm shrink-0">Start a Project →</a>
+    </section>
+
+    <section class="pt-10">
+      <span class="mt-label block mb-4">More in the store</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">${miniTiles(STORE, '/store', c.slug)}
+      </div>
     </section>`;
-  mkdirSync('store/ui-elements/library', { recursive: true });
-  writeFileSync('store/ui-elements/library/index.html', page({
-    title: 'GRIT UI Library: Interactive UI Elements by Industry — Copy-Paste HTML, CSS & JS',
-    desc: 'Live, interactive UI elements for restaurants, real estate, fashion, travel, salons and fitness. Copy self-contained HTML, CSS and JavaScript with one click.',
+  mkdirSync(`store/${c.slug}`, { recursive: true });
+  writeFileSync(`store/${c.slug}/index.html`, page({
+    title: 'UI Elements: Interactive, Copy-Paste HTML, CSS & JS by Industry — GRIT Store',
+    desc: 'Live, interactive UI elements for restaurants, real estate, fashion, travel, salons and fitness, plus GSAP scroll effects. Copy self-contained HTML, CSS and JavaScript with one click.',
     route: 'store', body, extra: '  <script type="module" src="/src/ui-gallery.js"></script>',
-    head: `  <link rel="canonical" href="${SITE}/store/ui-elements/library/" />` }));
+    head: `  <link rel="canonical" href="${SITE}/store/${c.slug}/" />` }));
 }
 
 // --- Guides & FAQ (SEO help centre) ---------------------------------------
