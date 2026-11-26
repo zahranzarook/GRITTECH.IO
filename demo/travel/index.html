@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Atlas — Visas &amp; travel from Dubai · Travel agency theme demo by GRIT</title>
+  <meta name="description" content="Atlas is a travel and visa agency website theme with an interactive 3D globe, visa checker, document checklist and booking form.">
+  <meta name="theme-color" content="#070b1a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<header class="head" id="head">
+  <a href="#top" class="logo" aria-label="Atlas home"><span class="logo__ring" aria-hidden="true"></span>atlas<span class="logo__dot">.</span></a>
+  <nav class="head__nav" aria-label="Main">
+    <a href="#destinations">Destinations</a><a href="#visas">Visas</a><a href="#how">How it works</a><a href="#contact">Contact</a>
+  </nav>
+  <a href="#checker" class="btn btn--light btn--sm">Check my visa</a>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__stars" aria-hidden="true"></div>
+    <div class="hero__copy">
+      <p class="eyebrow"><span class="live"></span>Visa &amp; travel desk · Dubai</p>
+      <h1>Where to next?<br><i>We'll handle the visa.</i></h1>
+      <p class="lead">Tourist, business and family visas for 60+ countries, handled by people who do this every day. Pick a destination to see what you need.</p>
+
+      <form class="checker" id="checker" aria-label="Visa checker">
+        <label><span>I hold a passport from</span>
+          <select id="nation"></select></label>
+        <label><span>I want to visit</span>
+          <select id="dest"></select></label>
+        <div class="result" id="result" aria-live="polite"></div>
+      </form>
+    </div>
+    <div class="hero__globe">
+      <canvas id="globe" aria-label="Interactive globe showing flights from Dubai. Drag to spin."></canvas>
+      <div class="pills" id="pills"></div>
+      <p class="hint">Drag to spin · tap a city</p>
+    </div>
+  </section>
+
+  <section class="logos" aria-label="Trusted by">
+    <div class="marquee"><div class="marquee__track" id="marquee"></div></div>
+  </section>
+
+  <section class="dest" id="destinations">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Popular from Dubai</p><h2>Destinations people <i>love</i>.</h2></div>
+        <div class="arrows"><button type="button" data-scroll="-1" aria-label="Previous">←</button><button type="button" data-scroll="1" aria-label="Next">→</button></div>
+      </div>
+    </div>
+    <div class="rail" id="rail"></div>
+  </section>
+
+  <section class="visas" id="visas">
+    <div class="wrap visas__grid">
+      <div>
+        <p class="eyebrow">Visa types</p>
+        <h2>The right visa, <i>first time</i>.</h2>
+        <div class="vtabs" id="vtabs" role="tablist"></div>
+      </div>
+      <div class="vpanel" id="vpanel"></div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap how__grid">
+      <div class="how__intro">
+        <p class="eyebrow">How it works</p>
+        <h2>Four steps. <i>Zero guesswork.</i></h2>
+        <p class="muted">You send documents on WhatsApp. We check everything, book the appointment and track your passport until it's back in your hands.</p>
+      </div>
+      <ol class="steps" id="steps">
+        <span class="steps__line"><span id="stepFill"></span></span>
+        <li><b>01</b><div><h3>Tell us the trip</h3><p>Where, when and who's travelling. Takes two minutes.</p></div></li>
+        <li><b>02</b><div><h3>We check your file</h3><p>A specialist reviews every document before anything is submitted.</p></div></li>
+        <li><b>03</b><div><h3>We book &amp; submit</h3><p>Appointment, forms and fees handled, with reminders for you.</p></div></li>
+        <li><b>04</b><div><h3>Track to approval</h3><p>Live status updates until your passport is back.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="docs">
+    <div class="wrap docs__grid">
+      <div class="ring" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring__bg"/><circle cx="60" cy="60" r="52" class="ring__fg" id="ringFg"/></svg>
+        <div><b id="ringPct">0%</b><span>ready</span></div>
+      </div>
+      <div>
+        <p class="eyebrow">Document checklist</p>
+        <h2>Are you <i>ready</i> to apply?</h2>
+        <ul class="list" id="list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap contact__card">
+      <div>
+        <p class="eyebrow">Start your application</p>
+        <h2>Talk to a visa specialist <i>today</i>.</h2>
+        <p class="muted">Reply within 30 minutes, 9am to 9pm, every day.</p>
+      </div>
+      <form id="lead" class="lead-form">
+        <input required name="name" placeholder="Your name" autocomplete="name" aria-label="Your name">
+        <input required name="phone" type="tel" placeholder="WhatsApp number" autocomplete="tel" aria-label="WhatsApp number">
+        <select name="where" id="leadDest" aria-label="Destination"></select>
+        <button class="btn btn--amber" type="submit">Request a call back</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <span class="logo"><span class="logo__ring" aria-hidden="true"></span>atlas<span class="logo__dot">.</span></span>
+    <span>Office 1204, Business Bay, Dubai · +971 4 000 0000</span>
+    <span>© 2026 Atlas Travel</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
