@@ -1,3 +1,4 @@
+import './magnet.js';
 // Cover slideshows: cross-fades the images inside every [data-slides] frame.
 // Every slideshow advances on its own and has arrows and dots.
 // Respects reduced-motion (no auto-advance), pauses off screen and while a mouse hovers; swipe on touch.

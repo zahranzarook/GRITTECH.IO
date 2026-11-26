@@ -42,12 +42,12 @@
   --mt-r-pill: 999px;
 
   /* Paired Tactile Shadows (Raised vs Pressed) */
-  --mt-raised: 4px 4px 10px var(--mt-shadow-dark-2), -3px -3px 8px var(--mt-shadow-light), inset 1px 1px 1px rgba(233, 236, 231, 0.06);
-  --mt-raised-sm: 3px 3px 7px var(--mt-shadow-dark-2), -2px -2px 6px var(--mt-shadow-light), inset 1px 1px 1px rgba(233, 236, 231, 0.05);
-  --mt-raised-hover: 6px 6px 14px var(--mt-shadow-dark-2), -4px -4px 10px var(--mt-shadow-light), inset 1px 1px 1px rgba(233, 236, 231, 0.08);
+  --mt-raised: 8px 8px 18px var(--mt-shadow-dark-2), -6px -6px 14px var(--mt-shadow-light), inset 1px 1px 1px rgba(233, 236, 231, 0.07);
+  --mt-raised-sm: 5px 5px 12px var(--mt-shadow-dark-2), -4px -4px 10px var(--mt-shadow-light), inset 1px 1px 1px rgba(233, 236, 231, 0.06);
+  --mt-raised-hover: 11px 11px 24px var(--mt-shadow-dark-2), -8px -8px 18px var(--mt-shadow-light), inset 1px 1px 1px rgba(233, 236, 231, 0.09);
   --mt-pressed: inset 5px 5px 12px var(--mt-shadow-dark), inset -4px -4px 10px var(--mt-shadow-light);
-  --mt-well: inset 3px 3px 8px var(--mt-shadow-dark), inset -2px -2px 6px var(--mt-shadow-light);
-  --mt-well-sm: inset 2px 2px 5px var(--mt-shadow-dark), inset -2px -2px 4px var(--mt-shadow-light);
+  --mt-well: inset 6px 6px 14px var(--mt-shadow-dark), inset -5px -5px 12px var(--mt-shadow-light);
+  --mt-well-sm: inset 3px 3px 8px var(--mt-shadow-dark), inset -3px -3px 7px var(--mt-shadow-light);
   --mt-black-shadow: 10px 10px 24px rgba(0, 0, 0, 0.88), -6px -6px 16px rgba(233, 236, 231, 0.04), inset 0 1px 0 rgba(233, 236, 231, 0.08);
   --mt-letterpress: 0 -1px 0 rgba(0, 0, 0, 0.85), 0 1px 0 rgba(233, 236, 231, 0.06);
 
@@ -1018,5 +1018,9 @@ a.mt-tag:hover { color: var(--mt-accent-hi); border-color: rgba(131, 169, 75, 0.
 .ui-bundle__buy { display: flex; align-items: center; gap: 12px; flex: none; }
 .ui-bundle__price { font: 700 22px var(--mt-display); color: var(--mt-accent-hi); }
 @media (max-width: 640px) { .ui-bundle__txt span { display: none; } .ui-bundle { padding-left: 14px; } }
+
+/* ===== Pointer light behind the matte (see src/magnet.js) ===== */
+.mt-plate, .mt-row { background-image: radial-gradient(420px circle at var(--sx, -999px) var(--sy, -999px), rgba(163, 201, 106, 0), transparent 60%); }
+.mt-spot { background-image: radial-gradient(420px circle at var(--sx) var(--sy), rgba(163, 201, 106, 0.09), transparent 60%); border-color: rgba(131, 169, 75, 0.28); }
 
 @tailwind utilities;
