@@ -1019,8 +1019,4 @@ a.mt-tag:hover { color: var(--mt-accent-hi); border-color: rgba(131, 169, 75, 0.
 .ui-bundle__price { font: 700 22px var(--mt-display); color: var(--mt-accent-hi); }
 @media (max-width: 640px) { .ui-bundle__txt span { display: none; } .ui-bundle { padding-left: 14px; } }
 
-/* ===== Pointer light behind the matte (see src/magnet.js) ===== */
-.mt-plate, .mt-row { background-image: radial-gradient(420px circle at var(--sx, -999px) var(--sy, -999px), rgba(163, 201, 106, 0), transparent 60%); }
-.mt-spot { background-image: radial-gradient(420px circle at var(--sx) var(--sy), rgba(163, 201, 106, 0.09), transparent 60%); border-color: rgba(131, 169, 75, 0.28); }
-
 @tailwind utilities;
