@@ -27,17 +27,31 @@ const toast = grab(/ {2}<div id="toast-box"[\s\S]*?<\/div>\n {2}<\/div>|<div id=
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const ico = (id, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><use href="#${id}"/></svg>`;
 
-// Cover slot: an image or looping video when `media` is set, otherwise the engraved placeholder.
-function media(src, icon, label, extra = '') {
-  if (/\.(mp4|webm)$/i.test(src)) return `<div class="mt-media ${extra}"><video src="${src}" autoplay muted loop playsinline></video></div>`;
-  if (src) return `<div class="mt-media ${extra}"><img src="${src}" alt="" loading="lazy" /></div>`;
-  return `<div class="mt-media ${extra}" data-media="">${ico(icon, 'ico')}<span class="mt-media__label">${label}</span></div>`;
+// Cover slot: a slideshow when `media` is a list, one image/video when it's a path, otherwise the engraved placeholder.
+const SLIDE_NAMES = ['Overview', 'Features', 'Examples', 'How it works'];
+const srcset = src => (/\.webp$/i.test(src) ? ` srcset="${src.replace(/\.webp$/i, '-800.webp')} 800w, ${src} 1376w" sizes="(min-width: 1024px) 50vw, 100vw"` : '');
+function slide(src, alt, active) {
+  if (/\.(mp4|webm)$/i.test(src)) return `<video class="mt-slide${active ? ' is-active' : ''}" src="${src}" autoplay muted loop playsinline aria-label="${esc(alt)}"></video>`;
+  return `<img class="mt-slide${active ? ' is-active' : ''}" src="${src}"${srcset(src)} alt="${esc(alt)}" loading="lazy" decoding="async" />`;
+}
+function media(src, icon, label, extra = '', { name = '', controls = false } = {}) {
+  const list = Array.isArray(src) ? src : (src ? [src] : []);
+  if (!list.length) return `<div class="mt-media ${extra}" data-media="">${ico(icon, 'ico')}<span class="mt-media__label">${label}</span></div>`;
+  const imgs = list.map((s, i) => slide(s, `${name} ${SLIDE_NAMES[i] || ''}`.trim(), i === 0)).join('');
+  if (list.length === 1) return `<div class="mt-media ${extra}">${imgs}</div>`;
+  const dots = list.map((_, i) => controls
+    ? `<button type="button" data-dot aria-label="Show slide ${i + 1}" aria-current="${i === 0}"></button>`
+    : `<span data-dot aria-hidden="true" aria-current="${i === 0}"></span>`).join('');
+  const arrows = controls
+    ? `<button type="button" class="mt-slides__arrow mt-slides__arrow--prev" data-prev aria-label="Previous slide">←</button><button type="button" class="mt-slides__arrow mt-slides__arrow--next" data-next aria-label="Next slide">→</button>`
+    : '';
+  return `<div class="mt-media mt-slides ${extra}" data-slides>${imgs}${arrows}<div class="mt-slides__dots">${dots}</div></div>`;
 }
 
 function tiles(items, base, label) {
   return items.map((it, i) => `
           <a href="${base}/${it.slug}/" class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4 ${i < 2 ? 'lg:col-span-3' : 'lg:col-span-2'}">
-            ${media(it.media, it.icon, label)}
+            ${media(it.media, it.icon, label, '', { name: it.name })}
             <div class="px-2 pb-2 space-y-2">
               <div class="flex items-center justify-between">
                 <span class="mt-label text-industrialLime">${String(i + 1).padStart(2, '0')}</span>
@@ -117,7 +131,7 @@ for (const s of SERVICES) {
       <div class="lg:col-span-6">
         <div class="mt-window">
           <div class="mt-window__bar"><i></i><i></i><i></i><span class="font-mono text-[11px] text-industrialSage ml-2">${esc(s.name)}</span></div>
-          ${media(s.media, s.icon, 'Cover soon', '!rounded-none !shadow-none !border-0')}
+          ${media(s.media, s.icon, 'Cover soon', '!rounded-none !shadow-none !border-0', { name: s.name, controls: true })}
         </div>
       </div>
     </section>
@@ -195,7 +209,7 @@ for (const c of STORE) {
           ${c.perks.map(p => `<li class="flex items-center gap-2">${ico('i-check', 'ico text-industrialLime')}${esc(p)}</li>`).join('')}
         </ul>
       </div>
-      <div class="lg:col-span-6">${media(c.media, c.icon, 'Preview soon')}</div>
+      <div class="lg:col-span-6">${media(c.media, c.icon, 'Preview soon', '', { name: c.name, controls: true })}</div>
     </section>
 
     <section class="py-12">

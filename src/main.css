@@ -913,7 +913,7 @@ body::after {
 
 /* Media slot: recessed well, ready for a screenshot (<img>) or looping preview (<video>) */
 .mt-media {
-  position: relative; aspect-ratio: 16 / 10; overflow: hidden;
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
   display: grid; place-items: center; align-content: center; gap: 10px;
   border-radius: var(--mt-r-md); background: var(--mt-bg-lo);
   border: 1px solid rgba(233, 236, 231, 0.04); box-shadow: var(--mt-well-sm);
@@ -944,5 +944,18 @@ section[id] { scroll-margin-top: 90px; }
 .mt-tile__arrow { font: 600 16px var(--mt-mono); color: var(--mt-sub); transition: transform var(--mt-med) var(--mt-ease), color var(--mt-med); }
 .mt-tile:hover .mt-tile__arrow, .mt-row:hover .mt-tile__arrow { transform: translateX(4px); color: var(--mt-accent); }
 .mt-tile:focus-visible { outline: 2px solid var(--mt-accent); outline-offset: 3px; }
+
+/* ===== COVER SLIDESHOW (.mt-slides) ===== */
+.mt-slides .mt-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 900ms var(--mt-ease); }
+.mt-slides .mt-slide.is-active { opacity: 1; }
+.mt-slides__dots { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 6px; padding: 5px 8px; border-radius: var(--mt-r-pill); background: rgba(16, 18, 17, 0.6); box-shadow: var(--mt-well-sm); z-index: 2; }
+.mt-slides__dots > * { width: 6px; height: 6px; border-radius: 3px; border: 0; padding: 0; background: rgba(233, 236, 231, 0.35); transition: width var(--mt-med) var(--mt-ease), background var(--mt-med); }
+.mt-slides__dots > [aria-current="true"] { width: 18px; background: var(--mt-accent); }
+.mt-slides__dots > button { cursor: pointer; }
+.mt-slides__arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--mt-rim); background: rgba(16, 18, 17, 0.65); color: var(--mt-ink); font: 600 14px var(--mt-mono); cursor: pointer; opacity: 0; transition: opacity var(--mt-med); box-shadow: var(--mt-raised-sm); }
+.mt-slides__arrow--prev { left: 12px; }
+.mt-slides__arrow--next { right: 12px; }
+.mt-slides:hover .mt-slides__arrow, .mt-slides__arrow:focus-visible { opacity: 1; }
+@media (hover: none) { .mt-slides__arrow { opacity: 1; } }
 
 @tailwind utilities;

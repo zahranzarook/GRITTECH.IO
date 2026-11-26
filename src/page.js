@@ -1,5 +1,6 @@
 // Shared behaviour for the service and store pages: nav, cart, product grid and details.
 import { PRODUCTS, STORE } from './data.js';
+import './slides.js';
 
 const $ = id => document.getElementById(id);
 const icon = (id, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><use href="#${id}"/></svg>`;

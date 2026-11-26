@@ -1,10 +1,12 @@
 // Single source of content for the service pages and store pages.
 // Edit here, then `npm run build` regenerates /services/* and /store/*.
-// `media` fields are cover slots: put a file in /public/media/ and set e.g. media: '/media/websites.jpg' (or .mp4).
+// `media` = cover slides (16:9) in /public/media/: <slug>-1..4.webp plus an <slug>-N-800.webp for small screens.
+// Order: 1 hero, 2 features, 3 examples, 4 process. An .mp4 path also works for a looping video slide.
+const slides = slug => [1, 2, 3, 4].map(n => `/media/${slug}-${n}.webp`);
 
 export const SERVICES = [
   {
-    slug: 'websites', key: 'web', icon: 'i-web', name: 'Websites', media: '',
+    slug: 'websites', key: 'web', icon: 'i-web', name: 'Websites', media: slides('websites'),
     title: 'Websites that win customers.',
     tagline: 'A fast, mobile-friendly website that explains what you do and turns visitors into enquiries.',
     card: 'Business sites, landing pages and online stores.',
@@ -28,7 +30,7 @@ export const SERVICES = [
     idealFor: 'Restaurants, clinics, salons, shops, consultants and startups.',
   },
   {
-    slug: 'mobile-apps', key: 'app', icon: 'i-app', name: 'Mobile Apps', media: '',
+    slug: 'mobile-apps', key: 'app', icon: 'i-app', name: 'Mobile Apps', media: slides('mobile-apps'),
     title: 'Apps your customers will use.',
     tagline: 'iOS and Android apps, from first sketch to the app store.',
     card: 'iOS and Android apps, from idea to app store.',
@@ -52,7 +54,7 @@ export const SERVICES = [
     idealFor: 'Service businesses, retailers, startups and teams that work on the move.',
   },
   {
-    slug: 'ai-automation', key: 'ai', icon: 'i-auto', name: 'AI & Automation', media: '',
+    slug: 'ai-automation', key: 'ai', icon: 'i-auto', name: 'AI & Automation', media: slides('ai-automation'),
     title: 'AI that does real work.',
     tagline: 'Hand the repetitive jobs to AI that works around the clock.',
     card: 'AI agents, chatbots and automated workflows.',
@@ -75,7 +77,7 @@ export const SERVICES = [
     idealFor: 'Clinics, agencies, hotels, real estate and busy service teams.',
   },
   {
-    slug: 'ads-video', key: 'creative', icon: 'i-play', name: 'Ads & Video', media: '',
+    slug: 'ads-video', key: 'creative', icon: 'i-play', name: 'Ads & Video', media: slides('ads-video'),
     title: 'Ads and videos, made fast.',
     tagline: 'Product ads, promo videos and digital presenters, made with AI and art-directed by our team.',
     card: 'Product ads, promo videos and presenters.',
@@ -98,7 +100,7 @@ export const SERVICES = [
     idealFor: 'Product brands, startups, e-commerce stores and marketing teams.',
   },
   {
-    slug: 'social-media', key: 'social', icon: 'i-social', name: 'Social Media', media: '',
+    slug: 'social-media', key: 'social', icon: 'i-social', name: 'Social Media', media: slides('social-media'),
     title: 'Social media that grows your business.',
     tagline: 'We plan, create, post and run your ads, so you can focus on running your business.',
     card: 'Management, content and paid ads.',
@@ -124,35 +126,35 @@ export const SERVICES = [
 
 export const STORE = [
   {
-    slug: 'website-themes', cat: 'themes', icon: 'i-theme', name: 'Website Themes', media: '',
+    slug: 'website-themes', cat: 'themes', icon: 'i-theme', name: 'Website Themes', media: slides('website-themes'),
     title: 'Website themes, ready to launch.',
     tagline: 'Complete website themes. Pick one, add your content, go live.',
     card: 'Complete sites for businesses, SaaS and portfolios.',
     perks: ['Fully responsive', 'Easy to rebrand', 'Setup guide included', 'Free updates'],
   },
   {
-    slug: 'ui-elements', cat: 'ui', icon: 'i-grid', name: 'UI Elements', media: '',
+    slug: 'ui-elements', cat: 'ui', icon: 'i-grid', name: 'UI Elements', media: slides('ui-elements'),
     title: 'UI elements you can drop in.',
     tagline: 'Buttons, cards, forms, switches and full sections. Copy, paste, ship.',
     card: 'Components, kits and full page sections.',
     perks: ['Copy-paste HTML + Tailwind', 'Figma files', 'Accessible by default', 'Free updates'],
   },
   {
-    slug: 'icons-assets', cat: 'assets', icon: 'i-shape', name: 'Icons & Assets', media: '',
+    slug: 'icons-assets', cat: 'assets', icon: 'i-shape', name: 'Icons & Assets', media: slides('icons-assets'),
     title: 'Icons and design assets.',
     tagline: 'Sharp icon sets, graphics and visual assets for your interfaces.',
     card: 'Icon sets, graphics and visual assets.',
     perks: ['SVG, PNG and Figma', 'Consistent style', 'Commercial licence', 'Free updates'],
   },
   {
-    slug: 'project-files', cat: 'files', icon: 'i-file', name: 'Project Files', media: '',
+    slug: 'project-files', cat: 'files', icon: 'i-file', name: 'Project Files', media: slides('project-files'),
     title: 'Project files to build on.',
     tagline: 'Starter code and complete projects, so you never start from zero.',
     card: 'Starter kits, dashboards and workflows.',
     perks: ['Clean, commented code', 'Setup guide included', 'Commercial licence', 'Free updates'],
   },
   {
-    slug: 'prompt-packs', cat: 'prompts', icon: 'i-prompt', name: 'Prompt Packs', media: '',
+    slug: 'prompt-packs', cat: 'prompts', icon: 'i-prompt', name: 'Prompt Packs', media: slides('prompt-packs'),
     title: 'Prompt packs that just work.',
     tagline: 'Ready-made prompts for images, video and copy. Start with a free pack.',
     card: 'Image, video and copy prompts. Start free.',
