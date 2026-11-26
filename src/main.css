@@ -1019,4 +1019,11 @@ a.mt-tag:hover { color: var(--mt-accent-hi); border-color: rgba(131, 169, 75, 0.
 .ui-bundle__price { font: 700 22px var(--mt-display); color: var(--mt-accent-hi); }
 @media (max-width: 640px) { .ui-bundle__txt span { display: none; } .ui-bundle { padding-left: 14px; } }
 
+/* ===== Light on the matte background (see src/magnet.js) ===== */
+.mt-bglight { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
+  background:
+    radial-gradient(260px circle at var(--ax, 50%) var(--ay, 30%), rgba(163, 201, 106, 0.11), transparent 70%),
+    radial-gradient(620px 460px at var(--bx, 50%) var(--by, 30%), rgba(233, 236, 231, 0.045), transparent 70%),
+    radial-gradient(900px 700px at calc(var(--bx, 50%) + 120px) calc(var(--by, 30%) + 160px), rgba(0, 0, 0, 0.28), transparent 70%); }
+
 @tailwind utilities;
