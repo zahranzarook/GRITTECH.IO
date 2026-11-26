@@ -1,18 +1,25 @@
 // UI Library gallery: live previews in sandboxed frames, industry filters, search, copy/view code.
-import { ELEMENTS } from './elements/batch1.js';
+import { ELEMENTS as B1 } from './elements/batch1.js';
+import { ELEMENTS2 } from './elements/batch2.js';
+
+const ELEMENTS = [...B1, ...ELEMENTS2];
 
 const $ = id => document.getElementById(id);
 const grid = $('ui-grid');
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const snippet = e => `<!-- ${e.name} · GRIT UI Library · grittech.io -->
+const libTags = e => (e.libs || []).map(u => `<script src="${u}"><\/script>`).join('\n');
+const snippet = e => `<!-- ${e.name} · GRIT UI Library · grittech.io -->${e.libs ? '\n<!-- Uses GSAP + ScrollTrigger and Lenis (free, loaded from jsDelivr) -->' : ''}
 <style>
 ${e.css}
 </style>
 
 ${e.html}
-${e.js ? `\n<script>\n${e.js}\n</script>\n` : ''}`;
-const doc = e => `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{height:100%;margin:0}body{display:grid;place-items:center;background:${e.stage};overflow:hidden;-webkit-font-smoothing:antialiased}${e.css}</style></head><body><div id="fit">${e.html}</div><script>${e.js}<\/script><script>(function(){var f=document.getElementById('fit');function k(){f.style.transform='';var r=f.getBoundingClientRect(),s=Math.min(1,(innerHeight-28)/r.height,(innerWidth-28)/r.width);f.style.transform='scale('+s+')';}addEventListener('resize',k);setTimeout(k,30);})();<\/script></body></html>`;
+${e.libs ? '\n' + libTags(e) + '\n' : ''}${e.js ? `\n<script>\n${e.js}\n</script>\n` : ''}`;
+// Preview: images load from this site (so previews work on preview links too).
+const local = str => str.replaceAll('https://grittech.io/', location.origin + '/');
+const FIT = `<script>(function(){var f=document.getElementById('fit');function k(){f.style.transform='';var r=f.getBoundingClientRect(),s=Math.min(1,(innerHeight-28)/r.height,(innerWidth-28)/r.width);f.style.transform='scale('+s+')';}addEventListener('resize',k);setTimeout(k,30);})();<\/script>`;
+const doc = e => `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{height:100%;margin:0}body{${e.full ? '' : 'display:grid;place-items:center;'}background:${e.stage};overflow:hidden;-webkit-font-smoothing:antialiased}${e.css}</style>${libTags(e)}</head><body>${e.full ? local(e.html) : `<div id="fit">${e.html}</div>`}<script>${e.js}<\/script>${e.full ? '' : FIT}</body></html>`;
 
 const industries = [...new Set(ELEMENTS.map(e => e.industry))];
 let industry = new URLSearchParams(location.search).get('industry') || 'All', q = '';
@@ -35,7 +42,7 @@ function render() {
     <article class="mt-plate p-3 flex flex-col gap-4 ui-card" id="${e.id}">
       <div class="ui-stage" style="background:${e.stage}">
         <iframe data-el="${e.id}" title="${e.name} live preview" sandbox="allow-scripts" loading="lazy"></iframe>
-        <span class="mt-badge">${e.js ? 'Interactive' : 'CSS only'}</span>
+        <span class="mt-badge">${e.libs ? 'GSAP + Lenis' : e.js ? 'Interactive' : 'CSS only'}</span>
       </div>
       <div class="px-2 space-y-2 flex-1">
         <div class="flex items-center justify-between gap-3">
