@@ -3,6 +3,7 @@
 // Runs automatically before `npm run dev` and `npm run build`.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { SERVICES, STORE, PRODUCTS } from '../src/data.js';
+import { FAQ_GROUPS } from '../src/faq.js';
 
 const HOME = 'index.html';
 let home = readFileSync(HOME, 'utf8');
@@ -433,4 +434,52 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
     </section>
     <p class="font-mono text-xs text-industrialSage">GRIT Technologies FZE LLC · Questions: <a href="mailto:orders@grittech.io" class="hover:text-softWhite">orders@grittech.io</a></p>` }));
 
-console.log(`build-pages: ${SERVICES.length} service pages, ${STORE.length} store pages, ${PRODUCTS.length} product pages, licence, homepage tiles refreshed.`);
+// --- Guides & FAQ (SEO help centre) ---------------------------------------
+{
+  const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: FAQ_GROUPS.flatMap(g => g.qa.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))) };
+  const body = `${crumb('Home', '/', 'Guides & FAQ').replace(/<a href="\/" class="hover:text-softWhite">Home<\/a> <span class="mx-2">\/<\/span>\s*/, '')}
+    <section class="max-w-3xl space-y-6 pb-12 border-b border-softWhite/10">
+      <span class="mt-pill">${ico('i-learn', 'ico text-industrialLime')}Guides &amp; FAQ</span>
+      <h1 class="mt-h1 text-4xl sm:text-6xl text-softWhite">Websites, apps &amp; digital assets: your questions answered.</h1>
+      <p class="text-lg text-softWhite/75">Straight answers on building a website or app in Dubai and the UAE, using AI in your business, making video ads, and finding themes, UI elements and 3D assets.</p>
+      <nav class="flex flex-wrap gap-2" aria-label="Topics">
+        ${FAQ_GROUPS.map(g => `<a href="#${g.id}" class="mt-tag">${esc(g.title)}</a>`).join('')}
+      </nav>
+    </section>
+    ${FAQ_GROUPS.map(g => `
+    <section id="${g.id}" class="py-14 border-b border-softWhite/10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-4 space-y-4">
+        <h2 class="mt-h2 text-2xl sm:text-3xl text-softWhite lg:sticky lg:top-28">${esc(g.title)}</h2>
+      </div>
+      <div class="lg:col-span-8 space-y-3">
+        ${g.qa.map(([q, a], i) => `
+        <details class="mt-faq mt-well p-5"${i === 0 ? ' open' : ''}><summary><h3 class="font-display font-bold text-softWhite text-base">${esc(q)}</h3></summary><p class="text-sm sm:text-base text-softWhite/75 leading-relaxed pt-3">${esc(a)}</p></details>`).join('')}
+        <a href="${g.more[0]}" class="inline-flex items-center gap-2 pt-3 font-mono text-[11px] uppercase tracking-wider text-industrialSage hover:text-industrialLime">${esc(g.more[1])} <span aria-hidden="true">→</span></a>
+      </div>
+    </section>`).join('')}
+
+    <section class="pt-14 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="mt-plate p-8 space-y-4">
+        <span class="mt-label text-industrialLime block">Still have a question?</span>
+        <p class="text-softWhite/80">Ask us directly. We usually reply the same day.</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="/#contact" class="mt-btn mt-btn--primary">Ask a Question →</a>
+          <a href="tel:+971545605512" class="mt-btn">+971 54 560 5512</a>
+        </div>
+      </div>
+      <div class="mt-plate p-8 space-y-4">
+        <span class="mt-label text-industrialLime block">Do it yourself</span>
+        <p class="text-softWhite/80">Themes, UI elements and project files with full commercial rights.</p>
+        <a href="/store/website-themes/" class="mt-btn self-start">Browse the Store →</a>
+      </div>
+    </section>`;
+  mkdirSync('faq', { recursive: true });
+  writeFileSync('faq/index.html', page({
+    title: 'Web Design, App Development & 3D Assets FAQ: Dubai, UAE | GRIT Technologies',
+    desc: 'How to create a website or app in Dubai and the UAE, use AI in your business, make video ads, and download website themes, UI elements and 3D assets. Clear answers from GRIT Technologies.',
+    route: 'faq', body,
+    head: `  <link rel="canonical" href="${SITE}/faq/" />\n  <meta property="og:title" content="Web Design, App Development &amp; 3D Assets FAQ: Dubai, UAE" />\n  <meta property="og:url" content="${SITE}/faq/" />\n  <script type="application/ld+json">${JSON.stringify(faqLd)}</script>` }));
+}
+
+console.log(`build-pages: ${SERVICES.length} service pages, ${STORE.length} store pages, ${PRODUCTS.length} product pages, licence, FAQ, homepage tiles refreshed.`);
