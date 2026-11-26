@@ -1,10 +1,12 @@
 // UI Library gallery: live previews in sandboxed frames, industry filters, search, copy/view code.
 import { ELEMENTS as B1 } from './elements/batch1.js';
 import { ELEMENTS2 } from './elements/batch2.js';
+import { ELEMENTS3 } from './elements/batch3.js';
 import { PRODUCTS } from './data.js';
 const BUNDLE = PRODUCTS.find(p => p.id === 'grit-ui-bundle');
 
-const ELEMENTS = [...B1, ...ELEMENTS2];
+// Newest batch first so fresh elements lead the library.
+const ELEMENTS = [...ELEMENTS3, ...B1, ...ELEMENTS2];
 
 const $ = id => document.getElementById(id);
 const grid = $('ui-grid');

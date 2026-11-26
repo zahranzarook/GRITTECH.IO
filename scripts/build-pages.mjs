@@ -460,7 +460,7 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
 {
   const c = STORE.find(x => x.cat === 'ui');
   const bundle = PRODUCTS.find(p => p.id === 'grit-ui-bundle');
-  const ELEMENTS_COUNT = (await import('../src/elements/batch1.js')).ELEMENTS.length + (await import('../src/elements/batch2.js')).ELEMENTS2.length;
+  const ELEMENTS_COUNT = (await import('../src/elements/batch1.js')).ELEMENTS.length + (await import('../src/elements/batch2.js')).ELEMENTS2.length + (await import('../src/elements/batch3.js')).ELEMENTS3.length;
   const body = `${crumb('Store', '/#store', c.name)}
     <section class="max-w-3xl space-y-5 pb-10">
       <span class="mt-pill">${ico(c.icon, 'ico text-industrialLime')}${esc(c.name)}</span>
