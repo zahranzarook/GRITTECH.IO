@@ -1,5 +1,4 @@
 import { demobar } from '../../src/demo/demobar.js';
-import { dish } from '../../src/demo/dish.js';
 import { CATS, RESTAURANTS, PROMOS } from './data.js';
 
 demobar({ name: 'bite. — food ordering app demo', start: 'app' });
@@ -7,7 +6,8 @@ demobar({ name: 'bite. — food ordering app demo', start: 'app' });
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const aed = n => `AED ${n.toFixed(n % 1 ? 2 : 0)}`;
-const art = {}, artOf = (it, k = '') => (art[it.id + k] ||= dish({ ...it.art, seed: (it.art.seed || it.id) + k }));
+const artOf = it => `<img src="/demo/restaurant/img/${it.id}.webp" alt="${it.name}" loading="lazy" decoding="async">`;
+const cover = r => `<img class="cover" src="/demo/app-food/img/rest-${r.id}.webp" alt="${r.name}" loading="lazy" decoding="async">`;
 const ICO = {
   back: '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',
   heart: '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>',
@@ -83,8 +83,8 @@ const favs = new Set(['green']);
 function restCard(r) {
   const items = r.menu.flatMap(m => m[1]);
   return `<button class="rest press" data-rest="${r.id}">
-    <div class="rest__art" style="background:linear-gradient(135deg, ${r.color}, ${r.color}cc)">
-      ${artOf(items[0])}${artOf(items[1] || items[0], 'b')}
+    <div class="rest__art" style="background:${r.color}">
+      ${cover(r)}
       <span class="rest__promo">${r.promo}</span>
       <span class="rest__fav ${favs.has(r.id) ? 'is-on' : ''}" data-fav="${r.id}" role="button" aria-label="Save">${ICO.heart}</span>
     </div>
@@ -100,7 +100,7 @@ function home() {
     <button class="search press" data-go="search" style="width:calc(100% - 40px)">${ICO.search}<span>Search dishes or restaurants</span></button>
     <div class="cats" id="cats">${CATS.map(([k, n, e]) => `<button class="cat press ${k === cat ? 'is-on' : ''}" data-cat="${k}"><span>${e}</span>${n}</button>`).join('')}</div>
     <div class="h2 pad">Offers for you</div>
-    <div class="promos">${PROMOS.map(([t, sub, c, rid]) => { const r = RESTAURANTS.find(x => x.id === rid); return `<button class="promo press" data-rest="${rid}" style="background:${c}"><b>${t}</b><small>${sub}</small>${artOf(r.menu[0][1][0], 'p')}</button>`; }).join('')}</div>
+    <div class="promos">${PROMOS.map(([t, sub, c, rid]) => { const r = RESTAURANTS.find(x => x.id === rid); return `<button class="promo press" data-rest="${rid}" style="background:${c}"><b>${t}</b><small>${sub}</small>${artOf(r.menu[0][1][0])}</button>`; }).join('')}</div>
     <div class="h2 pad">Popular near you <small>See all</small></div>
     <div class="pad" id="rlist"></div>`);
   s.dataset.kind = 'home';
@@ -111,8 +111,8 @@ function home() {
 }
 function restaurant(r) {
   const s = make(`
-    <div class="hero" style="background:radial-gradient(circle at 80% 40%, ${r.color}, ${r.color}dd 60%, ${r.color}aa)">
-      ${artOf(r.menu[0][1][0], 'h')}
+    <div class="hero" style="background:${r.color}">
+      ${cover(r)}
       <div class="hero__top"><button class="icon-btn press" data-back aria-label="Back">${ICO.back}</button><div class="row"><button class="icon-btn press" aria-label="Share">${ICO.share}</button><button class="icon-btn press rest__fav ${favs.has(r.id) ? 'is-on' : ''}" data-fav="${r.id}" aria-label="Save">${ICO.heart}</button></div></div>
     </div>
     <div class="info">
@@ -235,7 +235,7 @@ function track(o) {
       <div class="eta__big" id="eta">Preparing</div>
       <div class="bar"><i id="bar"></i></div>
       <ol class="steps">${['Order confirmed', 'Restaurant is preparing', 'Rider picked up your order', 'Arriving now', 'Delivered. Enjoy!'].map((t, i) => `<li data-st="${i}">${t}</li>`).join('')}</ol>
-      <div class="courier"><span class="avatar">AK</span><div style="flex:1"><b>Ahmed K.</b><br><small class="sub">★ 4.9 · Honda PCX · D 41270</small></div><button class="icon-btn press" aria-label="Call">📞</button></div>
+      <div class="courier"><img class="avatar" src="/demo/app-food/img/avatar-rider.webp" alt="Ahmed K."><div style="flex:1"><b>Ahmed K.</b><br><small class="sub">★ 4.9 · Honda PCX · D 41270</small></div><button class="icon-btn press" aria-label="Call">📞</button></div>
     </div>`);
   s.dataset.kind = 'track';
   const rider = $('#rider', s), map = $('.map', s);
@@ -293,7 +293,7 @@ function ordersScreen() {
   return s;
 }
 function profile() {
-  const s = make(`<div class="pad"><div class="row" style="margin-top:10px;gap:14px"><span class="avatar" style="width:64px;height:64px;font-size:22px">SM</span><div><div class="h1" style="font-size:24px;margin:0">Sara M.</div><span class="sub">+971 50 000 0000</span></div></div>
+  const s = make(`<div class="pad"><div class="row" style="margin-top:10px;gap:14px"><img class="avatar" style="width:64px;height:64px" src="/demo/app-food/img/avatar-user.webp" alt="Sara M."><div><div class="h1" style="font-size:24px;margin:0">Sara M.</div><span class="sub">+971 50 000 0000</span></div></div>
     <div class="card" style="margin-top:20px;background:var(--ink);color:#fff"><div class="row" style="justify-content:space-between"><div><small style="opacity:.7">bite. credits</small><div style="font-size:28px;font-weight:800">AED 42.50</div></div><span class="pill" style="background:var(--acc);color:#fff">Gold member</span></div></div>
     <div class="card" style="margin-top:14px">${['Saved addresses', 'Payment methods', 'Favourites', 'Offers & vouchers', 'Help centre', 'Language · English / عربي'].map(x => `<div class="line" style="justify-content:space-between"><span>${x}</span><span class="sub">›</span></div>`).join('')}</div></div>`);
   s.dataset.kind = 'profile';

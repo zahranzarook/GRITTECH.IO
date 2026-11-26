@@ -1,5 +1,5 @@
 import { demobar } from '../../src/demo/demobar.js';
-import { dish } from '../../src/demo/dish.js';
+import { smooth, revealHeadings, rise, gsap, reduced } from '../../src/demo/motion.js';
 import { CATS, DIET, MENU } from './menu.js';
 
 demobar({ name: 'Ember & Salt — restaurant theme', buy: '/store/website-themes/ember-restaurant/', start: 'web' });
@@ -7,8 +7,8 @@ demobar({ name: 'Ember & Salt — restaurant theme', buy: '/store/website-themes
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const ICON = { veg: ['🌿', 'Vegetarian'], spicy: ['🌶', 'Spicy'], gf: ['GF', 'Gluten-free'], df: ['DF', 'Dairy-free'] };
-const art = {};
-const artOf = d => (art[d.id] ||= dish(d.art));
+const IMG = id => `/demo/restaurant/img/${id}.webp`;
+const artOf = d => `<img src="${IMG(d.id)}" alt="${d.name}" loading="lazy" decoding="async">`;
 const aed = n => `AED ${n}`;
 
 let toastT;
@@ -18,14 +18,13 @@ function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.ad
 const by = id => MENU.find(d => d.id === id);
 const plate = $('#heroPlate');
 plate.innerHTML = [['hummus', 'main', 1], ['burrata', 'b', 2.2], ['lemonade', 'c', 3]]
-  .map(([id, k, depth]) => `<div class="hp hp--${k}" data-depth="${depth}">${dish({ ...by(id).art, seed: id + 'hero' })}</div>`).join('');
+  .map(([id, k, depth]) => `<div class="hp hp--${k}" data-depth="${depth}"><img src="${IMG(id)}" alt="" fetchpriority="${k === 'main' ? 'high' : 'auto'}"></div>`).join('');
 // Smooth pointer parallax + scroll drift
 let mx = 0, my = 0, cx = 0, cy = 0;
 addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
 (function loop() {
   cx += (mx - cx) * .06; cy += (my - cy) * .06;
-  const y = Math.min(scrollY, 900);
-  plate.querySelectorAll('.hp').forEach(el => { const d = +el.dataset.depth; el.style.transform = `translate(${cx * 26 * d}px, ${cy * 26 * d - y * .05 * d}px)`; });
+  plate.querySelectorAll('.hp').forEach(el => { const d = +el.dataset.depth; el.style.translate = `${cx * 26 * d}px ${cy * 26 * d}px`; });
   requestAnimationFrame(loop);
 })();
 
@@ -223,3 +222,18 @@ $$('[data-count]').forEach(el => countIO.observe(el));
 render();
 paintBasket();
 moveInk();
+
+// ---------- Smooth motion ----------
+smooth();
+revealHeadings('.hero h1', { immediate: true });
+revealHeadings('h2');
+rise('.story__stats li, .hours, .book__form, .visit .map, .book__chef');
+if (!reduced) {
+  gsap.from('.hp', { scale: .4, rotate: -40, autoAlpha: 0, duration: 1.4, ease: 'expo.out', stagger: .12, delay: .1 });
+  gsap.from('.lead, .hero__cta, .hero__facts li', { y: 24, autoAlpha: 0, duration: 1, ease: 'power3.out', stagger: .08, delay: .5 });
+  gsap.to('#heroPlate', { yPercent: 18, scale: .86, rotate: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.fromTo('.story__media', { clipPath: 'inset(14% 10% 14% 10% round 36px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.story', start: 'top 85%', end: 'top 15%', scrub: true } });
+  gsap.fromTo('.story__media img', { scale: 1.3 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.story', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.fromTo('.book__chef img', { yPercent: -10 }, { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '.book__chef', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.fromTo('.visit .map img', { scale: 1.2 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.visit', start: 'top bottom', end: 'bottom top', scrub: true } });
+}
