@@ -6,10 +6,11 @@
   "scripts": {
     "pages": "node scripts/build-pages.mjs",
     "dev": "node scripts/build-pages.mjs && vite",
-    "build": "node scripts/build-pages.mjs && vite build",
+    "build": "node scripts/build-pages.mjs && vite build && node scripts/media-cdn.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1178.0",
     "@fontsource/fraunces": "^5.3.0",
     "@fontsource/instrument-serif": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
