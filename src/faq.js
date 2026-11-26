@@ -94,7 +94,7 @@ export const FAQ_GROUPS = [
       ['Can I use downloaded themes and assets for commercial projects?',
         'Only if the licence says so, so always check it. Every product in the GRIT store comes with full access and commercial rights: you can use it for your business, your clients and anything you sell. The one rule is that you cannot resell the files themselves.'],
       ['How much do website themes and assets cost?',
-        'Themes in the GRIT store start at 9.99 USD as a one-time payment with free updates, and the Starter Prompt Pack is free with an account.'],
+        'Each product in the GRIT store is a one-time payment with free updates and the price is shown on its page. The Starter Prompt Pack is free with an account.'],
     ],
   },
 ];

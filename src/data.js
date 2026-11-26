@@ -168,15 +168,6 @@ export const STORE = [
 // demo = live preview URL; media = cover images (first is the card image).
 // Items marked placeholder: true are not built yet: swap in real files, prices and previews before selling.
 export const PRODUCTS = [
-  { id: 'lumi-nail-salon', title: 'LUMI Nail Salon Theme', cat: 'themes', price: 9.99, badge: 'New', pop: 90, added: '2026-11-26', version: '1.0',
-    seo: 'LUMI: Editorial Nail Salon Website Theme with Live Colour Try-On',
-    summary: 'Editorial salon theme with a live nail-colour try-on.',
-    about: 'A fashion-magazine style website for nail salons and beauty studios. Visitors pick a shade and watch it paint onto a real hand in four angles, switch between six finishes and two skin tones, then book that exact look. Comes with a service menu, lookbook, product shop with bag, and a four-step booking flow that sends a calendar invite.',
-    demo: '/demo/nail-salon/', media: ['/media/store/lumi-1.webp', '/media/store/lumi-2.webp', '/media/store/lumi-3.webp', '/media/store/lumi-4.webp'],
-    tags: ['Beauty', 'Salon', 'Editorial', 'WebGL', 'Booking', 'E-commerce', 'Animated'],
-    formats: ['HTML', 'CSS', 'Vanilla JS'], compatibility: 'HTML, CSS, Vanilla JS, WebGL',
-    features: ['12-shade live try-on on real hand photos', '4 angles, 6 finishes, 2 skin tones', 'Booking flow with calendar invite', 'Service menu, lookbook and shop', 'Responsive, touch and keyboard friendly', 'Setup guide and free updates'],
-    notes: ['Try-on needs WebGL (every modern browser)', 'Respects reduced-motion settings', 'Swap in your own shades, prices and photos'] },
   { id: 'nexus-saas-theme', title: 'Nexus SaaS Theme', cat: 'themes', price: 59, placeholder: true, pop: 60, added: '2026-09-10',
     seo: 'Nexus: Dark SaaS & AI Startup Website Theme',
     summary: 'Dark site theme for SaaS and AI startups.', compatibility: 'HTML, Next.js',
