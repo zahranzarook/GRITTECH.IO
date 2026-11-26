@@ -265,6 +265,7 @@ const includes = `
     </section>`;
 
 for (const c of STORE) {
+  if (c.cat === 'ui') continue; // UI Elements is the live library page (built below)
   const body = `${crumb('Store', '/#store', c.name)}
 
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pb-16 border-b border-softWhite/10">
@@ -449,18 +450,15 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
     </section>
     <p class="font-mono text-xs text-industrialSage">GRIT Technologies FZE LLC · Questions: <a href="mailto:orders@grittech.io" class="hover:text-softWhite">orders@grittech.io</a></p>` }));
 
-// --- UI Library gallery ---------------------------------------------------
+// --- UI Elements: the live library IS the category page ---------------------
 {
-  const body = `
-    <nav class="font-mono text-[11px] uppercase tracking-wider text-industrialSage mb-8" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-softWhite">Home</a> <span class="mx-2">/</span>
-      <a href="/store/ui-elements/" class="hover:text-softWhite">UI Elements</a> <span class="mx-2">/</span>
-      <span class="text-industrialLime">Library</span>
-    </nav>
+  const c = STORE.find(x => x.cat === 'ui');
+  const kits = PRODUCTS.filter(p => p.cat === 'ui');
+  const body = `${crumb('Store', '/#store', c.name)}
     <section class="max-w-3xl space-y-5 pb-10">
-      <span class="mt-pill">${ico('i-grid', 'ico text-industrialLime')}GRIT UI Library</span>
+      <span class="mt-pill">${ico(c.icon, 'ico text-industrialLime')}${esc(c.name)}</span>
       <h1 class="mt-h1 text-4xl sm:text-6xl text-softWhite">Interactive UI, ready to paste.</h1>
-      <p class="text-lg text-softWhite/75">Buttons, cards, pickers and calculators for real industries. Everything below is live: play with it, then copy self-contained HTML, CSS and JavaScript.</p>
+      <p class="text-lg text-softWhite/75">Buttons, cards, pickers, calculators and scroll effects for real industries. Everything below is live: play with it, then copy self-contained HTML, CSS and JavaScript. Free for commercial use.</p>
     </section>
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
       <div id="ui-filters" class="flex flex-wrap gap-2"></div>
@@ -470,16 +468,30 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
       </div>
     </div>
     <div id="ui-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+${kits.length ? `
+    <section class="pt-16 mt-16 border-t border-softWhite/10">
+      <div class="flex items-end justify-between gap-4 mb-8">
+        <div><span class="mt-label text-industrialLime block mb-2">UI kits</span><h2 class="mt-h2 text-2xl sm:text-3xl text-softWhite">Complete kits for Figma and code.</h2></div>
+        <p id="product-count" class="font-mono text-xs uppercase tracking-wider text-industrialSage"></p>
+      </div>
+      <div id="product-grid" data-cat="ui" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7"></div>
+    </section>` : ''}
     <section class="mt-16 mt-row justify-between flex-col sm:flex-row items-start sm:items-center">
       <div><h2 class="font-display font-bold text-base text-softWhite">Need a custom element for your brand?</h2><p class="text-sm text-softWhite/70">We design and build interactive UI for websites and apps.</p></div>
       <a href="/?start=web" class="mt-btn mt-btn--sm shrink-0">Start a Project →</a>
+    </section>
+
+    <section class="pt-10">
+      <span class="mt-label block mb-4">More in the store</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">${miniTiles(STORE, '/store', c.slug)}
+      </div>
     </section>`;
-  mkdirSync('store/ui-elements/library', { recursive: true });
-  writeFileSync('store/ui-elements/library/index.html', page({
-    title: 'GRIT UI Library: Interactive UI Elements by Industry — Copy-Paste HTML, CSS & JS',
-    desc: 'Live, interactive UI elements for restaurants, real estate, fashion, travel, salons and fitness. Copy self-contained HTML, CSS and JavaScript with one click.',
+  mkdirSync(`store/${c.slug}`, { recursive: true });
+  writeFileSync(`store/${c.slug}/index.html`, page({
+    title: 'UI Elements: Interactive, Copy-Paste HTML, CSS & JS by Industry — GRIT Store',
+    desc: 'Live, interactive UI elements for restaurants, real estate, fashion, travel, salons and fitness, plus GSAP scroll effects. Copy self-contained HTML, CSS and JavaScript with one click.',
     route: 'store', body, extra: '  <script type="module" src="/src/ui-gallery.js"></script>',
-    head: `  <link rel="canonical" href="${SITE}/store/ui-elements/library/" />` }));
+    head: `  <link rel="canonical" href="${SITE}/store/${c.slug}/" />` }));
 }
 
 // --- Guides & FAQ (SEO help centre) ---------------------------------------

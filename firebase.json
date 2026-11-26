@@ -35,6 +35,28 @@
           }
         ]
       }
+    ],
+    "redirects": [
+      {
+        "source": "/store/ui-elements/library",
+        "destination": "/store/ui-elements/",
+        "type": 301
+      },
+      {
+        "source": "/store/ui-elements/library/**",
+        "destination": "/store/ui-elements/",
+        "type": 301
+      },
+      {
+        "source": "/store/ui-elements/grit-ui-library",
+        "destination": "/store/ui-elements/",
+        "type": 301
+      },
+      {
+        "source": "/store/ui-elements/grit-ui-library/**",
+        "destination": "/store/ui-elements/",
+        "type": 301
+      }
     ]
   },
   "firestore": {
