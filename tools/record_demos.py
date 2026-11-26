@@ -45,5 +45,5 @@ async def main():
     if 'ember' in which: await record('ember-restaurant','/demo/restaurant/',ember)
     if 'atlas' in which: await record('atlas-travel','/demo/travel/',atlas)
     if 'bite' in which: await record('bite-app','/demo/app-food/',bite)
-    if 'lib' in which: await record('grit-ui-library','/store/ui-elements/library/',lib,prep=libprep)
+    if 'lib' in which: await record('grit-ui-library','/store/ui-elements/',lib,prep=libprep)
 asyncio.run(main())

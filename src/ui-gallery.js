@@ -1,6 +1,8 @@
 // UI Library gallery: live previews in sandboxed frames, industry filters, search, copy/view code.
 import { ELEMENTS as B1 } from './elements/batch1.js';
 import { ELEMENTS2 } from './elements/batch2.js';
+import { PRODUCTS } from './data.js';
+const BUNDLE = PRODUCTS.find(p => p.id === 'grit-ui-bundle');
 
 const ELEMENTS = [...B1, ...ELEMENTS2];
 
@@ -18,15 +20,16 @@ ${e.html}
 ${e.libs ? '\n' + libTags(e) + '\n' : ''}${e.js ? `\n<script>\n${e.js}\n</script>\n` : ''}`;
 // Preview: images load from this site (so previews work on preview links too).
 const local = str => str.replaceAll('https://grittech.io/', location.origin + '/');
-const FIT = `<script>(function(){var f=document.getElementById('fit');function k(){f.style.transform='';var r=f.getBoundingClientRect(),s=Math.min(1,(innerHeight-28)/r.height,(innerWidth-28)/r.width);f.style.transform='scale('+s+')';}addEventListener('resize',k);setTimeout(k,30);})();<\/script>`;
-const doc = e => `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{height:100%;margin:0}body{${e.full ? '' : 'display:grid;place-items:center;'}background:${e.stage};overflow:hidden;-webkit-font-smoothing:antialiased}${e.css}</style>${libTags(e)}</head><body>${e.full ? local(e.html) : `<div id="fit">${e.html}</div>`}<script>${e.js}<\/script>${e.full ? '' : FIT}</body></html>`;
+const FIT = `<script>(function(){var f=document.getElementById('fit');function k(){var w=f.offsetWidth,h=f.offsetHeight,s=Math.min(1,(innerHeight-24)/h,(innerWidth-24)/w);f.style.transform='translate(-50%,-50%) scale('+s+')';}addEventListener('resize',k);k();setTimeout(k,60);setTimeout(k,400);})();<\/script>`;
+const doc = e => `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{height:100%;margin:0}body{${e.full ? '' : 'display:grid;place-items:center;'}background:${e.stage};overflow:hidden;-webkit-font-smoothing:antialiased}#fit{position:absolute;left:50%;top:50%;width:max-content;transform:translate(-50%,-50%);transform-origin:center}${e.css}</style>${libTags(e)}</head><body>${e.full ? local(e.html) : `<div id="fit">${local(e.html)}</div>`}<script>${e.js}<\/script>${e.full ? '' : FIT}</body></html>`;
 
 const industries = [...new Set(ELEMENTS.map(e => e.industry))];
 let industry = new URLSearchParams(location.search).get('industry') || 'All', q = '';
+const FREE = 'Free to copy';
 
 $('ui-count').textContent = `${ELEMENTS.length} elements`;
-$('ui-filters').innerHTML = ['All', ...industries].map(i => {
-  const n = i === 'All' ? ELEMENTS.length : ELEMENTS.filter(e => e.industry === i).length;
+$('ui-filters').innerHTML = ['All', FREE, ...industries].map(i => {
+  const n = i === 'All' ? ELEMENTS.length : i === FREE ? ELEMENTS.filter(e => e.free).length : ELEMENTS.filter(e => e.industry === i).length;
   return `<button type="button" class="mt-pill ui-chip" data-ind="${i}" aria-pressed="${i === industry}">${i} <em>${n}</em></button>`;
 }).join('');
 
@@ -37,12 +40,13 @@ const io = new IntersectionObserver(entries => entries.forEach(en => {
 }), { rootMargin: '300px' });
 
 function render() {
-  const list = ELEMENTS.filter(e => (industry === 'All' || e.industry === industry) && [e.name, e.desc, e.industry, ...e.tags].join(' ').toLowerCase().includes(q));
+  const list = ELEMENTS.filter(e => (industry === 'All' || (industry === FREE ? e.free : e.industry === industry)) && [e.name, e.desc, e.industry, ...e.tags].join(' ').toLowerCase().includes(q));
   grid.innerHTML = list.length ? list.map(e => `
     <article class="mt-plate p-3 flex flex-col gap-4 ui-card" id="${e.id}">
       <div class="ui-stage" style="background:${e.stage}">
         <iframe data-el="${e.id}" title="${e.name} live preview" sandbox="allow-scripts" loading="lazy"></iframe>
-        <span class="mt-badge">${e.libs ? 'GSAP + Lenis' : e.js ? 'Interactive' : 'CSS only'}</span>
+        <span class="mt-badge ${e.free ? '' : 'mt-badge--lock'}">${e.free ? 'Free' : '◆ Bundle'}</span>
+        <span class="ui-kind">${e.libs ? 'GSAP + Lenis' : e.js ? 'Interactive' : 'CSS only'}</span>
       </div>
       <div class="px-2 space-y-2 flex-1">
         <div class="flex items-center justify-between gap-3">
@@ -52,11 +56,12 @@ function render() {
         <p class="text-sm text-softWhite/70">${e.desc}</p>
         <div class="flex flex-wrap gap-1.5 pt-1">${e.tags.map(t => `<span class="font-mono text-[10px] uppercase tracking-wider text-industrialSage">#${t.replace(/\s+/g, '')}</span>`).join(' ')}</div>
       </div>
-      <div class="flex gap-2 px-2 pb-2">
+      <div class="flex gap-2 px-2 pb-2">${e.free ? `
         <button type="button" class="mt-btn mt-btn--sm flex-1" data-view="${e.id}">View code</button>
-        <button type="button" class="mt-btn mt-btn--primary mt-btn--sm flex-1" data-copy="${e.id}">Copy code</button>
-      </div>
-      <pre class="ui-code hidden" data-code="${e.id}"><code>${esc(snippet(e))}</code></pre>
+        <button type="button" class="mt-btn mt-btn--primary mt-btn--sm flex-1" data-copy="${e.id}">Copy code</button>` : `
+        <button type="button" class="mt-btn mt-btn--primary mt-btn--sm flex-1" data-add="grit-ui-bundle">Unlock in bundle · $${BUNDLE.price}</button>`}
+      </div>${e.free ? `
+      <pre class="ui-code hidden" data-code="${e.id}"><code>${esc(snippet(e))}</code></pre>` : ''}
     </article>`).join('')
     : `<div class="col-span-full mt-well p-10 text-center font-mono text-sm text-industrialSage">Nothing matches that yet.</div>`;
   grid.querySelectorAll('iframe').forEach(f => io.observe(f));

@@ -115,7 +115,7 @@ function card(p) {
   const img = p.media?.[0];
   const badge = badgeOf(p);
   return `
-    <article class="mt-tile mt-plate mt-lift p-5 flex flex-col gap-4">
+    <article class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-3">
       <div class="mt-media" ${img ? '' : 'data-media=""'}>
         ${p.video ? `<video data-live src="${p.video}" poster="${img}" muted loop playsinline preload="none" aria-label="${p.title} preview"></video>` : img ? `<img src="${img}" alt="${p.title} preview" loading="lazy" decoding="async" />` : `${icon(cat.icon, 'ico')}<span class="mt-media__label">Preview soon</span>`}
         ${badge ? `<span class="mt-badge">${badge}</span>` : ''}

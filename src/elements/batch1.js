@@ -3,7 +3,7 @@
 // stage = preview background. industry = filter group.
 export const ELEMENTS = [
   {
-    id: 'magnetic-button', name: 'Magnetic Button', industry: 'General', tags: ['Pointer physics', 'Button'], stage: '#0f1012',
+    id: 'magnetic-button', free: true, name: 'Magnetic Button', industry: 'General', tags: ['Pointer physics', 'Button'], stage: '#0f1012',
     desc: 'A call-to-action that leans toward the cursor with spring physics. The label moves further than the button for depth.',
     html: `<button class="gm-btn"><span class="gm-btn__label">Get started →</span></button>`,
     css: `.gm-btn{position:relative;padding:22px 40px;border:0;border-radius:999px;background:#f4f1ea;color:#111;font:600 17px system-ui,sans-serif;cursor:pointer;will-change:transform;box-shadow:0 20px 40px -18px rgba(244,241,234,.5)}
@@ -20,7 +20,7 @@ export const ELEMENTS = [
 });`,
   },
   {
-    id: 'liquid-toggle', name: 'Liquid Toggle', industry: 'General', tags: ['Toggle', 'Micro-interaction'], stage: '#e9ecef',
+    id: 'liquid-toggle', free: true, name: 'Liquid Toggle', industry: 'General', tags: ['Toggle', 'Micro-interaction'], stage: '#e9ecef',
     desc: 'A switch whose knob stretches like liquid as it travels, then settles with a bounce.',
     html: `<label class="gl-tog"><input type="checkbox" checked><span class="gl-tog__track"><span class="gl-tog__knob"></span></span><span class="gl-tog__txt">Dark mode</span></label>`,
     css: `.gl-tog{display:inline-flex;align-items:center;gap:14px;font:600 16px system-ui,sans-serif;color:#1a1d21;cursor:pointer}
@@ -51,7 +51,7 @@ export const ELEMENTS = [
 });`,
   },
   {
-    id: 'ripple-button', name: 'Ripple Button', industry: 'General', tags: ['Button', 'Click feedback'], stage: '#fff6ee',
+    id: 'ripple-button', free: true, name: 'Ripple Button', industry: 'General', tags: ['Button', 'Click feedback'], stage: '#fff6ee',
     desc: 'Material-style ink ripple that starts exactly where you tap.',
     html: `<button class="gr-btn">Book now</button>`,
     css: `.gr-btn{position:relative;overflow:hidden;padding:18px 44px;border:0;border-radius:16px;background:#ff5a1f;color:#fff;font:700 16px system-ui,sans-serif;cursor:pointer;transition:transform .15s}
@@ -121,7 +121,7 @@ export const ELEMENTS = [
 });`,
   },
   {
-    id: 'spice-slider', name: 'Spice Level Slider', industry: 'Restaurant', tags: ['Range', 'Form'], stage: '#1a1412',
+    id: 'spice-slider', free: true, name: 'Spice Level Slider', industry: 'Restaurant', tags: ['Range', 'Form'], stage: '#1a1412',
     desc: 'A range slider for spice level. Chillies light up and the label changes as you drag.',
     html: `<div class="gp-spice"><div class="gp-spice__top"><span>Spice level</span><b>Medium</b></div><div class="gp-spice__chili"><i>🌶</i><i>🌶</i><i>🌶</i><i>🌶</i><i>🌶</i></div><input type="range" min="0" max="4" value="2" aria-label="Spice level"></div>`,
     css: `.gp-spice{width:300px;padding:22px;border-radius:22px;background:#241c19;color:#f3eadf;font:15px system-ui,sans-serif}
@@ -157,68 +157,167 @@ export const ELEMENTS = [
 });`,
   },
   {
-    id: 'tilt-property-card', name: '3D Tilt Property Card', industry: 'Real estate', tags: ['3D', 'Card', 'Pointer'], stage: '#e8ecf1',
-    desc: 'A listing card that tilts in 3D toward the cursor, with a moving glare and lifted details.',
-    html: `<article class="gk-card"><div class="gk-card__img"><span class="gk-card__tag">For sale</span></div><div class="gk-card__body"><b>AED 3,450,000</b><h3>Marina Vista, 2 bed</h3><p>Dubai Marina · 1,420 sq ft · Sea view</p></div><span class="gk-card__glare"></span></article>`,
-    css: `.gk-wrap{perspective:900px}
-.gk-card{position:relative;width:300px;border-radius:22px;background:#fff;overflow:hidden;font:15px system-ui,sans-serif;color:#14213d;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;box-shadow:0 30px 50px -30px rgba(20,33,61,.5)}
-.gk-card__img{position:relative;height:190px;background:linear-gradient(180deg,#8ec5fc,#e0c3fc 55%,#f9d7a7 56%,#e6b980);}
-.gk-card__img::before{content:'';position:absolute;left:30px;bottom:0;width:60px;height:130px;background:#2b3a55;box-shadow:70px 30px 0 -5px #3d5175,140px -10px 0 0 #1f2b41,200px 40px 0 -10px #4a5f86;border-radius:6px 6px 0 0}
-.gk-card__tag{position:absolute;top:14px;left:14px;padding:6px 12px;border-radius:99px;background:#fff;font-size:12px;font-weight:700;transform:translateZ(30px)}
-.gk-card__body{padding:18px 20px 22px;transform:translateZ(40px)}
-.gk-card__body b{font-size:20px;color:#0a6cff}.gk-card__body h3{margin:6px 0 4px;font-size:18px}.gk-card__body p{margin:0;color:#6b7690;font-size:13px}
-.gk-card__glare{position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.45),transparent 50%);opacity:0;transition:opacity .3s;pointer-events:none}
+    id: 'tilt-property-card', name: '3D Property Card', industry: 'Real estate', tags: ['3D', 'Card', 'Pointer', 'Photo'], stage: '#dfe5ee',
+    desc: 'A listing card that tilts in real 3D with spring physics. The photo shifts inside its frame, the price and badges float above it, and the details lift on hover.',
+    html: `<div class="gk-scene"><article class="gk-card">
+  <div class="gk-card__img"><img src="https://grittech.io/demo/restaurant/img/interior.webp" alt="Marina Vista living room with marina view"></div>
+  <span class="gk-card__tag">● For sale</span>
+  <button class="gk-card__fav" aria-label="Save">♥</button>
+  <span class="gk-card__price">AED 3.45M</span>
+  <div class="gk-card__body">
+    <h3>Marina Vista Residence</h3>
+    <p>Dubai Marina · Full sea view</p>
+    <ul class="gk-card__specs"><li><b>2</b>Beds</li><li><b>3</b>Baths</li><li><b>1,420</b>sq ft</li></ul>
+    <div class="gk-card__foot"><span class="gk-card__agent"><i>RS</i>Rania S.<small>Agent</small></span><button class="gk-card__cta">Tour →</button></div>
+  </div>
+  <span class="gk-card__glare"></span>
+</article></div>`,
+    css: `.gk-scene{perspective:1000px;padding:20px}
+.gk-card{position:relative;width:300px;border-radius:24px;background:#fff;font:14px system-ui,sans-serif;color:#0f1b33;transform-style:preserve-3d;box-shadow:0 40px 60px -30px rgba(15,27,51,.55);will-change:transform}
+.gk-card__img{position:relative;height:200px;border-radius:24px 24px 0 0;overflow:hidden;transform:translateZ(0)}
+.gk-card__img img{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;will-change:transform}
+.gk-card__img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,27,51,0) 50%,rgba(15,27,51,.55))}
+.gk-card__tag,.gk-card__fav,.gk-card__price{position:absolute;z-index:2}
+.gk-card__tag{top:14px;left:14px;padding:6px 11px;border-radius:99px;background:rgba(255,255,255,.92);font-size:11px;font-weight:700;color:#1a9e5c;transform:translateZ(50px)}
+.gk-card__fav{top:12px;right:12px;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:#c8ccd6;font-size:16px;cursor:pointer;transform:translateZ(50px);transition:color .2s,transform .3s cubic-bezier(.3,1.8,.5,1)}
+.gk-card__fav.on{color:#ff3b5c;transform:translateZ(50px) scale(1.15)}
+.gk-card__price{top:164px;left:14px;padding:8px 14px;border-radius:12px;background:#0a6cff;color:#fff;font-weight:800;font-size:17px;box-shadow:0 14px 24px -10px rgba(10,108,255,.8);transform:translateZ(70px)}
+.gk-card__body{padding:26px 18px 18px;transform:translateZ(30px)}
+.gk-card__body h3{margin:0;font-size:18px;letter-spacing:-.01em}.gk-card__body p{margin:3px 0 14px;color:#6b7690;font-size:13px}
+.gk-card__specs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.gk-card__specs li{padding:8px 0;border-radius:12px;background:#f2f5fa;text-align:center;font-size:11px;color:#6b7690;transition:transform .45s cubic-bezier(.3,1.6,.5,1),background .3s}
+.gk-card__specs b{display:block;font-size:15px;color:#0f1b33}
+.gk-card:hover .gk-card__specs li{transform:translateY(-4px);background:#e8f0ff}
+.gk-card:hover .gk-card__specs li:nth-child(2){transition-delay:.05s}.gk-card:hover .gk-card__specs li:nth-child(3){transition-delay:.1s}
+.gk-card__foot{display:flex;align-items:center;justify-content:space-between}
+.gk-card__agent{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;line-height:1.1}
+.gk-card__agent small{display:block;font-weight:500;color:#6b7690;font-size:11px}
+.gk-card__agent i{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7aa7ff,#0a6cff);color:#fff;font-style:normal;font-size:11px}
+.gk-card__cta{padding:10px 16px;border:0;border-radius:12px;background:#0f1b33;color:#fff;font:700 13px system-ui,sans-serif;cursor:pointer}
+.gk-card__glare{position:absolute;inset:0;border-radius:24px;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.5),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none;mix-blend-mode:soft-light}
 .gk-card:hover .gk-card__glare{opacity:1}`,
     js: `document.querySelectorAll('.gk-card').forEach(function (c) {
-  if (!c.parentElement.classList.contains('gk-wrap')) { var w = document.createElement('div'); w.className = 'gk-wrap'; c.before(w); w.appendChild(c); }
-  c.addEventListener('pointermove', function (e) { var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    c.style.transform = 'rotateY(' + (x - .5) * 18 + 'deg) rotateX(' + (.5 - y) * 16 + 'deg)';
-    c.style.setProperty('--gx', x * 100 + '%'); c.style.setProperty('--gy', y * 100 + '%'); });
-  c.addEventListener('pointerleave', function () { c.style.transform = ''; });
+  var img = c.querySelector('.gk-card__img img'), tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+  function loop() { x += (tx - x) * .12; y += (ty - y) * .12;
+    c.style.transform = 'rotateY(' + x * 22 + 'deg) rotateX(' + -y * 18 + 'deg)';
+    img.style.transform = 'translate(' + -x * 18 + 'px,' + -y * 14 + 'px)';
+    c.style.boxShadow = (-x * 30) + 'px ' + (40 - y * 20) + 'px 60px -30px rgba(15,27,51,.55)';
+    raf = Math.abs(tx - x) + Math.abs(ty - y) > .001 ? requestAnimationFrame(loop) : 0; }
+  c.addEventListener('pointermove', function (e) { var r = c.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width - .5; ty = (e.clientY - r.top) / r.height - .5;
+    c.style.setProperty('--gx', (tx + .5) * 100 + '%'); c.style.setProperty('--gy', (ty + .5) * 100 + '%'); if (!raf) raf = requestAnimationFrame(loop); });
+  c.addEventListener('pointerleave', function () { tx = ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+  c.querySelector('.gk-card__fav').onclick = function () { this.classList.toggle('on'); };
 });`,
   },
   {
-    id: 'mortgage-calculator', name: 'Mortgage Mini-Calculator', industry: 'Real estate', tags: ['Calculator', 'Range', 'Numbers'], stage: '#0d1b2a',
-    desc: 'Drag the price, deposit and term. The monthly payment counts smoothly to the new value.',
-    html: `<div class="gq-calc"><span class="gq-calc__k">Monthly payment</span><b class="gq-calc__out">AED 0</b>
-<label>Property price <em data-v="price"></em><input type="range" name="price" min="500000" max="10000000" step="50000" value="2500000"></label>
-<label>Deposit <em data-v="dep"></em><input type="range" name="dep" min="20" max="60" value="25"></label>
-<label>Term <em data-v="term"></em><input type="range" name="term" min="5" max="25" value="25"></label>
-<small>At 4.5% a year. Example only.</small></div>`,
-    css: `.gq-calc{width:320px;padding:24px;border-radius:24px;background:#13263b;color:#e6eef7;font:14px system-ui,sans-serif;box-shadow:0 30px 60px -30px #000}
-.gq-calc__k{color:#8aa3bf;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-.gq-calc__out{display:block;margin:4px 0 18px;font-size:36px;font-variant-numeric:tabular-nums;color:#62d2a2}
-.gq-calc label{display:block;margin-bottom:14px}.gq-calc em{float:right;font-style:normal;font-weight:700}
-.gq-calc input{width:100%;margin-top:8px;accent-color:#62d2a2}
-.gq-calc small{color:#8aa3bf}`,
-    js: `document.querySelectorAll('.gq-calc').forEach(function (w) {
-  var out = w.querySelector('.gq-calc__out'), shown = 0, target = 0, f = function (n) { return Math.round(n).toLocaleString('en'); };
-  function calc() { var P = +w.querySelector('[name=price]').value, d = +w.querySelector('[name=dep]').value, y = +w.querySelector('[name=term]').value;
-    w.querySelector('[data-v=price]').textContent = 'AED ' + f(P); w.querySelector('[data-v=dep]').textContent = d + '%'; w.querySelector('[data-v=term]').textContent = y + ' years';
-    var L = P * (1 - d / 100), r = .045 / 12, n = y * 12; target = L * r / (1 - Math.pow(1 + r, -n)); tick(); }
-  var raf; function tick() { cancelAnimationFrame(raf); (function s() { shown += (target - shown) * .18; out.textContent = 'AED ' + f(shown); if (Math.abs(target - shown) > 1) raf = requestAnimationFrame(s); else out.textContent = 'AED ' + f(target); })(); }
-  w.addEventListener('input', calc); calc();
+    id: 'mortgage-calculator', name: 'Mortgage Calculator', industry: 'Real estate', tags: ['Calculator', 'Gauge', 'Numbers'], stage: '#0b1626',
+    desc: 'A live mortgage gauge: drag price and deposit, pick a term and rate. The ring splits loan vs interest, numbers roll, and an affordability bar shows the salary you need.',
+    html: `<div class="gq">
+  <div class="gq__top">
+    <svg class="gq__ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="gq__bg"/><circle cx="60" cy="60" r="50" class="gq__int"/><circle cx="60" cy="60" r="50" class="gq__pri"/></svg>
+    <div class="gq__mid"><small>Monthly payment</small><b class="gq__out">AED 0</b><span class="gq__legend"><i class="p"></i>Loan <i class="i"></i>Interest</span></div>
+  </div>
+  <label class="gq__row"><span>Property price</span><output data-o="price"></output><input type="range" name="price" min="500000" max="10000000" step="50000" value="2500000"></label>
+  <label class="gq__row"><span>Deposit</span><output data-o="dep"></output><input type="range" name="dep" min="20" max="60" value="25"></label>
+  <div class="gq__chips" data-g="term"><span class="gq__ink"></span><button data-v="10">10y</button><button data-v="15">15y</button><button data-v="20">20y</button><button data-v="25" class="on">25y</button></div>
+  <div class="gq__chips gq__chips--rate" data-g="rate"><span class="gq__ink"></span><button data-v="3.99" class="on">Fixed 3.99%</button><button data-v="4.49">Variable 4.49%</button></div>
+  <div class="gq__stats"><div><small>Loan</small><b data-s="loan"></b></div><div><small>Total interest</small><b data-s="int"></b></div></div>
+  <div class="gq__aff"><div class="gq__aff-top"><small>Salary needed</small><b data-s="sal"></b></div><div class="gq__bar"><i></i></div></div>
+</div>`,
+    css: `.gq{width:330px;padding:20px;border-radius:26px;background:linear-gradient(160deg,#142843,#0d1b2e);color:#e6eef7;font:13px system-ui,sans-serif;box-shadow:0 30px 60px -30px #000,inset 0 1px 0 rgba(255,255,255,.06)}
+.gq__top{position:relative;display:grid;grid-template-columns:118px 1fr;align-items:center;gap:14px;margin-bottom:4px}
+.gq__ring{width:118px;height:118px;transform:rotate(-90deg)}
+.gq__ring circle{fill:none;stroke-width:11;stroke-linecap:round;transition:stroke-dasharray .7s cubic-bezier(.3,1.2,.4,1),stroke-dashoffset .7s cubic-bezier(.3,1.2,.4,1)}
+.gq__bg{stroke:rgba(255,255,255,.07)}.gq__pri{stroke:#62d2a2;filter:drop-shadow(0 0 6px rgba(98,210,162,.6))}.gq__int{stroke:#5b8cff;filter:drop-shadow(0 0 6px rgba(91,140,255,.6))}
+.gq__mid{display:grid;gap:2px}
+.gq__mid small{color:#8aa3bf}.gq__out{font-size:26px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.gq__legend{display:flex;gap:6px;align-items:center;margin-top:4px;font-size:10px;color:#8aa3bf}.gq__legend i{width:8px;height:8px;border-radius:50%}.gq__legend .p{background:#62d2a2}.gq__legend .i{background:#5b8cff}
+.gq__row{display:grid;grid-template-columns:1fr auto;gap:6px 0;margin:8px 0}.gq__row span{color:#8aa3bf}.gq__row output{font-weight:700}
+.gq__row input{grid-column:1/-1;-webkit-appearance:none;appearance:none;height:8px;border-radius:9px;background:linear-gradient(90deg,#62d2a2,#3fb8d1) 0/var(--p,50%) 100% no-repeat,rgba(255,255,255,.08);outline:none}
+.gq__row input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 0 0 5px rgba(98,210,162,.25);cursor:grab;transition:transform .2s,box-shadow .2s}
+.gq__row input:active::-webkit-slider-thumb{transform:scale(1.25);box-shadow:0 0 0 9px rgba(98,210,162,.22)}
+.gq__row input::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:#fff;cursor:grab}
+.gq__chips{position:relative;display:flex;padding:4px;margin-top:10px;border-radius:14px;background:rgba(255,255,255,.06)}
+.gq__chips button{position:relative;z-index:1;flex:1;height:34px;border:0;border-radius:10px;background:none;color:#8aa3bf;font:700 12px system-ui,sans-serif;cursor:pointer;transition:color .3s}
+.gq__chips button.on{color:#0b1626}
+.gq__ink{position:absolute;top:4px;height:34px;border-radius:10px;background:#62d2a2;transition:left .45s cubic-bezier(.3,1.4,.4,1),width .45s cubic-bezier(.3,1.4,.4,1)}
+.gq__chips--rate .gq__ink{background:#5b8cff}
+.gq__stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.gq__stats div{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05)}.gq__stats small,.gq__aff small{display:block;color:#8aa3bf;font-size:11px}.gq__stats b{font-size:15px;font-variant-numeric:tabular-nums}
+.gq__aff{margin-top:10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05)}
+.gq__aff-top{display:flex;justify-content:space-between;align-items:baseline}.gq__aff-top b{font-variant-numeric:tabular-nums}
+.gq__bar{height:6px;margin-top:8px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}
+.gq__bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#62d2a2,#ffc24b,#ff6b6b);transition:width .7s cubic-bezier(.3,1.2,.4,1)}`,
+    js: `document.querySelectorAll('.gq').forEach(function (w) {
+  var f = function (n) { return Math.round(n).toLocaleString('en'); }, C = 2 * Math.PI * 50, term = 25, rate = 3.99, shown = 0, target = 0, raf;
+  var pri = w.querySelector('.gq__pri'), int = w.querySelector('.gq__int'), out = w.querySelector('.gq__out');
+  function chips(g, cb) { var box = w.querySelector('[data-g=' + g + ']'), ink = box.querySelector('.gq__ink');
+    function sel(b) { box.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); ink.style.left = b.offsetLeft + 'px'; ink.style.width = b.offsetWidth + 'px'; cb(+b.dataset.v); }
+    box.querySelectorAll('button').forEach(function (b) { b.onclick = function () { sel(b); calc(); }; });
+    requestAnimationFrame(function () { sel(box.querySelector('.on')); calc(); }); }
+  chips('term', function (v) { term = v; }); chips('rate', function (v) { rate = v; });
+  function roll() { cancelAnimationFrame(raf); (function s() { shown += (target - shown) * .16; out.textContent = 'AED ' + f(shown); if (Math.abs(target - shown) > 1) raf = requestAnimationFrame(s); else out.textContent = 'AED ' + f(target); })(); }
+  function calc() {
+    var P = +w.querySelector('[name=price]').value, d = +w.querySelector('[name=dep]').value;
+    w.querySelectorAll('input[type=range]').forEach(function (r) { r.style.setProperty('--p', (r.value - r.min) / (r.max - r.min) * 100 + '%'); });
+    w.querySelector('[data-o=price]').textContent = 'AED ' + f(P); w.querySelector('[data-o=dep]').textContent = d + '% · AED ' + f(P * d / 100);
+    var L = P * (1 - d / 100), r = rate / 100 / 12, n = term * 12, M = L * r / (1 - Math.pow(1 + r, -n)), I = M * n - L, k = L / (L + I);
+    target = M; roll();
+    pri.style.strokeDasharray = C * k + ' ' + C; int.style.strokeDasharray = C + ' ' + C; int.style.strokeDashoffset = 0;
+    w.querySelector('[data-s=loan]').textContent = 'AED ' + f(L); w.querySelector('[data-s=int]').textContent = 'AED ' + f(I);
+    var sal = M / .5; w.querySelector('[data-s=sal]').textContent = 'AED ' + f(sal) + ' /mo';
+    w.querySelector('.gq__bar i').style.width = Math.min(100, sal / 120000 * 100) + '%';
+  }
+  w.addEventListener('input', calc);
 });`,
   },
   {
-    id: 'size-picker', name: 'Size Picker', industry: 'Fashion', tags: ['E-commerce', 'Selector'], stage: '#f3f0eb',
-    desc: 'Size buttons with a sliding highlight, sold-out states and a low-stock hint.',
-    html: `<div class="gz-size"><div class="gz-size__top"><span>Size</span><a href="#">Size guide</a></div><div class="gz-size__row"><span class="gz-size__ink"></span><button>XS</button><button>S</button><button>M</button><button disabled>L</button><button>XL</button></div><p class="gz-size__note">Select a size</p></div>`,
-    css: `.gz-size{width:320px;font:14px system-ui,sans-serif;color:#141414}
-.gz-size__top{display:flex;justify-content:space-between;margin-bottom:10px;font-weight:600}.gz-size__top a{color:#141414}
-.gz-size__row{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.gz-size__row button{position:relative;z-index:1;height:50px;border:1px solid #d6d1c9;border-radius:12px;background:transparent;font:600 15px system-ui,sans-serif;cursor:pointer;transition:color .3s,border-color .3s}
-.gz-size__row button:hover{border-color:#141414}
-.gz-size__row button.on{color:#fff;border-color:transparent}
-.gz-size__row button:disabled{color:#b8b2a8;cursor:not-allowed;background:linear-gradient(to top right,transparent 48%,#d6d1c9 49% 51%,transparent 52%)}
-.gz-size__ink{position:absolute;top:0;height:50px;border-radius:12px;background:#141414;opacity:0;transition:left .4s cubic-bezier(.3,1.3,.4,1),opacity .3s}
-.gz-size__note{min-height:20px;margin:10px 0 0;color:#6e675d;transition:color .3s}.gz-size__note.low{color:#d14b2a}`,
-    js: `document.querySelectorAll('.gz-size').forEach(function (w) {
-  var ink = w.querySelector('.gz-size__ink'), note = w.querySelector('.gz-size__note'), stock = { XS: 12, S: 2, M: 8, XL: 1 };
-  w.querySelectorAll('button:not(:disabled)').forEach(function (b) { b.onclick = function () {
-    w.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    id: 'size-picker', name: 'Fit Finder Size Picker', industry: 'Fashion', tags: ['E-commerce', 'Selector', 'Fit'], stage: '#f1ede6',
+    desc: 'Pick a size or let the fit finder suggest one from your height. A fit meter shows snug, true or relaxed, low stock pulses, and the bag button confirms with a tick.',
+    html: `<div class="gz">
+  <div class="gz__head"><div><b>Linen Overshirt</b><small>Sand · AED 290</small></div><span class="gz__stock">Low stock</span></div>
+  <div class="gz__sizes"><span class="gz__ink"></span><button data-s="XS">XS</button><button data-s="S">S</button><button data-s="M">M</button><button data-s="L" disabled>L</button><button data-s="XL">XL</button></div>
+  <div class="gz__find"><div class="gz__find-top"><span>Your height</span><output>176 cm</output></div><input type="range" min="150" max="198" value="176" aria-label="Your height"><p class="gz__rec">We recommend <b>M</b></p></div>
+  <div class="gz__fit"><div class="gz__scale"><i class="gz__needle"></i></div><div class="gz__labels"><span>Snug</span><span>True to size</span><span>Relaxed</span></div></div>
+  <button class="gz__add" disabled>Select a size</button>
+</div>`,
+    css: `.gz{width:320px;padding:20px;border-radius:24px;background:#fff;color:#1b1916;font:13px system-ui,sans-serif;box-shadow:0 30px 60px -34px rgba(60,45,25,.5)}
+.gz__head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}.gz__head b{display:block;font-size:16px}.gz__head small{color:#8a8276}
+.gz__stock{padding:5px 10px;border-radius:99px;background:#fff1ea;color:#d14b2a;font-size:11px;font-weight:700;animation:gz-pulse 2s infinite}
+@keyframes gz-pulse{50%{box-shadow:0 0 0 6px rgba(209,75,42,.08)}}
+.gz__sizes{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:4px;border-radius:16px;background:#f4f1eb}
+.gz__sizes button{position:relative;z-index:1;height:44px;border:0;border-radius:12px;background:none;font:700 14px system-ui,sans-serif;color:#1b1916;cursor:pointer;transition:color .3s}
+.gz__sizes button.on{color:#fff}.gz__sizes button:disabled{color:#c3bcb0;cursor:not-allowed;text-decoration:line-through}
+.gz__sizes button.rec::after{content:'';position:absolute;inset:3px;border-radius:10px;border:2px dashed #b08a4a;animation:gz-spin 6s linear infinite;pointer-events:none}
+@keyframes gz-spin{50%{border-color:#e0c08a}}
+.gz__ink{position:absolute;top:4px;height:44px;border-radius:12px;background:#1b1916;opacity:0;transition:left .5s cubic-bezier(.3,1.5,.4,1),opacity .3s}
+.gz__find{margin-top:14px;padding:12px;border-radius:16px;background:#faf7f2}
+.gz__find-top{display:flex;justify-content:space-between;color:#8a8276}.gz__find-top output{font-weight:700;color:#1b1916}
+.gz__find input{width:100%;margin:10px 0 4px;-webkit-appearance:none;appearance:none;height:6px;border-radius:9px;background:linear-gradient(90deg,#b08a4a,#e0c08a) 0/var(--p,50%) 100% no-repeat,#e8e1d6;outline:none}
+.gz__find input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid #b08a4a;cursor:grab}
+.gz__find input::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #b08a4a}
+.gz__rec{margin:6px 0 0;color:#8a8276}.gz__rec b{color:#1b1916}
+.gz__fit{margin-top:14px}
+.gz__scale{position:relative;height:8px;border-radius:9px;background:linear-gradient(90deg,#f0b48a,#8fd19e 35% 65%,#9ab7e8)}
+.gz__needle{position:absolute;top:-6px;left:50%;width:4px;height:20px;margin-left:-2px;border-radius:4px;background:#1b1916;box-shadow:0 2px 6px rgba(0,0,0,.3);transition:left .6s cubic-bezier(.3,1.6,.4,1)}
+.gz__labels{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:#8a8276}
+.gz__add{width:100%;height:50px;margin-top:16px;border:0;border-radius:14px;background:#1b1916;color:#fff;font:700 14px system-ui,sans-serif;cursor:pointer;transition:transform .2s,background .3s,opacity .3s}
+.gz__add:disabled{opacity:.35;cursor:default}.gz__add:active:not(:disabled){transform:scale(.97)}.gz__add.ok{background:#1a9e5c}`,
+    js: `document.querySelectorAll('.gz').forEach(function (w) {
+  var S = ['XS', 'S', 'M', 'L', 'XL'], ink = w.querySelector('.gz__ink'), add = w.querySelector('.gz__add'), range = w.querySelector('.gz__find input'), rec = 2, chosen = -1;
+  function recFor(h) { return h < 160 ? 0 : h < 170 ? 1 : h < 180 ? 2 : h < 188 ? 3 : 4; }
+  function needle() { w.querySelector('.gz__needle').style.left = (chosen < 0 ? 50 : Math.max(8, Math.min(92, 50 + (chosen - rec) * 30))) + '%'; }
+  function pick(i) { chosen = i; var b = w.querySelectorAll('.gz__sizes button')[i];
+    w.querySelectorAll('.gz__sizes button').forEach(function (x) { x.classList.toggle('on', x === b); });
     ink.style.cssText = 'left:' + b.offsetLeft + 'px;width:' + b.offsetWidth + 'px;opacity:1';
-    var s = stock[b.textContent]; note.textContent = s < 3 ? 'Only ' + s + ' left in ' + b.textContent : 'In stock, ships tomorrow'; note.classList.toggle('low', s < 3); }; });
+    add.disabled = false; add.classList.remove('ok'); add.textContent = 'Add size ' + S[i] + ' to bag · AED 290'; needle(); }
+  function height() { var h = +range.value; range.style.setProperty('--p', (h - 150) / 48 * 100 + '%'); w.querySelector('.gz__find output').textContent = h + ' cm';
+    rec = recFor(h); var r = rec === 3 ? 'XL' : S[rec]; if (rec === 3) rec = 4;
+    w.querySelector('.gz__rec b').textContent = r; w.querySelectorAll('.gz__sizes button').forEach(function (x, i) { x.classList.toggle('rec', i === rec); }); needle(); }
+  w.querySelectorAll('.gz__sizes button').forEach(function (b, i) { b.onclick = function () { if (!b.disabled) pick(i); }; });
+  range.addEventListener('input', height); range.addEventListener('change', function () { pick(rec); });
+  add.onclick = function () { add.classList.add('ok'); add.textContent = '✓ Added to bag'; };
+  height();
 });`,
   },
   {
@@ -363,7 +462,7 @@ export const ELEMENTS = [
 });`,
   },
   {
-    id: 'orbit-loader', name: 'Orbit Loader', industry: 'Loading', tags: ['Loader', 'CSS only'], stage: '#0d0f14',
+    id: 'orbit-loader', free: true, name: 'Orbit Loader', industry: 'Loading', tags: ['Loader', 'CSS only'], stage: '#0d0f14',
     desc: 'Three dots orbiting at different speeds with trailing glow. Pure CSS, ready for any loading state.',
     html: `<div class="go-load" role="status" aria-label="Loading"><i></i><i></i><i></i><span>Loading</span></div>`,
     css: `.go-load{position:relative;width:96px;height:96px;font:600 12px system-ui,sans-serif;color:#8c94a8}
