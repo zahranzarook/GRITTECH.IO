@@ -202,7 +202,7 @@ export const ELEMENTS3 = [
     f = Math.max(1, Math.min(80, Math.round(f)));
     inputs.forEach(function (i) { i.value = f; });
     var k = (f - 1) / 79;
-    band.style.bottom = (6 + k * 82) + '%'; band.querySelector('b').textContent = f;
+    band.style.bottom = (15 + k * 70) + '%'; band.querySelector('b').textContent = f;
     // Cross-fade between the three photos; the camera rises with the floor.
     var best = 0;
     views.forEach(function (im, i) {
@@ -217,7 +217,7 @@ export const ELEMENTS3 = [
   }
   inputs.forEach(function (i) { i.addEventListener('input', function () { up(+i.value); }); });
   var tower = t.querySelector('.gv-pick__tower'), drag = false;
-  function at(e) { var b = tower.getBoundingClientRect(), k = 1 - (e.clientY - b.top) / b.height; up(1 + ((k - .06) / .82) * 79); }
+  function at(e) { var b = tower.getBoundingClientRect(), k = 1 - (e.clientY - b.top) / b.height; up(1 + ((k - .15) / .70) * 79); }
   tower.addEventListener('pointerdown', function (e) { e.preventDefault(); drag = true; tower.setPointerCapture(e.pointerId); at(e); });
   tower.addEventListener('pointermove', function (e) { if (drag) at(e); });
   tower.addEventListener('pointerup', function () { drag = false; });
