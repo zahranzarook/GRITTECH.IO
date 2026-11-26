@@ -140,6 +140,21 @@ for (const s of SERVICES) {
       </div>
     </section>
 
+${s.demos ? `
+    <section class="py-16 border-b border-softWhite/10">
+      <span class="mt-label text-industrialLime block mb-3">Live demos</span>
+      <h2 class="mt-h2 text-3xl sm:text-4xl text-softWhite mb-8">Try one before you talk to us.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        ${s.demos.map(([n, t, href, img]) => `
+        <article class="mt-tile mt-plate mt-lift p-4 flex flex-col gap-4">
+          <div class="mt-media"><img src="${img}" alt="${esc(n)} demo" loading="lazy" decoding="async" /><span class="mt-badge">Live demo</span></div>
+          <div class="px-2 pb-2 flex items-center justify-between gap-4">
+            <div><h3 class="font-display font-bold text-xl text-softWhite"><a href="${href}" target="_blank" rel="noopener" class="mt-tile__link">${esc(n)}</a></h3><p class="text-sm text-softWhite/70">${esc(t)}</p></div>
+            <span class="mt-tile__arrow" aria-hidden="true">↗</span>
+          </div>
+        </article>`).join('')}
+      </div>
+    </section>` : ''}
     <section class="py-20 border-b border-softWhite/10">
       <span class="mt-label text-industrialLime block mb-3">What we build</span>
       <h2 class="mt-h2 text-3xl sm:text-4xl text-softWhite mb-10">Everything you need, built properly.</h2>
@@ -433,6 +448,39 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
       </div>`).join('')}
     </section>
     <p class="font-mono text-xs text-industrialSage">GRIT Technologies FZE LLC · Questions: <a href="mailto:orders@grittech.io" class="hover:text-softWhite">orders@grittech.io</a></p>` }));
+
+// --- UI Library gallery ---------------------------------------------------
+{
+  const body = `
+    <nav class="font-mono text-[11px] uppercase tracking-wider text-industrialSage mb-8" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-softWhite">Home</a> <span class="mx-2">/</span>
+      <a href="/store/ui-elements/" class="hover:text-softWhite">UI Elements</a> <span class="mx-2">/</span>
+      <span class="text-industrialLime">Library</span>
+    </nav>
+    <section class="max-w-3xl space-y-5 pb-10">
+      <span class="mt-pill">${ico('i-grid', 'ico text-industrialLime')}GRIT UI Library</span>
+      <h1 class="mt-h1 text-4xl sm:text-6xl text-softWhite">Interactive UI, ready to paste.</h1>
+      <p class="text-lg text-softWhite/75">Buttons, cards, pickers and calculators for real industries. Everything below is live: play with it, then copy self-contained HTML, CSS and JavaScript.</p>
+    </section>
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+      <div id="ui-filters" class="flex flex-wrap gap-2"></div>
+      <div class="flex items-center gap-3">
+        <span id="ui-count" class="font-mono text-xs uppercase tracking-wider text-industrialSage whitespace-nowrap"></span>
+        <input type="search" id="ui-search" placeholder="Search elements…" class="mt-input font-mono text-xs sm:w-64" aria-label="Search elements" />
+      </div>
+    </div>
+    <div id="ui-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+    <section class="mt-16 mt-row justify-between flex-col sm:flex-row items-start sm:items-center">
+      <div><h2 class="font-display font-bold text-base text-softWhite">Need a custom element for your brand?</h2><p class="text-sm text-softWhite/70">We design and build interactive UI for websites and apps.</p></div>
+      <a href="/?start=web" class="mt-btn mt-btn--sm shrink-0">Start a Project →</a>
+    </section>`;
+  mkdirSync('store/ui-elements/library', { recursive: true });
+  writeFileSync('store/ui-elements/library/index.html', page({
+    title: 'GRIT UI Library: Interactive UI Elements by Industry — Copy-Paste HTML, CSS & JS',
+    desc: 'Live, interactive UI elements for restaurants, real estate, fashion, travel, salons and fitness. Copy self-contained HTML, CSS and JavaScript with one click.',
+    route: 'store', body, extra: '  <script type="module" src="/src/ui-gallery.js"></script>',
+    head: `  <link rel="canonical" href="${SITE}/store/ui-elements/library/" />` }));
+}
 
 // --- Guides & FAQ (SEO help centre) ---------------------------------------
 {
