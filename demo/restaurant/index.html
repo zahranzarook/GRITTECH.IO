@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ember &amp; Salt — Wood-fire kitchen, Dubai Marina · Restaurant theme demo by GRIT</title>
+  <meta name="description" content="Ember & Salt is a restaurant website theme with an interactive menu, dietary filters, an order basket and table booking.">
+  <meta name="theme-color" content="#141110">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<header class="head">
+  <a href="#top" class="logo" aria-label="Ember & Salt home"><span class="logo__mark" aria-hidden="true"></span>Ember <i>&amp;</i> Salt</a>
+  <nav class="head__nav" aria-label="Main">
+    <a href="#menu">Menu</a><a href="#story">Story</a><a href="#book">Book</a><a href="#visit">Visit</a>
+  </nav>
+  <div class="head__end">
+    <a href="#book" class="btn btn--ghost btn--sm hide-sm">Book a table</a>
+    <button type="button" class="btn btn--sm" id="basketBtn">Order <span class="count" id="basketCount">0</span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas class="hero__embers" id="embers" aria-hidden="true"></canvas>
+    <div class="hero__copy">
+      <p class="eyebrow">Wood-fire kitchen · Dubai Marina</p>
+      <h1>Cooked over fire.<br><i>Served with salt.</i></h1>
+      <p class="lead">Seasonal plates from a 4-metre charcoal grill. Order to your door or take a seat by the fire.</p>
+      <div class="hero__cta">
+        <a href="#menu" class="btn btn--fire">See the menu</a>
+        <a href="#book" class="btn btn--ghost">Book a table</a>
+      </div>
+      <ul class="hero__facts">
+        <li><b>12:00 – 00:00</b><span>Open daily</span></li>
+        <li><b>35 min</b><span>Average delivery</span></li>
+        <li><b>4.8 ★</b><span>2,100+ reviews</span></li>
+      </ul>
+    </div>
+    <div class="hero__plate" id="heroPlate" aria-hidden="true"></div>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <div class="menu__head">
+        <div>
+          <p class="eyebrow">The menu</p>
+          <h2>Pick a plate.</h2>
+        </div>
+        <div class="search">
+          <input type="search" id="search" placeholder="Search dishes…" aria-label="Search dishes">
+        </div>
+      </div>
+      <div class="tabs" role="tablist" id="tabs"><span class="tabs__ink" id="tabInk"></span></div>
+      <div class="chips" id="diet" aria-label="Dietary filters"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="wrap story__grid">
+      <div class="story__text">
+        <p class="eyebrow">Our story</p>
+        <h2>No gas. No shortcuts. <i>Just fire.</i></h2>
+        <p>Everything here is cooked over Omani acacia charcoal and Lebanese oak. We smoke our own chickpeas, age our own beef and bake bread in the embers every morning.</p>
+      </div>
+      <ul class="story__stats">
+        <li><b data-count="14">0</b><span>hours to smoke a short rib</span></li>
+        <li><b data-count="420">0</b><span>°C at the heart of the grill</span></li>
+        <li><b data-count="38">0</b><span>local farms and fishermen</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="book" id="book">
+    <div class="wrap book__grid">
+      <div>
+        <p class="eyebrow">Reservations</p>
+        <h2>Save a seat by the fire.</h2>
+        <p class="muted">Tables are held for 15 minutes. For groups over 8, call us.</p>
+      </div>
+      <form class="book__form" id="bookForm">
+        <fieldset><legend>Day</legend><div class="days" id="days"></div></fieldset>
+        <fieldset><legend>Time</legend><div class="slots" id="slots"></div></fieldset>
+        <fieldset class="row2">
+          <div><legend>Guests</legend>
+            <div class="stepper" data-stepper><button type="button" data-d="-1" aria-label="Fewer guests">−</button><output id="guests">2</output><button type="button" data-d="1" aria-label="More guests">+</button></div>
+          </div>
+          <div><legend>Seating</legend>
+            <div class="seg" id="seating"><button type="button" class="is-on">Indoor</button><button type="button">Terrace</button><button type="button">Grill bar</button></div>
+          </div>
+        </fieldset>
+        <div class="row2">
+          <label class="field"><span>Name</span><input required name="name" autocomplete="name"></label>
+          <label class="field"><span>Mobile</span><input required name="phone" type="tel" autocomplete="tel" placeholder="+971"></label>
+        </div>
+        <button class="btn btn--fire btn--block" type="submit" id="bookBtn">Reserve</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap visit__grid">
+      <div>
+        <p class="eyebrow">Visit</p>
+        <h2>Marina Walk, <i>Dubai</i></h2>
+        <p class="muted">Ground floor, Al Majara 3 · Valet parking · Two minutes from the tram stop.</p>
+        <dl class="hours">
+          <dt>Mon – Thu</dt><dd>12:00 – 23:30</dd>
+          <dt>Fri – Sun</dt><dd>12:00 – 00:30</dd>
+          <dt>Brunch</dt><dd>Sat 12:30 – 16:00</dd>
+        </dl>
+      </div>
+      <div class="map" aria-hidden="true"><span class="map__pin"></span><span class="map__label">Ember &amp; Salt</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <span class="logo"><span class="logo__mark" aria-hidden="true"></span>Ember <i>&amp;</i> Salt</span>
+    <span class="muted">+971 4 000 0000 · hello@emberandsalt.ae</span>
+    <span class="muted">© 2026 Ember &amp; Salt</span>
+  </div>
+</footer>
+
+<!-- Dish detail -->
+<div class="sheet" id="dishSheet" aria-hidden="true">
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="dName">
+    <button type="button" class="x" data-close aria-label="Close">×</button>
+    <div class="sheet__art" id="dArt"></div>
+    <div class="sheet__body">
+      <p class="eyebrow" id="dCat"></p>
+      <h3 id="dName"></h3>
+      <p class="muted" id="dDesc"></p>
+      <div class="meta" id="dMeta"></div>
+      <div class="addons" id="dAddons"></div>
+      <div class="sheet__buy">
+        <div class="stepper" id="dQty"><button type="button" data-d="-1" aria-label="Less">−</button><output>1</output><button type="button" data-d="1" aria-label="More">+</button></div>
+        <button type="button" class="btn btn--fire btn--block" id="dAdd">Add · AED 0</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Basket -->
+<aside class="drawer" id="basket" aria-hidden="true" aria-label="Your order">
+  <div class="drawer__panel">
+    <div class="drawer__head"><h3>Your order</h3><button type="button" class="x" data-close aria-label="Close">×</button></div>
+    <div class="seg seg--full" id="mode"><button type="button" class="is-on">Delivery</button><button type="button">Pick-up</button></div>
+    <div class="drawer__items" id="basketItems"></div>
+    <div class="drawer__foot">
+      <div class="sum"><span>Subtotal</span><b id="subtotal">AED 0</b></div>
+      <div class="sum muted" id="feeRow"><span>Delivery</span><span id="fee">AED 9</span></div>
+      <div class="sum sum--total"><span>Total</span><b id="total">AED 0</b></div>
+      <button type="button" class="btn btn--fire btn--block" id="checkout">Place order</button>
+    </div>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -738,6 +738,7 @@
             <li><a href="/store/icons-assets/" class="hover:text-industrialLime">Icons &amp; assets</a></li>
             <li><a href="/store/project-files/" class="hover:text-industrialLime">Project files</a></li>
             <li><a href="#tools" class="hover:text-industrialLime">Tools</a></li>
+            <li><a href="/licence/" class="hover:text-industrialLime">Licence</a></li>
           </ul>
         </div>
         <div class="lg:col-span-2 space-y-3">
@@ -745,6 +746,7 @@
           <ul class="space-y-2 text-sm text-softWhite/75">
             <li><a href="#academy" class="hover:text-industrialLime">Academy</a></li>
             <li><a href="/store/prompt-packs/" class="hover:text-industrialLime">Prompt packs</a></li>
+            <li><a href="/faq/" class="hover:text-industrialLime">Guides &amp; FAQ</a></li>
           </ul>
         </div>
         <div class="lg:col-span-2 space-y-3">
@@ -942,7 +944,8 @@
               <button type="button" onclick="removeFromCart('${p.id}')" class="text-industrialSage hover:text-softWhite" aria-label="Remove ${p.title}">${icon('i-close', 'ico')}</button>
             </div>
           </div>`).join('');
-      document.getElementById('cart-total').textContent = `$${cart.reduce((s, p) => s + p.price, 0)}`;
+      const total = cart.reduce((s, p) => s + p.price, 0);
+      document.getElementById('cart-total').textContent = `$${Number.isInteger(total) ? total : total.toFixed(2)}`;
     }
 
     function toggleCartDrawer() {
