@@ -188,7 +188,8 @@ export const ELEMENTS3 = [
 .gv-pick__main{flex:1;min-width:0}
 .gv-pick__view{position:relative;height:170px;border-radius:14px;overflow:hidden;background:#1a2b39}
 .gv-pick__view img{position:absolute;left:0;top:-15%;width:100%;height:130%;object-fit:cover;opacity:0;transition:opacity .25s;will-change:transform,opacity}
-.gv-pick__view::after{content:'';position:absolute;inset:0;border-radius:14px;box-shadow:inset 0 0 0 5px #0f1a24;background:linear-gradient(90deg,transparent calc(50% - 2px),#0f1a24 calc(50% - 2px) calc(50% + 2px),transparent calc(50% + 2px))}
+.gv-pick__view::after{content:'';position:absolute;inset:0;border-radius:14px;box-shadow:inset 0 0 0 5px #0f1a24}
+.gv-pick__view::before{content:'';position:absolute;z-index:1;left:50%;top:0;bottom:0;width:4px;margin-left:-2px;background:#0f1a24}
 .gv-pick__tag{position:absolute;left:12px;bottom:12px;z-index:1;padding:5px 10px;border-radius:99px;background:rgba(10,18,26,.7);backdrop-filter:blur(6px);font:700 11px system-ui;letter-spacing:.06em}
 .gv-pick__info{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0 6px}
 .gv-pick__info small{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8aa0b3}
