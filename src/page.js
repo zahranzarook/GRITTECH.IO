@@ -1,6 +1,7 @@
 // Shared behaviour for the service and store pages: nav, cart, product grid and details.
 import { PRODUCTS, STORE } from './data.js';
 import './slides.js';
+import { startCheckout } from './pay.js';
 
 const $ = id => document.getElementById(id);
 const icon = (id, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><use href="#${id}"/></svg>`;
@@ -20,7 +21,7 @@ function toast(msg) {
   toastTimer = setTimeout(() => $('toast-box').classList.add('hidden'), 4200);
 }
 
-// ---- Cart (shared with the homepage via localStorage; simulated until payments are live) ----
+// ---- Cart (shared with the homepage via localStorage; checkout goes to Ziina via src/pay.js) ----
 const CART_KEY = 'grit-cart';
 const readCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } };
 const writeCart = items => { try { localStorage.setItem(CART_KEY, JSON.stringify(items)); } catch { /* storage unavailable */ } };
@@ -49,13 +50,7 @@ function updateCartUI() {
 
 window.toggleCartDrawer = () => $('cart-drawer').classList.toggle('hidden');
 window.removeFromCart = id => { writeCart(readCart().filter(p => p.id !== id)); updateCartUI(); };
-window.checkoutCart = () => {
-  if (!readCart().length) { toast('Your cart is empty.'); return; }
-  writeCart([]);
-  updateCartUI();
-  window.toggleCartDrawer();
-  toast('Thanks! Your download links are on their way.');
-};
+window.checkoutCart = () => startCheckout(readCart().map(p => p.id), toast);
 
 function addToCart(id) {
   const p = PRODUCTS.find(x => x.id === id);

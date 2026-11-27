@@ -3,6 +3,7 @@
 // Stage 2 (payments) fills users/{uid}/purchases; services fill users/{uid}/projects;
 // Stage 3 (courses) fills users/{uid}/enrollments. The dashboard already reads all three.
 import { auth, db, isConfigured } from './firebase.js';
+import { startCheckout, download } from './pay.js';
 import {
   onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail, sendEmailVerification,
@@ -415,7 +416,7 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-goto],[data-download],[data-free],#pro-waitlist');
   if (!t) return;
   if (t.dataset.goto) selectTab(t.dataset.goto);
-  else if (t.dataset.download) toast('Downloads switch on when the store goes live.');
+  else if (t.dataset.download) download(t.dataset.download, toast);
   else if (t.dataset.free) toast('This download is being finished. We\'ll email you when it\'s ready.');
   else if (t.id === 'pro-waitlist') toast('You\'re on the Pro waitlist.');
 });
@@ -451,6 +452,12 @@ function init() {
     }
     show('view-dashboard');
     renderDashboard();
+    // Came here from the cart to sign in: continue straight to checkout.
+    if (new URLSearchParams(location.search).get('next') === 'checkout') {
+      history.replaceState(null, '', location.pathname);
+      let cart = []; try { cart = JSON.parse(localStorage.getItem('grit-cart') || '[]'); } catch {}
+      if (cart.length) startCheckout(cart.map(p => p.id), toast);
+    }
   });
 }
 

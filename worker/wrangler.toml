@@ -1,0 +1,20 @@
+# GRIT payments Worker: pay.grittech.io. Deployed by .github/workflows/payments.yml.
+# Secrets (set by CI from GitHub secrets, never in this file): ZIINA_API_KEY, FIREBASE_SA.
+name = "grit-payments"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+account_id = "0bae6c1a94fac87b17651d6c854d3ee7"
+routes = [{ pattern = "pay.grittech.io", custom_domain = true }]
+workers_dev = false
+
+# Paid downloads: private bucket, no public URL. Files are <productId>.zip.
+[[r2_buckets]]
+binding = "DOWNLOADS"
+bucket_name = "grittech-downloads"
+
+[vars]
+# Members allowed to create one-off payment links at /admin/links/ (comma-separated, must be verified emails).
+ADMIN_EMAILS = "zahranzed@gmail.com"
+
+[observability]
+enabled = true

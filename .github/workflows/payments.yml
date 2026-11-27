@@ -1,0 +1,55 @@
+# Deploys the payments Worker (pay.grittech.io) when it or the product catalogue changes.
+# Needs GitHub secrets: CLOUDFLARE_API_TOKEN, ZIINA_API_KEY (and the existing FIREBASE_SERVICE_ACCOUNT).
+# Skips itself until CLOUDFLARE_API_TOKEN and ZIINA_API_KEY are added.
+name: Payments worker
+on:
+  push:
+    branches: [main]
+    paths: ['worker/**', 'src/data.js', '.github/workflows/payments.yml']
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HAS_KEYS: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.ZIINA_API_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.HAS_KEYS == 'true'
+      - uses: actions/setup-node@v4
+        if: env.HAS_KEYS == 'true'
+        with: { node-version: 22 }
+      - name: Build price list from src/data.js
+        if: env.HAS_KEYS == 'true'
+        run: node worker/build-catalog.mjs
+      - name: Deploy Worker
+        if: env.HAS_KEYS == 'true'
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          npx -y wrangler@4 r2 bucket create grittech-downloads || true
+          npx -y wrangler@4 deploy
+      - name: Set Worker secrets
+        if: env.HAS_KEYS == 'true'
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ZIINA_API_KEY: ${{ secrets.ZIINA_API_KEY }}
+          FIREBASE_SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          node -e "require('fs').writeFileSync('/tmp/s.json', JSON.stringify({ ZIINA_API_KEY: process.env.ZIINA_API_KEY, FIREBASE_SA: process.env.FIREBASE_SA }))"
+          npx -y wrangler@4 secret bulk /tmp/s.json
+          rm -f /tmp/s.json
+      - name: Register Ziina webhook
+        if: env.HAS_KEYS == 'true'
+        continue-on-error: true
+        env:
+          ZIINA_API_KEY: ${{ secrets.ZIINA_API_KEY }}
+        run: |
+          SECRET=$(printf '%s' "$ZIINA_API_KEY:grit-webhook" | sha256sum | cut -d' ' -f1)
+          curl -s -o /dev/null -w 'Ziina webhook: HTTP %{http_code}\n' -X POST https://api-v2.ziina.com/api/webhook \
+            -H "Authorization: Bearer $ZIINA_API_KEY" -H 'Content-Type: application/json' \
+            -d "{\"url\":\"https://pay.grittech.io/webhook\",\"secret\":\"$SECRET\"}"
+      - name: Health check
+        if: env.HAS_KEYS == 'true'
+        run: sleep 10 && curl -s https://pay.grittech.io/health

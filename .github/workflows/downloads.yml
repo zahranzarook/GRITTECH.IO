@@ -1,0 +1,40 @@
+# Builds the paid downloads and uploads them to the private R2 bucket the payments Worker serves from.
+# Runs when the UI elements or bundle tooling change (or by hand). Needs the CLOUDFLARE_API_TOKEN secret.
+name: Paid downloads
+on:
+  push:
+    branches: [main]
+    paths: ['src/elements/**', 'tools/build-ui-bundle.mjs', 'tools/figma_export.py', 'public/demo/**', '.github/workflows/downloads.yml']
+  workflow_dispatch:
+jobs:
+  ui-bundle:
+    runs-on: ubuntu-latest
+    env:
+      HAS_KEYS: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 0bae6c1a94fac87b17651d6c854d3ee7
+    steps:
+      - uses: actions/checkout@v4
+        if: env.HAS_KEYS == 'true'
+      - uses: actions/setup-node@v4
+        if: env.HAS_KEYS == 'true'
+        with: { node-version: 22, cache: npm }
+      - uses: actions/setup-python@v5
+        if: env.HAS_KEYS == 'true'
+        with: { python-version: '3.12' }
+      - name: Install
+        if: env.HAS_KEYS == 'true'
+        run: |
+          npm ci
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Build GRIT UI Bundle (all platforms + Figma-ready SVG/PNG)
+        if: env.HAS_KEYS == 'true'
+        run: |
+          npm run bundle:ui
+          cd downloads && zip -qr grit-ui-bundle.zip grit-ui-bundle && ls -la grit-ui-bundle.zip
+      - name: Upload to private bucket
+        if: env.HAS_KEYS == 'true'
+        run: |
+          npx -y wrangler@4 r2 bucket create grittech-downloads || true
+          npx -y wrangler@4 r2 object put grittech-downloads/grit-ui-bundle.zip --file downloads/grit-ui-bundle.zip --content-type application/zip --remote
