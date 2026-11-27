@@ -474,7 +474,7 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
         <input type="search" id="ui-search" placeholder="Search elements…" class="mt-input font-mono text-xs sm:w-64" aria-label="Search elements" />
       </div>
     </div>
-    <div id="ui-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+    <div id="ui-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
     <div class="ui-bundle" id="ui-bundle">
       <div class="ui-bundle__txt"><b>GRIT UI Bundle</b><span>All ${ELEMENTS_COUNT} elements + every new one · every platform · Figma-ready · commercial licence</span></div>
       <div class="ui-bundle__buy"><span class="ui-bundle__price">$${bundle.price}</span><button type="button" class="mt-btn mt-btn--primary mt-btn--sm" data-add="grit-ui-bundle">Get the bundle</button></div>
