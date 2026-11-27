@@ -1,10 +1,12 @@
 // UI Library gallery: live previews in sandboxed frames, industry filters, search, copy/view code.
 import { ELEMENTS as B1 } from './elements/batch1.js';
 import { ELEMENTS2 } from './elements/batch2.js';
+import { ELEMENTS3 } from './elements/batch3.js';
 import { PRODUCTS } from './data.js';
 const BUNDLE = PRODUCTS.find(p => p.id === 'grit-ui-bundle');
 
-const ELEMENTS = [...B1, ...ELEMENTS2];
+// Newest batch first so fresh elements lead the library.
+const ELEMENTS = [...ELEMENTS3, ...B1, ...ELEMENTS2];
 
 const $ = id => document.getElementById(id);
 const grid = $('ui-grid');
@@ -46,17 +48,14 @@ function render() {
       <div class="ui-stage" style="background:${e.stage}">
         <iframe data-el="${e.id}" title="${e.name} live preview" sandbox="allow-scripts" loading="lazy"></iframe>
         <span class="mt-badge ${e.free ? '' : 'mt-badge--lock'}">${e.free ? 'Free' : '◆ Bundle'}</span>
-        <span class="ui-kind">${e.libs ? 'GSAP + Lenis' : e.js ? 'Interactive' : 'CSS only'}</span>
       </div>
-      <div class="px-2 space-y-2 flex-1">
-        <div class="flex items-center justify-between gap-3">
-          <h3 class="font-display font-bold text-lg text-softWhite">${e.name}</h3>
-          <span class="mt-tag">${e.industry}</span>
-        </div>
-        <p class="text-sm text-softWhite/70">${e.desc}</p>
+      <div class="px-1.5 space-y-2 flex-1">
+        <h3 class="font-display font-bold text-base leading-snug text-softWhite">${e.name}</h3>
+        <div class="flex flex-wrap items-center gap-1.5"><span class="mt-tag">${e.industry}</span><span class="ui-kind">${e.libs ? 'GSAP + Lenis' : e.js ? 'Interactive' : 'CSS only'}</span></div>
+        <p class="text-[13px] leading-relaxed text-softWhite/70 ui-desc">${e.desc}</p>
         <div class="flex flex-wrap gap-1.5 pt-1">${e.tags.map(t => `<span class="font-mono text-[10px] uppercase tracking-wider text-industrialSage">#${t.replace(/\s+/g, '')}</span>`).join(' ')}</div>
       </div>
-      <div class="flex gap-2 px-2 pb-2">${e.free ? `
+      <div class="flex gap-2 px-1.5 pb-1.5">${e.free ? `
         <button type="button" class="mt-btn mt-btn--sm flex-1" data-view="${e.id}">View code</button>
         <button type="button" class="mt-btn mt-btn--primary mt-btn--sm flex-1" data-copy="${e.id}">Copy code</button>` : `
         <button type="button" class="mt-btn mt-btn--primary mt-btn--sm flex-1" data-add="grit-ui-bundle">Unlock in bundle · $${BUNDLE.price}</button>`}

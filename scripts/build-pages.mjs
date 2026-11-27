@@ -460,12 +460,12 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
 {
   const c = STORE.find(x => x.cat === 'ui');
   const bundle = PRODUCTS.find(p => p.id === 'grit-ui-bundle');
-  const ELEMENTS_COUNT = (await import('../src/elements/batch1.js')).ELEMENTS.length + (await import('../src/elements/batch2.js')).ELEMENTS2.length;
+  const ELEMENTS_COUNT = (await import('../src/elements/batch1.js')).ELEMENTS.length + (await import('../src/elements/batch2.js')).ELEMENTS2.length + (await import('../src/elements/batch3.js')).ELEMENTS3.length;
   const body = `${crumb('Store', '/#store', c.name)}
     <section class="max-w-3xl space-y-5 pb-10">
       <span class="mt-pill">${ico(c.icon, 'ico text-industrialLime')}${esc(c.name)}</span>
       <h1 class="mt-h1 text-4xl sm:text-6xl text-softWhite">Interactive UI, ready to paste.</h1>
-      <p class="text-lg text-softWhite/75">Buttons, cards, pickers, calculators and scroll effects for real industries. Everything below is live. Play with any of them, copy the free ones, and unlock the full set with one bundle.</p>
+      <p class="text-lg text-softWhite/75">Buttons, cards, pickers, calculators and scroll effects for real industries. Everything below is live. Play with any of them, copy the free ones, and unlock the full set with one bundle: ready for HTML, React, Vue, WordPress, Webflow, Shopify and more, and Figma-ready designs for every element.</p>
     </section>
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
       <div id="ui-filters" class="flex flex-wrap gap-2"></div>
@@ -474,9 +474,9 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
         <input type="search" id="ui-search" placeholder="Search elements…" class="mt-input font-mono text-xs sm:w-64" aria-label="Search elements" />
       </div>
     </div>
-    <div id="ui-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+    <div id="ui-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
     <div class="ui-bundle" id="ui-bundle">
-      <div class="ui-bundle__txt"><b>GRIT UI Bundle</b><span>All ${ELEMENTS_COUNT} elements + every new one · commercial licence · free updates</span></div>
+      <div class="ui-bundle__txt"><b>GRIT UI Bundle</b><span>All ${ELEMENTS_COUNT} elements + every new one · every platform · Figma-ready · commercial licence</span></div>
       <div class="ui-bundle__buy"><span class="ui-bundle__price">$${bundle.price}</span><button type="button" class="mt-btn mt-btn--primary mt-btn--sm" data-add="grit-ui-bundle">Get the bundle</button></div>
     </div>
 
