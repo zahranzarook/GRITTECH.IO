@@ -956,10 +956,8 @@
 
     function checkoutCart() {
       if (!readCart().length) { showToast('Your cart is empty.'); return; }
-      writeCart([]);
-      updateCartUI();
-      toggleCartDrawer();
-      showToast('Thanks! Your download links are on their way.');
+      if (window.gritCheckout) window.gritCheckout(readCart().map(p => p.id), showToast);
+      else showToast('Checkout is loading, please try again in a moment.');
     }
 
     // =========================================================
@@ -1113,5 +1111,6 @@
     });
   </script>
   <script type="module" src="/src/slides.js"></script>
+  <script type="module" src="/src/pay.js"></script>
 </body>
 </html>

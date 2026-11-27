@@ -547,4 +547,47 @@ writeFileSync('licence/index.html', page({ title: 'Licence — GRIT Store', desc
     head: `  <link rel="canonical" href="${SITE}/faq/" />\n  <meta property="og:title" content="Web Design, App Development &amp; 3D Assets FAQ: Dubai, UAE" />\n  <meta property="og:url" content="${SITE}/faq/" />\n  <script type="application/ld+json">${JSON.stringify(faqLd)}</script>` }));
 }
 
+// ---------- Checkout return pages + admin payment links (payments run on pay.grittech.io) ----------
+const NOINDEX = '<meta name="robots" content="noindex" />';
+mkdirSync('checkout/success', { recursive: true });
+writeFileSync('checkout/success/index.html', page({ title: 'Your order — GRIT Store', desc: 'Your GRIT Store order and downloads.', route: 'store', head: NOINDEX,
+  body: `
+    <section class="max-w-2xl mx-auto py-16 space-y-6">
+      <span class="mt-key text-industrialLime">${ico('i-bag')}</span>
+      <h1 id="co-title" class="mt-h1 text-3xl sm:text-4xl text-softWhite">Checking your order…</h1>
+      <p id="co-text" class="text-softWhite/75">One moment while we confirm your payment.</p>
+      <div id="co-body" class="pt-2"></div>
+    </section>`, extra: '  <script type="module" src="/src/checkout.js"></script>' }));
+mkdirSync('checkout/thanks', { recursive: true });
+writeFileSync('checkout/thanks/index.html', page({ title: 'Thank you — GRIT Technologies', desc: 'Payment to GRIT Technologies.', route: '', head: NOINDEX,
+  body: `
+    <section class="max-w-2xl mx-auto py-16 space-y-6">
+      <span class="mt-key text-industrialLime">${ico('i-bag')}</span>
+      <h1 class="mt-h1 text-3xl sm:text-4xl text-softWhite" id="ty-h">Payment received. Thank you!</h1>
+      <p class="text-softWhite/75" id="ty-p">We've got it and will be in touch shortly. Questions? Email <a href="mailto:orders@grittech.io" class="text-industrialLime">orders@grittech.io</a> or WhatsApp +971 54 560 5512.</p>
+      <a href="/" class="mt-btn">Back to grittech.io</a>
+    </section>
+    <script>if(/[?&](cancelled|failed)=1/.test(location.search)){document.getElementById('ty-h').textContent='The payment didn\'t go through';document.getElementById('ty-p').textContent='Nothing was charged. You can use the same link to try again, or contact us if you need help.';}</script>` }));
+mkdirSync('admin/links', { recursive: true });
+writeFileSync('admin/links/index.html', page({ title: 'Payment links — GRIT admin', desc: 'Create a payment link.', route: '', head: NOINDEX,
+  body: `
+    <section class="max-w-xl mx-auto py-12 space-y-6">
+      <h1 class="mt-h1 text-3xl text-softWhite">Create a payment link</h1>
+      <p class="text-softWhite/70 text-sm">For packages, services and deposits. The client pays on Ziina's secure page; money settles to your Ziina wallet in AED.</p>
+      <form id="al-form" class="mt-plate p-6 space-y-4">
+        <label class="block space-y-1.5"><span class="mt-label">What it's for (shown to the client)</span><input id="al-msg" class="mt-input w-full" maxlength="200" placeholder="Website package: 5 pages + booking" required /></label>
+        <div class="grid grid-cols-3 gap-3">
+          <label class="col-span-2 block space-y-1.5"><span class="mt-label">Amount</span><input id="al-amount" class="mt-input w-full" type="number" min="1" step="0.01" placeholder="3500" required /></label>
+          <label class="block space-y-1.5"><span class="mt-label">Currency</span><select id="al-cur" class="mt-input w-full"><option>AED</option><option>USD</option><option>EUR</option><option>GBP</option><option>SAR</option><option>QAR</option><option>INR</option></select></label>
+        </div>
+        <label class="flex items-center gap-2 text-sm text-softWhite/75"><input id="al-test" type="checkbox" /> Test link (no real charge)</label>
+        <button id="al-go" class="w-full mt-btn mt-btn--primary">Create payment link</button>
+        <p id="al-err" class="hidden text-sm text-red-300"></p>
+      </form>
+      <div id="al-out" class="hidden mt-plate p-6 space-y-3">
+        <span class="mt-label text-industrialLime" id="al-note"></span>
+        <div class="flex gap-2"><input id="al-url" class="mt-input w-full font-mono text-xs" readonly /><button type="button" id="al-copy" class="mt-btn mt-btn--sm">Copy</button></div>
+      </div>
+    </section>`, extra: '  <script type="module" src="/src/admin-links.js"></script>' }));
+
 console.log(`build-pages: ${SERVICES.length} service pages, ${STORE.length} store pages, ${PRODUCTS.length} product pages, licence, FAQ, homepage tiles refreshed.`);
