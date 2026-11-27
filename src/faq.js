@@ -90,7 +90,7 @@ export const FAQ_GROUPS = [
       ['Where can I download 3D assets and UI elements for my website?',
         'Look for assets that come with source files, a clear commercial licence and a live preview, so you can see exactly what you get. The GRIT store has website themes, UI elements, icons and project files, each with its formats and tags listed, and a live demo where available.'],
       ['Do the UI elements work with React, WordPress, Webflow or Figma?',
-        'Yes. Every element in the GRIT UI Bundle comes as a working HTML page, a paste-in block for WordPress, Webflow, Shopify, Wix, Framer and Squarespace, a Web Component that works in any framework, and ready-made React / Next.js and Vue / Nuxt components. Each one also includes Figma files (editable SVG layers and a 2x PNG), and our website themes include Figma designs for desktop and mobile.'],
+        'Yes. Every element in the GRIT UI Bundle comes as a working HTML page, a paste-in block for WordPress, Webflow, Shopify, Wix, Framer and Squarespace, a Web Component that works in any framework, and ready-made React / Next.js and Vue / Nuxt components. Each one is also Figma-ready: an SVG you can drop into Figma as editable layers, plus a 2x PNG. Our website themes come with Figma-ready desktop and mobile designs too.'],
       ['How do I add 3D to a website without slowing it down?',
         'Keep 3D models small (compressed GLB files or optimised images), load them only when they scroll into view, and always show a still image first. Many "3D" websites actually use high-quality photos or short videos that react to the visitor, which look rich but load fast on phones.'],
       ['Can I use downloaded themes and assets for commercial projects?',

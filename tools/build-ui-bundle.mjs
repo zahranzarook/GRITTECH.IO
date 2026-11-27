@@ -1,5 +1,5 @@
 // Builds the GRIT UI Bundle download: every element, ready for every major platform.
-//   node tools/build-ui-bundle.mjs            → downloads/grit-ui-bundle/ (+ Figma exports via tools/figma_export.py)
+//   node tools/build-ui-bundle.mjs            → downloads/grit-ui-bundle/ (+ Figma-ready SVG/PNG via tools/figma_export.py)
 // Output is a paid download, so it goes to downloads/ (git-ignored, never deployed). This script is the versioned source.
 //
 // Per element (elements/<id>/):
@@ -177,7 +177,7 @@ ${groups.map(g => `<h2>${g}</h2><ul>${ALL.filter(e => e.industry === g).map(e =>
 // ---------- README ----------
 writeFileSync(`${OUT}/README.md`, `# GRIT UI Bundle  ·  v${VERSION}
 
-${ALL.length} interactive elements from grittech.io, ready for every major platform, plus Figma files.
+${ALL.length} interactive elements from grittech.io, ready for every major platform, and Figma-ready.
 Open **index.html** to browse every element working in your browser.
 
 ## What's inside each element folder (\`elements/<name>/\`)
@@ -190,7 +190,7 @@ Open **index.html** to browse every element working in your browser.
 | \`<name>.js\` | Web Component (\`<grit-name>\`): works in any framework or site builder. |
 | \`<Name>.jsx\` | React and Next.js component. |
 | \`<Name>.vue\` | Vue and Nuxt component. |
-| \`figma/<name>.svg\` | Editable Figma layers: drag the SVG into Figma. |
+| \`figma/<name>.svg\` | Figma-ready: drag the SVG into Figma to get editable layers. |
 | \`figma/<name>@2x.png\` | Pixel-perfect design reference. |
 
 Photos used by elements are in **/images**. Upload them with your site and keep the \`images/\` paths, or point them at your own photos.
